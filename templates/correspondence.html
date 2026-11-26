@@ -6,199 +6,815 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Correspondence Register — SWD MIS</title>
-<style>
-:root{--ink:#1c2733;--mut:#68757f;--paper:#eef1f4;--line:#d3d9e0;--line2:#b9c4cf;--blue:#1559a7;--blue2:#123f6d;--bluet:#e6eff8;--green:#1e7a3c;--greent:#eef6f0;--amber:#9a6700;--ambert:#fbf4e6;--red:#b3261e;--redt:#fbeeec;--mono:Consolas,"SF Mono","Courier New",monospace;--serif:Georgia,"Times New Roman",serif}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:13px/1.45 "Segoe UI",Arial,"Helvetica Neue",sans-serif}
-a{color:var(--blue)}
-.topline{height:4px;background:var(--blue2)}
-.masthead{background:var(--blue2);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 18px}
-.mh-left{display:flex;gap:10px;align-items:center}
-.monogram{width:34px;height:34px;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.06em}
-.dept{font-family:var(--serif);font-size:16px;line-height:1.1}
-.sys{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cfe1f5}
-.mh-right{display:flex;gap:8px;align-items:center;font-size:11.5px}
-.chip{border:1px solid #2f5f92;background:#0d3157;padding:3px 8px}
-.mono{font-family:var(--mono)}
-.user{display:flex;align-items:center;gap:7px}
-.avatar{width:24px;height:24px;border-radius:50%;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
-.shell{display:grid;grid-template-columns:212px minmax(0,1fr)}
-aside{background:#fbfcfd;border-right:1px solid var(--line);padding:12px 0 20px}
-.navlabel{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7b8794;padding:10px 16px 4px}
-a.nav{display:block;padding:6px 14px 6px 13px;border-left:3px solid transparent;color:#33475b;text-decoration:none;font-size:12.5px}
-a.nav:hover{background:#eef4fa}
-a.nav.active{border-left-color:var(--blue2);background:var(--bluet);color:#0d3c6e;font-weight:600}
-a.nav .n{font-family:var(--mono);font-size:10.5px;color:var(--mut);margin-right:7px}
-main{padding:16px 22px 34px;min-width:0}
-.crumb{font-size:11px;color:var(--mut);margin-bottom:8px}
-.pagehead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
-h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0 0 2px}
-.sub{font-size:12px;color:var(--mut)}
-.acts{display:flex;gap:8px;white-space:nowrap}
-.btn{font:inherit;font-size:12px;padding:6px 12px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer}
-.btn.primary{background:var(--blue);border-color:var(--blue2);color:#fff}
-.btn.sm{padding:3px 8px;font-size:11px}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.stat{background:#fff;padding:9px 12px 10px}
-.stat .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
-.stat .v{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.2}
-.stat .d{font-size:11px;color:var(--mut)}
-.stat .d.bad{color:var(--red)} .stat .d.ok{color:var(--green)}
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;margin-top:16px}
-.stack{display:grid;gap:16px;min-width:0}
-.card{background:#fff;border:1px solid var(--line);overflow-x:auto;min-width:0}
-.card>h3{margin:0;padding:8px 12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#1c2733;background:#f7f9fb;border-bottom:1px solid var(--line);font-weight:700}
-.body{padding:12px}
-table{width:100%;border-collapse:collapse;font-size:12.3px}
-thead th{background:#fafbfc;text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5c6b7a;border-bottom:1px solid var(--line);padding:7px 10px;font-weight:700}
-tbody td{border-bottom:1px solid #e6eaee;padding:7px 10px;vertical-align:top}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:nth-child(even){background:#f7f9fb}
-.small{font-size:11px;color:var(--mut)}
-.pill{display:inline-block;padding:1px 7px 2px;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid;border-radius:2px;white-space:nowrap}
-.pill.proc{color:var(--blue);border-color:#a6c6e4;background:#eef4fa}
-.pill.ok{color:var(--green);border-color:#a9cdb4;background:var(--greent)}
-.pill.warn{color:var(--amber);border-color:#dcc08a;background:var(--ambert)}
-.pill.bad{color:var(--red);border-color:#e0a9a5;background:var(--redt)}
-.pill.idle{color:#5c6b7a;border-color:#c4ccd4;background:#f2f4f6}
-.bar{height:7px;background:#e6eaee;border:1px solid var(--line);min-width:70px}
-.bar>i{display:block;height:100%;background:var(--blue)}
-.bar.g>i{background:var(--green)} .bar.a>i{background:#c08a2e} .bar.r>i{background:var(--red)}
-.list{list-style:none;margin:0;padding:0}
-.list li{padding:8px 12px;border-bottom:1px solid var(--line)}
-.list li:last-child{border-bottom:none}
-.list .t{font-weight:600}
-.dlrow{padding:8px 12px;border-bottom:1px solid var(--line)}
-.dlrow:last-child{border-bottom:none}
-.dlrow .top{display:flex;justify-content:space-between;gap:8px;font-size:12px}
-.dlrow .bar{margin-top:5px}
-.foot{margin-top:26px;border-top:1px solid var(--line2);padding-top:8px;display:flex;justify-content:space-between;font-size:11px;color:var(--mut)}
-@media(max-width:1024px){.grid2{grid-template-columns:1fr}}
-@media(max-width:900px){.masthead,.pagehead,.foot{flex-wrap:wrap;gap:8px}.shell{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:6px 12px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}.navlabel{width:100%;padding:4px 4px 2px}a.nav{border-left:0;border-bottom:2px solid transparent;padding:5px 8px}a.nav.active{border-left-color:transparent;border-bottom-color:var(--blue2)}.stats{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}}
-@media(max-width:600px){main{padding:12px}.acts{flex-wrap:wrap}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Correspondence Register — SWD MIS</title>
+  <style>
+    :root {
+      --ink: #1c2733;
+      --mut: #68757f;
+      --paper: #eef1f4;
+      --line: #d3d9e0;
+      --line2: #b9c4cf;
+      --blue: #1559a7;
+      --blue2: #123f6d;
+      --bluet: #e6eff8;
+      --green: #1e7a3c;
+      --greent: #eef6f0;
+      --amber: #9a6700;
+      --ambert: #fbf4e6;
+      --red: #b3261e;
+      --redt: #fbeeec;
+      --mono: Consolas, "SF Mono", "Courier New", monospace;
+      --serif: Georgia, "Times New Roman", serif
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 13px/1.45 "Segoe UI", Arial, "Helvetica Neue", sans-serif
+    }
+
+    a {
+      color: var(--blue)
+    }
+
+    .topline {
+      height: 4px;
+      background: var(--blue2)
+    }
+
+    .masthead {
+      background: var(--blue2);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 18px
+    }
+
+    .mh-left {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .monogram {
+      width: 34px;
+      height: 34px;
+      background: #0d3157;
+      border: 1px solid rgba(255, 255, 255, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em
+    }
+
+    .dept {
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.1
+    }
+
+    .sys {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #cfe1f5
+    }
+
+    .mh-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 11.5px
+    }
+
+    .chip {
+      border: 1px solid #2f5f92;
+      background: #0d3157;
+      padding: 3px 8px
+    }
+
+    .mono {
+      font-family: var(--mono)
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0d3157;
+      border: 1px solid rgba(255, 255, 255, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 212px minmax(0, 1fr)
+    }
+
+    aside {
+      background: #fbfcfd;
+      border-right: 1px solid var(--line);
+      padding: 12px 0 20px
+    }
+
+    .navlabel {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #7b8794;
+      padding: 10px 16px 4px
+    }
+
+    a.nav {
+      display: block;
+      padding: 6px 14px 6px 13px;
+      border-left: 3px solid transparent;
+      color: #33475b;
+      text-decoration: none;
+      font-size: 12.5px
+    }
+
+    a.nav:hover {
+      background: #eef4fa
+    }
+
+    a.nav.active {
+      border-left-color: var(--blue2);
+      background: var(--bluet);
+      color: #0d3c6e;
+      font-weight: 600
+    }
+
+    a.nav .n {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--mut);
+      margin-right: 7px
+    }
+
+    main {
+      padding: 16px 22px 34px;
+      min-width: 0
+    }
+
+    .crumb {
+      font-size: 11px;
+      color: var(--mut);
+      margin-bottom: 8px
+    }
+
+    .pagehead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 10px;
+      margin-bottom: 14px
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 600;
+      margin: 0 0 2px
+    }
+
+    .sub {
+      font-size: 12px;
+      color: var(--mut)
+    }
+
+    .acts {
+      display: flex;
+      gap: 8px;
+      white-space: nowrap
+    }
+
+    .btn {
+      font: inherit;
+      font-size: 12px;
+      padding: 6px 12px;
+      border: 1px solid var(--line2);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer
+    }
+
+    .btn.primary {
+      background: var(--blue);
+      border-color: var(--blue2);
+      color: #fff
+    }
+
+    .btn.sm {
+      padding: 3px 8px;
+      font-size: 11px
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line)
+    }
+
+    .stat {
+      background: #fff;
+      padding: 9px 12px 10px
+    }
+
+    .stat .k {
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mut)
+    }
+
+    .stat .v {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.2
+    }
+
+    .stat .d {
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    .stat .d.bad {
+      color: var(--red)
+    }
+
+    .stat .d.ok {
+      color: var(--green)
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 16px;
+      align-items: start;
+      margin-top: 16px
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+      min-width: 0
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      overflow-x: auto;
+      min-width: 0
+    }
+
+    .card>h3 {
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 10.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #1c2733;
+      background: #f7f9fb;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700
+    }
+
+    .body {
+      padding: 12px
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.3px
+    }
+
+    thead th {
+      background: #fafbfc;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #5c6b7a;
+      border-bottom: 1px solid var(--line);
+      padding: 7px 10px;
+      font-weight: 700
+    }
+
+    tbody td {
+      border-bottom: 1px solid #e6eaee;
+      padding: 7px 10px;
+      vertical-align: top
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f7f9fb
+    }
+
+    .small {
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 1px 7px 2px;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      border: 1px solid;
+      border-radius: 2px;
+      white-space: nowrap
+    }
+
+    .pill.proc {
+      color: var(--blue);
+      border-color: #a6c6e4;
+      background: #eef4fa
+    }
+
+    .pill.ok {
+      color: var(--green);
+      border-color: #a9cdb4;
+      background: var(--greent)
+    }
+
+    .pill.warn {
+      color: var(--amber);
+      border-color: #dcc08a;
+      background: var(--ambert)
+    }
+
+    .pill.bad {
+      color: var(--red);
+      border-color: #e0a9a5;
+      background: var(--redt)
+    }
+
+    .pill.idle {
+      color: #5c6b7a;
+      border-color: #c4ccd4;
+      background: #f2f4f6
+    }
+
+    .bar {
+      height: 7px;
+      background: #e6eaee;
+      border: 1px solid var(--line);
+      min-width: 70px
+    }
+
+    .bar>i {
+      display: block;
+      height: 100%;
+      background: var(--blue)
+    }
+
+    .bar.g>i {
+      background: var(--green)
+    }
+
+    .bar.a>i {
+      background: #c08a2e
+    }
+
+    .bar.r>i {
+      background: var(--red)
+    }
+
+    .list {
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .list li {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .list li:last-child {
+      border-bottom: none
+    }
+
+    .list .t {
+      font-weight: 600
+    }
+
+    .dlrow {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .dlrow:last-child {
+      border-bottom: none
+    }
+
+    .dlrow .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px
+    }
+
+    .dlrow .bar {
+      margin-top: 5px
+    }
+
+    .foot {
+      margin-top: 26px;
+      border-top: 1px solid var(--line2);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    @media(max-width:1024px) {
+      .grid2 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:900px) {
+
+      .masthead,
+      .pagehead,
+      .foot {
+        flex-wrap: wrap;
+        gap: 8px
+      }
+
+      .shell {
+        grid-template-columns: 1fr
+      }
+
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 6px 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        align-items: center
+      }
+
+      .navlabel {
+        width: 100%;
+        padding: 4px 4px 2px
+      }
+
+      a.nav {
+        border-left: 0;
+        border-bottom: 2px solid transparent;
+        padding: 5px 8px
+      }
+
+      a.nav.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--blue2)
+      }
+
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(145px, 1fr))
+      }
+    }
+
+    @media(max-width:600px) {
+      main {
+        padding: 12px
+      }
+
+      .acts {
+        flex-wrap: wrap
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="topline"></div>
-<header class="masthead">
-  <div class="mh-left">
-    <div class="monogram">SWD</div>
-    <div>
-      <div class="dept">Social Welfare Department</div>
-      <div class="sys">Management Information System</div>
-    </div>
-  </div>
-  <div class="mh-right">
-    <span class="chip mono">FY 2026-27</span>
-    <span class="chip">Thu, 26 Nov 2026</span>
-    <span class="user"><span class="avatar">SD</span>S. Deshmukh · Under Secretary (SW-I)</span>
-  </div>
-</header>
-
-<div class="shell">
-<aside>
-  <!-- point 01-04 to the URLs of your existing pages 1-4 -->
-  <div class="navlabel">Department MIS</div>
-  <a class="nav" href="#"><span class="n">01</span>Console Home</a>
-  <a class="nav" href="#"><span class="n">02</span>Schemes &amp; Missions</a>
-  <a class="nav" href="#"><span class="n">03</span>Beneficiary Records</a>
-  <a class="nav" href="#"><span class="n">04</span>Establishment</a>
-  <div class="navlabel">Administration</div>
-  <a class="nav" href="/e-office/"><span class="n">05</span>e-Office Files</a>
-  <a class="nav active" href="/correspondence/"><span class="n">06</span>Correspondence</a>
-  <a class="nav" href="/reports-atr/"><span class="n">07</span>Reports &amp; ATRs</a>
-  <a class="nav" href="/monitoring/"><span class="n">08</span>Monitoring &amp; Eval.</a>
-</aside>
-
-<main>
-  <div class="crumb">MIS / Administration / <strong>Correspondence Management</strong></div>
-  <div class="pagehead">
-    <div>
-      <h1>Correspondence — Incoming &amp; Outgoing Register</h1>
-      <div class="sub">Module 06 · Registration, unique referencing, assignment, deadline tracking and dispatch of official communications.</div>
-    </div>
-    <div class="acts"><button class="btn">Compose outgoing</button><button class="btn primary">Register incoming</button></div>
-  </div>
-
-  <div class="stats">
-    <div class="stat"><div class="k">Received in Nov 2026</div><div class="v">63</div><div class="d">11 from three ministries</div></div>
-    <div class="stat"><div class="k">Awaiting assignment</div><div class="v">6</div><div class="d bad">oldest 4 days</div></div>
-    <div class="stat"><div class="k">Under process</div><div class="v">24</div><div class="d">across 5 sections</div></div>
-    <div class="stat"><div class="k">Overdue replies</div><div class="v">3</div><div class="d bad">escalation due</div></div>
-    <div class="stat"><div class="k">Replied &amp; closed FY</div><div class="v">312</div><div class="d ok">96% within deadline</div></div>
-  </div>
-
-  <div class="grid2">
-    <div class="stack">
-      <div class="card">
-        <h3>Incoming communications — open items</h3>
-        <table>
-          <thead><tr><th>Ref No.</th><th>From</th><th>Recd</th><th>Subject</th><th>Assigned to</th><th>Due</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td class="mono">MoSJE/DoSJE/Ltr/2026/1187</td><td>MoSJE (DoSJE)</td><td class="mono">02.11.2026</td><td>Proposal for new hostel buildings — reg.<br><span class="small">File: SWD/EO/2026-27/0143</span></td><td>US (SW-I)</td><td class="mono">02.12.2026</td><td><span class="pill proc">Under process</span></td></tr>
-            <tr><td class="mono">MoWCD/NIPUCC/OM/2026/0912</td><td>MoWCD</td><td class="mono">06.11.2026</td><td>Utilisation certificate, Saksham Anganwadi Phase-II<br><span class="small">File: SWD/EO/2026-27/0129</span></td><td>SO (SW-I)</td><td class="mono">21.11.2026</td><td><span class="pill bad">Overdue</span></td></tr>
-            <tr><td class="mono">MoTA/Sch Cell/Ltr/2026/0455</td><td>Ministry of Tribal Welfare</td><td class="mono">09.11.2026</td><td>District-wise pre-matric scholarship coverage — data req.<br><span class="small">File: SWD/EO/2026-27/0133</span></td><td>SO (SW-II)</td><td class="mono">24.11.2026</td><td><span class="pill bad">Overdue</span></td></tr>
-            <tr><td class="mono">FIN/Audit/Para/2026/77</td><td>Finance Dept. (Audit)</td><td class="mono">11.11.2026</td><td>CAG para on NSAP disbursement delays — ATR call<br><span class="small">File: SWD/EO/2026-27/0136</span></td><td>US (SW-I)</td><td class="mono">11.12.2026</td><td><span class="pill proc">Under process</span></td></tr>
-            <tr><td class="mono">MoSJE/OM/PM-AJAY/2026/0231</td><td>MoSJE</td><td class="mono">14.11.2026</td><td>Nodal officers for PM-AJAY portal — nomination<br><span class="small">File: SWD/EO/2026-27/0118</span></td><td>SO (SW-II)</td><td class="mono">28.11.2026</td><td><span class="pill warn">Assigned</span></td></tr>
-            <tr><td class="mono">MoWCD/Ltr/ICDS/2026/0778</td><td>MoWCD</td><td class="mono">18.11.2026</td><td>SN procurement norms for Oct-Dec quarter — comments</td><td>SO (SW-I)</td><td class="mono">03.12.2026</td><td><span class="pill proc">Under process</span></td></tr>
-            <tr><td class="mono">CAB/CMO/Ref/2026/0119</td><td>Cabinet Secrt. (via Gen. Adm.)</td><td class="mono">20.11.2026</td><td>Compliance report on welfare of destitute women</td><td>—</td><td class="mono">05.12.2026</td><td><span class="pill idle">Received</span></td></tr>
-            <tr><td class="mono">MoSJE/DoSJE/Ltr/2026/1102</td><td>MoSJE (DoSJE)</td><td class="mono">24.10.2026</td><td>Release of 2nd instalment, OAP pension — confirmation<br><span class="small">Reply: SWD/Out/2026/0442</span></td><td>SO (SW-III)</td><td class="mono">08.11.2026</td><td><span class="pill ok">Replied &amp; closed</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card">
-        <h3>Outgoing communications — recent dispatch</h3>
-        <table>
-          <thead><tr><th>Out ref</th><th>Against</th><th>To</th><th>Subject</th><th>Dispatched</th><th>Mode</th></tr></thead>
-          <tbody>
-            <tr><td class="mono">SWD/Out/2026/0442</td><td class="mono">MoSJE/1102</td><td>MoSJE (DoSJE)</td><td>Confirmation of 2nd instalment release (NSAP-OAP)</td><td class="mono">06.11.2026</td><td>e-Office / email</td></tr>
-            <tr><td class="mono">SWD/Out/2026/0455</td><td>—</td><td>All District Welfare Officers</td><td>Call for district data for PM-AJAY review</td><td class="mono">12.11.2026</td><td>Speed post</td></tr>
-            <tr><td class="mono">SWD/Out/2026/0461</td><td class="mono">MoTA/0455</td><td>Ministry of Tribal Welfare</td><td>Interim reply; final data by 30.11.2026</td><td class="mono">22.11.2026</td><td>Email</td></tr>
-            <tr><td class="mono">SWD/Out/2026/0463</td><td class="mono">FIN/77</td><td>Finance Dept. (Audit)</td><td>ATR on CAG para 3.2 — submitted</td><td class="mono">25.11.2026</td><td>e-Office</td></tr>
-          </tbody>
-        </table>
+  <div class="topline"></div>
+  <header class="masthead">
+    <div class="mh-left">
+      <div class="monogram">SWD</div>
+      <div>
+        <div class="dept">XYZ Department</div>
+        <div class="sys">Management Information System</div>
       </div>
     </div>
+    <div class="mh-right">
+      <span class="chip mono">FY 2026-27</span>
+      <span class="chip">Thu, 26 Nov 2026</span>
+      <span class="user"><span class="avatar">SD</span>S. Deshmukh · Under Secretary (SW-I)</span>
+    </div>
+  </header>
 
-    <div class="stack">
-      <div class="card">
-        <h3>Deadline watch</h3>
-        <div class="dlrow"><div class="top"><span>Saksham Anganwadi Phase-II UC · MoWCD</span><span class="pill bad">5 days over</span></div><div class="bar r"><i style="width:100%"></i></div></div>
-        <div class="dlrow"><div class="top"><span>Pre-matric scholarship data · Tribal Welfare</span><span class="pill bad">2 days over</span></div><div class="bar r"><i style="width:100%"></i></div></div>
-        <div class="dlrow"><div class="top"><span>PM-AJAY nodal nominations</span><span class="pill warn">2 days left</span></div><div class="bar a"><i style="width:30%"></i></div></div>
-        <div class="dlrow"><div class="top"><span>SN procurement comments · MoWCD</span><span class="small">7 days left</span></div><div class="bar"><i style="width:55%"></i></div></div>
-        <div class="dlrow"><div class="top"><span>Cabinet compliance report</span><span class="small">9 days left</span></div><div class="bar"><i style="width:70%"></i></div></div>
+  <div class="shell">
+    <aside>
+      <!-- point 01-04 to the URLs of your existing pages 1-4 -->
+      <div class="navlabel">Department MIS</div>
+      <a class="nav" href="#"><span class="n">01</span>Console Home</a>
+      <a class="nav" href="#"><span class="n">02</span>Schemes &amp; Missions</a>
+      <a class="nav" href="#"><span class="n">03</span>Beneficiary Records</a>
+      <a class="nav" href="#"><span class="n">04</span>Establishment</a>
+      <div class="navlabel">Administration</div>
+      <a class="nav" href="/e-office/"><span class="n">05</span>e-Office Files</a>
+      <a class="nav active" href="/correspondence/"><span class="n">06</span>Correspondence</a>
+      <a class="nav" href="/reports-atr/"><span class="n">07</span>Reports &amp; ATRs</a>
+      <a class="nav" href="/monitoring/"><span class="n">08</span>Monitoring &amp; Eval.</a>
+    </aside>
+
+    <main>
+      <div class="crumb">MIS / Administration / <strong>Correspondence Management</strong></div>
+      <div class="pagehead">
+        <div>
+          <h1>Correspondence — Incoming &amp; Outgoing Register</h1>
+          <div class="sub">Module 06 · Registration, unique referencing, assignment, deadline tracking and dispatch of
+            official communications.</div>
+        </div>
+        <div class="acts"><button class="btn">Compose outgoing</button><button class="btn primary">Register
+            incoming</button></div>
       </div>
 
-      <div class="card">
-        <h3>Unassigned receipts</h3>
-        <ul class="list">
-          <li><div class="t">CAB/CMO/Ref/2026/0119</div><div class="small">Recd 20.11.2026 · compliance on destitute-women welfare</div><div style="margin-top:5px"><button class="btn sm">Assign</button></div></li>
-          <li><div class="t">MoWCD/Ltr/ICDS/2026/0801</div><div class="small">Recd 25.11.2026 · AWC rent revision proposals</div><div style="margin-top:5px"><button class="btn sm">Assign</button></div></li>
-          <li><div class="t">MoSJE/DoSJE/Ltr/2026/1203</div><div class="small">Recd 26.11.2026 · review meeting on 02.12.2026 — nominations</div><div style="margin-top:5px"><button class="btn sm">Assign</button></div></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Reference linkage</h3>
-        <div class="body small mono" style="line-height:1.8">
-          MoSJE/DoSJE/Ltr/2026/1187 (in)<br>
-          &nbsp;&nbsp;→ file SWD/EO/2026-27/0143<br>
-          &nbsp;&nbsp;→ SWD/Out/2026/0471 (reply, under approval)<br>
-          <span style="font-family:inherit">Every receipt carries a unique reference and stays linked to its e-office file, scheme and prior correspondence.</span>
+      <div class="stats">
+        <div class="stat">
+          <div class="k">Received in Nov 2026</div>
+          <div class="v">63</div>
+          <div class="d">11 from three ministries</div>
+        </div>
+        <div class="stat">
+          <div class="k">Awaiting assignment</div>
+          <div class="v">6</div>
+          <div class="d bad">oldest 4 days</div>
+        </div>
+        <div class="stat">
+          <div class="k">Under process</div>
+          <div class="v">24</div>
+          <div class="d">across 5 sections</div>
+        </div>
+        <div class="stat">
+          <div class="k">Overdue replies</div>
+          <div class="v">3</div>
+          <div class="d bad">escalation due</div>
+        </div>
+        <div class="stat">
+          <div class="k">Replied &amp; closed FY</div>
+          <div class="v">312</div>
+          <div class="d ok">96% within deadline</div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="foot"><span>SWD-MIS · Module 06 — Correspondence Management</span><span>Illustrative data · FY 2026-27</span></div>
-</main>
-</div>
+      <div class="grid2">
+        <div class="stack">
+          <div class="card">
+            <h3>Incoming communications — open items</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Ref No.</th>
+                  <th>From</th>
+                  <th>Recd</th>
+                  <th>Subject</th>
+                  <th>Assigned to</th>
+                  <th>Due</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono">MoSJE/DoSJE/Ltr/2026/1187</td>
+                  <td>MoSJE (DoSJE)</td>
+                  <td class="mono">02.11.2026</td>
+                  <td>Proposal for new hostel buildings — reg.<br><span class="small">File: SWD/EO/2026-27/0143</span>
+                  </td>
+                  <td>US (SW-I)</td>
+                  <td class="mono">02.12.2026</td>
+                  <td><span class="pill proc">Under process</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">MoWCD/NIPUCC/OM/2026/0912</td>
+                  <td>MoWCD</td>
+                  <td class="mono">06.11.2026</td>
+                  <td>Utilisation certificate, Saksham Anganwadi Phase-II<br><span class="small">File:
+                      SWD/EO/2026-27/0129</span></td>
+                  <td>SO (SW-I)</td>
+                  <td class="mono">21.11.2026</td>
+                  <td><span class="pill bad">Overdue</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">MoTA/Sch Cell/Ltr/2026/0455</td>
+                  <td>Ministry of Tribal Welfare</td>
+                  <td class="mono">09.11.2026</td>
+                  <td>District-wise pre-matric scholarship coverage — data req.<br><span class="small">File:
+                      SWD/EO/2026-27/0133</span></td>
+                  <td>SO (SW-II)</td>
+                  <td class="mono">24.11.2026</td>
+                  <td><span class="pill bad">Overdue</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">FIN/Audit/Para/2026/77</td>
+                  <td>Finance Dept. (Audit)</td>
+                  <td class="mono">11.11.2026</td>
+                  <td>CAG para on NSAP disbursement delays — ATR call<br><span class="small">File:
+                      SWD/EO/2026-27/0136</span></td>
+                  <td>US (SW-I)</td>
+                  <td class="mono">11.12.2026</td>
+                  <td><span class="pill proc">Under process</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">MoSJE/OM/PM-AJAY/2026/0231</td>
+                  <td>MoSJE</td>
+                  <td class="mono">14.11.2026</td>
+                  <td>Nodal officers for PM-AJAY portal — nomination<br><span class="small">File:
+                      SWD/EO/2026-27/0118</span></td>
+                  <td>SO (SW-II)</td>
+                  <td class="mono">28.11.2026</td>
+                  <td><span class="pill warn">Assigned</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">MoWCD/Ltr/ICDS/2026/0778</td>
+                  <td>MoWCD</td>
+                  <td class="mono">18.11.2026</td>
+                  <td>SN procurement norms for Oct-Dec quarter — comments</td>
+                  <td>SO (SW-I)</td>
+                  <td class="mono">03.12.2026</td>
+                  <td><span class="pill proc">Under process</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">CAB/CMO/Ref/2026/0119</td>
+                  <td>Cabinet Secrt. (via Gen. Adm.)</td>
+                  <td class="mono">20.11.2026</td>
+                  <td>Compliance report on welfare of destitute women</td>
+                  <td>—</td>
+                  <td class="mono">05.12.2026</td>
+                  <td><span class="pill idle">Received</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">MoSJE/DoSJE/Ltr/2026/1102</td>
+                  <td>MoSJE (DoSJE)</td>
+                  <td class="mono">24.10.2026</td>
+                  <td>Release of 2nd instalment, OAP pension — confirmation<br><span class="small">Reply:
+                      SWD/Out/2026/0442</span></td>
+                  <td>SO (SW-III)</td>
+                  <td class="mono">08.11.2026</td>
+                  <td><span class="pill ok">Replied &amp; closed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Outgoing communications — recent dispatch</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Out ref</th>
+                  <th>Against</th>
+                  <th>To</th>
+                  <th>Subject</th>
+                  <th>Dispatched</th>
+                  <th>Mode</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono">SWD/Out/2026/0442</td>
+                  <td class="mono">MoSJE/1102</td>
+                  <td>MoSJE (DoSJE)</td>
+                  <td>Confirmation of 2nd instalment release (NSAP-OAP)</td>
+                  <td class="mono">06.11.2026</td>
+                  <td>e-Office / email</td>
+                </tr>
+                <tr>
+                  <td class="mono">SWD/Out/2026/0455</td>
+                  <td>—</td>
+                  <td>All District Welfare Officers</td>
+                  <td>Call for district data for PM-AJAY review</td>
+                  <td class="mono">12.11.2026</td>
+                  <td>Speed post</td>
+                </tr>
+                <tr>
+                  <td class="mono">SWD/Out/2026/0461</td>
+                  <td class="mono">MoTA/0455</td>
+                  <td>Ministry of Tribal Welfare</td>
+                  <td>Interim reply; final data by 30.11.2026</td>
+                  <td class="mono">22.11.2026</td>
+                  <td>Email</td>
+                </tr>
+                <tr>
+                  <td class="mono">SWD/Out/2026/0463</td>
+                  <td class="mono">FIN/77</td>
+                  <td>Finance Dept. (Audit)</td>
+                  <td>ATR on CAG para 3.2 — submitted</td>
+                  <td class="mono">25.11.2026</td>
+                  <td>e-Office</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <h3>Deadline watch</h3>
+            <div class="dlrow">
+              <div class="top"><span>Saksham Anganwadi Phase-II UC · MoWCD</span><span class="pill bad">5 days
+                  over</span></div>
+              <div class="bar r"><i style="width:100%"></i></div>
+            </div>
+            <div class="dlrow">
+              <div class="top"><span>Pre-matric scholarship data · Tribal Welfare</span><span class="pill bad">2 days
+                  over</span></div>
+              <div class="bar r"><i style="width:100%"></i></div>
+            </div>
+            <div class="dlrow">
+              <div class="top"><span>PM-AJAY nodal nominations</span><span class="pill warn">2 days left</span></div>
+              <div class="bar a"><i style="width:30%"></i></div>
+            </div>
+            <div class="dlrow">
+              <div class="top"><span>SN procurement comments · MoWCD</span><span class="small">7 days left</span></div>
+              <div class="bar"><i style="width:55%"></i></div>
+            </div>
+            <div class="dlrow">
+              <div class="top"><span>Cabinet compliance report</span><span class="small">9 days left</span></div>
+              <div class="bar"><i style="width:70%"></i></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Unassigned receipts</h3>
+            <ul class="list">
+              <li>
+                <div class="t">CAB/CMO/Ref/2026/0119</div>
+                <div class="small">Recd 20.11.2026 · compliance on destitute-women welfare</div>
+                <div style="margin-top:5px"><button class="btn sm">Assign</button></div>
+              </li>
+              <li>
+                <div class="t">MoWCD/Ltr/ICDS/2026/0801</div>
+                <div class="small">Recd 25.11.2026 · AWC rent revision proposals</div>
+                <div style="margin-top:5px"><button class="btn sm">Assign</button></div>
+              </li>
+              <li>
+                <div class="t">MoSJE/DoSJE/Ltr/2026/1203</div>
+                <div class="small">Recd 26.11.2026 · review meeting on 02.12.2026 — nominations</div>
+                <div style="margin-top:5px"><button class="btn sm">Assign</button></div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Reference linkage</h3>
+            <div class="body small mono" style="line-height:1.8">
+              MoSJE/DoSJE/Ltr/2026/1187 (in)<br>
+              &nbsp;&nbsp;→ file SWD/EO/2026-27/0143<br>
+              &nbsp;&nbsp;→ SWD/Out/2026/0471 (reply, under approval)<br>
+              <span style="font-family:inherit">Every receipt carries a unique reference and stays linked to its
+                e-office file, scheme and prior correspondence.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot"><span>SWD-MIS · Module 06 — Correspondence Management</span><span>Illustrative data · FY
+          2026-27</span></div>
+    </main>
+  </div>
 </body>
+
 </html>
 {% endblock %}

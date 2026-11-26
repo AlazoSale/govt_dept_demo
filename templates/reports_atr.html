@@ -4,199 +4,793 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reports &amp; ATRs — SWD MIS</title>
-<style>
-:root{--ink:#1c2733;--mut:#68757f;--paper:#eef1f4;--line:#d3d9e0;--line2:#b9c4cf;--blue:#1559a7;--blue2:#123f6d;--bluet:#e6eff8;--green:#1e7a3c;--greent:#eef6f0;--amber:#9a6700;--ambert:#fbf4e6;--red:#b3261e;--redt:#fbeeec;--mono:Consolas,"SF Mono","Courier New",monospace;--serif:Georgia,"Times New Roman",serif}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:13px/1.45 "Segoe UI",Arial,"Helvetica Neue",sans-serif}
-a{color:var(--blue)}
-.topline{height:4px;background:var(--blue2)}
-.masthead{background:var(--blue2);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 18px}
-.mh-left{display:flex;gap:10px;align-items:center}
-.monogram{width:34px;height:34px;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.06em}
-.dept{font-family:var(--serif);font-size:16px;line-height:1.1}
-.sys{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cfe1f5}
-.mh-right{display:flex;gap:8px;align-items:center;font-size:11.5px}
-.chip{border:1px solid #2f5f92;background:#0d3157;padding:3px 8px}
-.mono{font-family:var(--mono)}
-.user{display:flex;align-items:center;gap:7px}
-.avatar{width:24px;height:24px;border-radius:50%;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
-.shell{display:grid;grid-template-columns:212px minmax(0,1fr)}
-aside{background:#fbfcfd;border-right:1px solid var(--line);padding:12px 0 20px}
-.navlabel{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7b8794;padding:10px 16px 4px}
-a.nav{display:block;padding:6px 14px 6px 13px;border-left:3px solid transparent;color:#33475b;text-decoration:none;font-size:12.5px}
-a.nav:hover{background:#eef4fa}
-a.nav.active{border-left-color:var(--blue2);background:var(--bluet);color:#0d3c6e;font-weight:600}
-a.nav .n{font-family:var(--mono);font-size:10.5px;color:var(--mut);margin-right:7px}
-main{padding:16px 22px 34px;min-width:0}
-.crumb{font-size:11px;color:var(--mut);margin-bottom:8px}
-.pagehead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
-h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0 0 2px}
-.sub{font-size:12px;color:var(--mut)}
-.acts{display:flex;gap:8px;white-space:nowrap}
-.btn{font:inherit;font-size:12px;padding:6px 12px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer}
-.btn.primary{background:var(--blue);border-color:var(--blue2);color:#fff}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.stat{background:#fff;padding:9px 12px 10px}
-.stat .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
-.stat .v{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.2}
-.stat .d{font-size:11px;color:var(--mut)}
-.stat .d.bad{color:var(--red)} .stat .d.ok{color:var(--green)}
-.tabs{display:flex;margin:16px 0 0;border-bottom:1px solid var(--line2)}
-.tab{padding:6px 12px;font-size:12px;color:var(--mut);border:1px solid transparent;border-bottom:none}
-.tab.on{background:#fff;border-color:var(--line2);color:var(--ink);font-weight:600}
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;margin-top:16px}
-.mt0{margin-top:0}
-.stack{display:grid;gap:16px;min-width:0}
-.card{background:#fff;border:1px solid var(--line);overflow-x:auto;min-width:0}
-.card.notop{border-top:none}
-.card>h3{margin:0;padding:8px 12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#1c2733;background:#f7f9fb;border-bottom:1px solid var(--line);font-weight:700}
-.body{padding:12px}
-table{width:100%;border-collapse:collapse;font-size:12.3px}
-thead th{background:#fafbfc;text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5c6b7a;border-bottom:1px solid var(--line);padding:7px 10px;font-weight:700}
-tbody td{border-bottom:1px solid #e6eaee;padding:7px 10px;vertical-align:top}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:nth-child(even){background:#f7f9fb}
-.small{font-size:11px;color:var(--mut)}
-.pill{display:inline-block;padding:1px 7px 2px;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid;border-radius:2px;white-space:nowrap}
-.pill.proc{color:var(--blue);border-color:#a6c6e4;background:#eef4fa}
-.pill.ok{color:var(--green);border-color:#a9cdb4;background:var(--greent)}
-.pill.warn{color:var(--amber);border-color:#dcc08a;background:var(--ambert)}
-.pill.bad{color:var(--red);border-color:#e0a9a5;background:var(--redt)}
-.pill.idle{color:#5c6b7a;border-color:#c4ccd4;background:#f2f4f6}
-.list{list-style:none;margin:0;padding:0}
-.list li{padding:8px 12px;border-bottom:1px solid var(--line)}
-.list li:last-child{border-bottom:none}
-.list .t{font-weight:600}
-.foot{margin-top:26px;border-top:1px solid var(--line2);padding-top:8px;display:flex;justify-content:space-between;font-size:11px;color:var(--mut)}
-@media(max-width:1024px){.grid2{grid-template-columns:1fr}}
-@media(max-width:900px){.masthead,.pagehead,.foot,.tabs{flex-wrap:wrap;gap:8px}.shell{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:6px 12px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}.navlabel{width:100%;padding:4px 4px 2px}a.nav{border-left:0;border-bottom:2px solid transparent;padding:5px 8px}a.nav.active{border-left-color:transparent;border-bottom-color:var(--blue2)}.stats{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}}
-@media(max-width:600px){main{padding:12px}.acts{flex-wrap:wrap}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reports &amp; ATRs — SWD MIS</title>
+  <style>
+    :root {
+      --ink: #1c2733;
+      --mut: #68757f;
+      --paper: #eef1f4;
+      --line: #d3d9e0;
+      --line2: #b9c4cf;
+      --blue: #1559a7;
+      --blue2: #123f6d;
+      --bluet: #e6eff8;
+      --green: #1e7a3c;
+      --greent: #eef6f0;
+      --amber: #9a6700;
+      --ambert: #fbf4e6;
+      --red: #b3261e;
+      --redt: #fbeeec;
+      --mono: Consolas, "SF Mono", "Courier New", monospace;
+      --serif: Georgia, "Times New Roman", serif
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 13px/1.45 "Segoe UI", Arial, "Helvetica Neue", sans-serif
+    }
+
+    a {
+      color: var(--blue)
+    }
+
+    .topline {
+      height: 4px;
+      background: var(--blue2)
+    }
+
+    .masthead {
+      background: var(--blue2);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 18px
+    }
+
+    .mh-left {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .monogram {
+      width: 34px;
+      height: 34px;
+      background: #0d3157;
+      border: 1px solid rgba(255, 255, 255, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em
+    }
+
+    .dept {
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.1
+    }
+
+    .sys {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #cfe1f5
+    }
+
+    .mh-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 11.5px
+    }
+
+    .chip {
+      border: 1px solid #2f5f92;
+      background: #0d3157;
+      padding: 3px 8px
+    }
+
+    .mono {
+      font-family: var(--mono)
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0d3157;
+      border: 1px solid rgba(255, 255, 255, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 212px minmax(0, 1fr)
+    }
+
+    aside {
+      background: #fbfcfd;
+      border-right: 1px solid var(--line);
+      padding: 12px 0 20px
+    }
+
+    .navlabel {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #7b8794;
+      padding: 10px 16px 4px
+    }
+
+    a.nav {
+      display: block;
+      padding: 6px 14px 6px 13px;
+      border-left: 3px solid transparent;
+      color: #33475b;
+      text-decoration: none;
+      font-size: 12.5px
+    }
+
+    a.nav:hover {
+      background: #eef4fa
+    }
+
+    a.nav.active {
+      border-left-color: var(--blue2);
+      background: var(--bluet);
+      color: #0d3c6e;
+      font-weight: 600
+    }
+
+    a.nav .n {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--mut);
+      margin-right: 7px
+    }
+
+    main {
+      padding: 16px 22px 34px;
+      min-width: 0
+    }
+
+    .crumb {
+      font-size: 11px;
+      color: var(--mut);
+      margin-bottom: 8px
+    }
+
+    .pagehead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 10px;
+      margin-bottom: 14px
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 600;
+      margin: 0 0 2px
+    }
+
+    .sub {
+      font-size: 12px;
+      color: var(--mut)
+    }
+
+    .acts {
+      display: flex;
+      gap: 8px;
+      white-space: nowrap
+    }
+
+    .btn {
+      font: inherit;
+      font-size: 12px;
+      padding: 6px 12px;
+      border: 1px solid var(--line2);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer
+    }
+
+    .btn.primary {
+      background: var(--blue);
+      border-color: var(--blue2);
+      color: #fff
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line)
+    }
+
+    .stat {
+      background: #fff;
+      padding: 9px 12px 10px
+    }
+
+    .stat .k {
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mut)
+    }
+
+    .stat .v {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.2
+    }
+
+    .stat .d {
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    .stat .d.bad {
+      color: var(--red)
+    }
+
+    .stat .d.ok {
+      color: var(--green)
+    }
+
+    .tabs {
+      display: flex;
+      margin: 16px 0 0;
+      border-bottom: 1px solid var(--line2)
+    }
+
+    .tab {
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--mut);
+      border: 1px solid transparent;
+      border-bottom: none
+    }
+
+    .tab.on {
+      background: #fff;
+      border-color: var(--line2);
+      color: var(--ink);
+      font-weight: 600
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 16px;
+      align-items: start;
+      margin-top: 16px
+    }
+
+    .mt0 {
+      margin-top: 0
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+      min-width: 0
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      overflow-x: auto;
+      min-width: 0
+    }
+
+    .card.notop {
+      border-top: none
+    }
+
+    .card>h3 {
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 10.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #1c2733;
+      background: #f7f9fb;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700
+    }
+
+    .body {
+      padding: 12px
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.3px
+    }
+
+    thead th {
+      background: #fafbfc;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #5c6b7a;
+      border-bottom: 1px solid var(--line);
+      padding: 7px 10px;
+      font-weight: 700
+    }
+
+    tbody td {
+      border-bottom: 1px solid #e6eaee;
+      padding: 7px 10px;
+      vertical-align: top
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f7f9fb
+    }
+
+    .small {
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 1px 7px 2px;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      border: 1px solid;
+      border-radius: 2px;
+      white-space: nowrap
+    }
+
+    .pill.proc {
+      color: var(--blue);
+      border-color: #a6c6e4;
+      background: #eef4fa
+    }
+
+    .pill.ok {
+      color: var(--green);
+      border-color: #a9cdb4;
+      background: var(--greent)
+    }
+
+    .pill.warn {
+      color: var(--amber);
+      border-color: #dcc08a;
+      background: var(--ambert)
+    }
+
+    .pill.bad {
+      color: var(--red);
+      border-color: #e0a9a5;
+      background: var(--redt)
+    }
+
+    .pill.idle {
+      color: #5c6b7a;
+      border-color: #c4ccd4;
+      background: #f2f4f6
+    }
+
+    .list {
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .list li {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .list li:last-child {
+      border-bottom: none
+    }
+
+    .list .t {
+      font-weight: 600
+    }
+
+    .foot {
+      margin-top: 26px;
+      border-top: 1px solid var(--line2);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    @media(max-width:1024px) {
+      .grid2 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:900px) {
+
+      .masthead,
+      .pagehead,
+      .foot,
+      .tabs {
+        flex-wrap: wrap;
+        gap: 8px
+      }
+
+      .shell {
+        grid-template-columns: 1fr
+      }
+
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 6px 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        align-items: center
+      }
+
+      .navlabel {
+        width: 100%;
+        padding: 4px 4px 2px
+      }
+
+      a.nav {
+        border-left: 0;
+        border-bottom: 2px solid transparent;
+        padding: 5px 8px
+      }
+
+      a.nav.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--blue2)
+      }
+
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(145px, 1fr))
+      }
+    }
+
+    @media(max-width:600px) {
+      main {
+        padding: 12px
+      }
+
+      .acts {
+        flex-wrap: wrap
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="topline"></div>
-<header class="masthead">
-  <div class="mh-left">
-    <div class="monogram">SWD</div>
-    <div>
-      <div class="dept">Social Welfare Department</div>
-      <div class="sys">Management Information System</div>
-    </div>
-  </div>
-  <div class="mh-right">
-    <span class="chip mono">FY 2026-27</span>
-    <span class="chip">Thu, 26 Nov 2026</span>
-    <span class="user"><span class="avatar">SD</span>S. Deshmukh · Under Secretary (SW-I)</span>
-  </div>
-</header>
-
-<div class="shell">
-<aside>
-  <!-- point 01-04 to the URLs of your existing pages 1-4 -->
-  <div class="navlabel">Department MIS</div>
-  <a class="nav" href="#"><span class="n">01</span>Console Home</a>
-  <a class="nav" href="#"><span class="n">02</span>Schemes &amp; Missions</a>
-  <a class="nav" href="#"><span class="n">03</span>Beneficiary Records</a>
-  <a class="nav" href="#"><span class="n">04</span>Establishment</a>
-  <div class="navlabel">Administration</div>
-  <a class="nav" href="/e-office/"><span class="n">05</span>e-Office Files</a>
-  <a class="nav" href="/correspondence/"><span class="n">06</span>Correspondence</a>
-  <a class="nav active" href="/reports-atr/"><span class="n">07</span>Reports &amp; ATRs</a>
-  <a class="nav" href="/monitoring/"><span class="n">08</span>Monitoring &amp; Eval.</a>
-</aside>
-
-<main>
-  <div class="crumb">MIS / Administration / <strong>Reports &amp; ATRs</strong></div>
-  <div class="pagehead">
-    <div>
-      <h1>Reports &amp; Action Taken Reports</h1>
-      <div class="sub">Module 07 · Centralised reporting calendar, standard templates, compilation, approval and submission tracking for all ministries.</div>
-    </div>
-    <div class="acts"><button class="btn">Reporting calendar</button><button class="btn primary">Prepare report</button></div>
-  </div>
-
-  <div class="stats">
-    <div class="stat"><div class="k">Active requirements</div><div class="v">24</div><div class="d">recurring + ad hoc</div></div>
-    <div class="stat"><div class="k">Due in next 15 days</div><div class="v">6</div><div class="d bad">2 awaiting district data</div></div>
-    <div class="stat"><div class="k">Under approval</div><div class="v">4</div><div class="d">with Director / PS</div></div>
-    <div class="stat"><div class="k">Submitted FY 26-27</div><div class="v">41</div><div class="d ok">38 on time</div></div>
-    <div class="stat"><div class="k">Open observations</div><div class="v">4</div><div class="d bad">2 near deadline</div></div>
-  </div>
-
-  <div class="tabs">
-    <span class="tab on">All (24)</span><span class="tab">Monthly (6)</span><span class="tab">Quarterly (9)</span><span class="tab">Half-yearly (5)</span><span class="tab">Annual (4)</span>
-  </div>
-
-  <div class="grid2 mt0">
-    <div class="stack">
-      <div class="card notop">
-        <table>
-          <thead><tr><th>Report / return</th><th>Ministry</th><th>Frequency</th><th>Period</th><th>Due on</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>NSAP pension disbursement MIS</td><td>MoSJE</td><td>Monthly</td><td>Nov 2026</td><td class="mono">05.12.2026</td><td><span class="pill warn">Under preparation</span></td></tr>
-            <tr><td>PM-AJAY physical &amp; financial progress</td><td>MoSJE</td><td>Quarterly</td><td>Q2 2026-27</td><td class="mono">15.12.2026</td><td><span class="pill bad">Pending data</span></td></tr>
-            <tr><td>Saksham Anganwadi Phase-II UC &amp; progress</td><td>MoWCD</td><td>Quarterly</td><td>Q2 2026-27</td><td class="mono">30.11.2026</td><td><span class="pill proc">Under approval</span></td></tr>
-            <tr><td>Pre-matric scholarship coverage return</td><td>Tribal Welfare</td><td>Monthly</td><td>Nov 2026</td><td class="mono">05.12.2026</td><td><span class="pill bad">Pending data</span></td></tr>
-            <tr><td>Hostel occupancy &amp; inspection report</td><td>MoSJE</td><td>Half-yearly</td><td>Jul-Nov 2026</td><td class="mono">20.12.2026</td><td><span class="pill warn">Under preparation</span></td></tr>
-            <tr><td>ADIP camp proceedings &amp; utilisation</td><td>MoSJE</td><td>Quarterly</td><td>Q2 2026-27</td><td class="mono">10.12.2026</td><td><span class="pill warn">Under preparation</span></td></tr>
-            <tr><td>Annual Administration Report (SWD)</td><td>All three ministries</td><td>Annual</td><td>2025-26</td><td class="mono">31.08.2026</td><td><span class="pill ok">Submitted 28.08.2026</span></td></tr>
-            <tr><td>Condensed Course of Education — enrolment</td><td>MoWCD</td><td>Half-yearly</td><td>2026-27</td><td class="mono">10.01.2027</td><td><span class="pill idle">Scheduled</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card">
-        <h3>Observations received from ministries &amp; ATRs</h3>
-        <table>
-          <thead><tr><th>Observation ref</th><th>Ministry</th><th>Observation</th><th>Deadline</th><th>Action taken by department</th><th>ATR</th></tr></thead>
-          <tbody>
-            <tr><td class="mono">MoSJE/Obs/2026/44</td><td>MoSJE</td><td>Delay in sanction of PMS renewals in 14 districts</td><td class="mono">30.11.2026</td><td>9 districts cleared; balance under verification</td><td><span class="pill proc">Under approval</span></td></tr>
-            <tr><td class="mono">FIN/Audit/Para/3.2</td><td>Finance</td><td>Pension credits after 7th of month in 3 districts</td><td class="mono">25.11.2026</td><td>PFMS seeding corrected; ATR filed 25.11.2026</td><td><span class="pill ok">Submitted</span></td></tr>
-            <tr><td class="mono">MoWCD/Obs/2026/19</td><td>MoWCD</td><td>SN stock registers not maintained in 22 AWCs</td><td class="mono">15.12.2026</td><td>Format circulated; DWCs directed to rectify</td><td><span class="pill warn">In progress</span></td></tr>
-            <tr><td class="mono">MoTA/Obs/2026/07</td><td>Tribal Welfare</td><td>DBT failures in pre-matric scholarship unaddressed</td><td class="mono">05.12.2026</td><td>Bank-mapping drive underway in 6 districts</td><td><span class="pill warn">In progress</span></td></tr>
-          </tbody>
-        </table>
+  <div class="topline"></div>
+  <header class="masthead">
+    <div class="mh-left">
+      <div class="monogram">SWD</div>
+      <div>
+        <div class="dept">XYZ Department</div>
+        <div class="sys">Management Information System</div>
       </div>
     </div>
-
-    <div class="stack">
-      <div class="card">
-        <h3>Standard templates</h3>
-        <ul class="list">
-          <li><div class="t">NSAP Monthly MIS</div><div class="small">18 fields · compiles from beneficiary register</div></li>
-          <li><div class="t">PM-AJAY quarterly progress report</div><div class="small">26 fields · physical + financial</div></li>
-          <li><div class="t">AWC Utilisation Certificate</div><div class="small">14 fields · compiles from finance register</div></li>
-          <li><div class="t">Hostel inspection proforma</div><div class="small">22 fields · field verification</div></li>
-          <li><div class="t">ATR standard format</div><div class="small">9 fields · links observation to action taken</div></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Submission record — FY 2026-27</h3>
-        <table>
-          <thead><tr><th>Period</th><th>Due</th><th>On time</th><th>Late</th></tr></thead>
-          <tbody>
-            <tr><td>Q1 (Apr-Jun)</td><td class="mono">12</td><td class="mono">12</td><td class="mono">0</td></tr>
-            <tr><td>Q2 (Jul-Sep)</td><td class="mono">11</td><td class="mono">10</td><td class="mono">1</td></tr>
-            <tr><td>Oct-Nov</td><td class="mono">9</td><td class="mono">7</td><td class="mono">0</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card">
-        <h3>How compilation works</h3>
-        <div class="body small">Figures are auto-compiled from the scheme, beneficiary and finance registers. The concerned officer verifies and finalises before submission. Every submitted report and ATR is stored against its requirement, along with ministry observations, for future reference.</div>
-      </div>
+    <div class="mh-right">
+      <span class="chip mono">FY 2026-27</span>
+      <span class="chip">Thu, 26 Nov 2026</span>
+      <span class="user"><span class="avatar">SD</span>S. Deshmukh · Under Secretary (SW-I)</span>
     </div>
-  </div>
+  </header>
 
-  <div class="foot"><span>SWD-MIS · Module 07 — Reports &amp; ATRs</span><span>Illustrative data · FY 2026-27</span></div>
-</main>
-</div>
+  <div class="shell">
+    <aside>
+      <!-- point 01-04 to the URLs of your existing pages 1-4 -->
+      <div class="navlabel">Department MIS</div>
+      <a class="nav" href="#"><span class="n">01</span>Console Home</a>
+      <a class="nav" href="#"><span class="n">02</span>Schemes &amp; Missions</a>
+      <a class="nav" href="#"><span class="n">03</span>Beneficiary Records</a>
+      <a class="nav" href="#"><span class="n">04</span>Establishment</a>
+      <div class="navlabel">Administration</div>
+      <a class="nav" href="/e-office/"><span class="n">05</span>e-Office Files</a>
+      <a class="nav" href="/correspondence/"><span class="n">06</span>Correspondence</a>
+      <a class="nav active" href="/reports-atr/"><span class="n">07</span>Reports &amp; ATRs</a>
+      <a class="nav" href="/monitoring/"><span class="n">08</span>Monitoring &amp; Eval.</a>
+    </aside>
+
+    <main>
+      <div class="crumb">MIS / Administration / <strong>Reports &amp; ATRs</strong></div>
+      <div class="pagehead">
+        <div>
+          <h1>Reports &amp; Action Taken Reports</h1>
+          <div class="sub">Module 07 · Centralised reporting calendar, standard templates, compilation, approval and
+            submission tracking for all ministries.</div>
+        </div>
+        <div class="acts"><button class="btn">Reporting calendar</button><button class="btn primary">Prepare
+            report</button></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="k">Active requirements</div>
+          <div class="v">24</div>
+          <div class="d">recurring + ad hoc</div>
+        </div>
+        <div class="stat">
+          <div class="k">Due in next 15 days</div>
+          <div class="v">6</div>
+          <div class="d bad">2 awaiting district data</div>
+        </div>
+        <div class="stat">
+          <div class="k">Under approval</div>
+          <div class="v">4</div>
+          <div class="d">with Director / PS</div>
+        </div>
+        <div class="stat">
+          <div class="k">Submitted FY 26-27</div>
+          <div class="v">41</div>
+          <div class="d ok">38 on time</div>
+        </div>
+        <div class="stat">
+          <div class="k">Open observations</div>
+          <div class="v">4</div>
+          <div class="d bad">2 near deadline</div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <span class="tab on">All (24)</span><span class="tab">Monthly (6)</span><span class="tab">Quarterly
+          (9)</span><span class="tab">Half-yearly (5)</span><span class="tab">Annual (4)</span>
+      </div>
+
+      <div class="grid2 mt0">
+        <div class="stack">
+          <div class="card notop">
+            <table>
+              <thead>
+                <tr>
+                  <th>Report / return</th>
+                  <th>Ministry</th>
+                  <th>Frequency</th>
+                  <th>Period</th>
+                  <th>Due on</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>NSAP pension disbursement MIS</td>
+                  <td>MoSJE</td>
+                  <td>Monthly</td>
+                  <td>Nov 2026</td>
+                  <td class="mono">05.12.2026</td>
+                  <td><span class="pill warn">Under preparation</span></td>
+                </tr>
+                <tr>
+                  <td>PM-AJAY physical &amp; financial progress</td>
+                  <td>MoSJE</td>
+                  <td>Quarterly</td>
+                  <td>Q2 2026-27</td>
+                  <td class="mono">15.12.2026</td>
+                  <td><span class="pill bad">Pending data</span></td>
+                </tr>
+                <tr>
+                  <td>Saksham Anganwadi Phase-II UC &amp; progress</td>
+                  <td>MoWCD</td>
+                  <td>Quarterly</td>
+                  <td>Q2 2026-27</td>
+                  <td class="mono">30.11.2026</td>
+                  <td><span class="pill proc">Under approval</span></td>
+                </tr>
+                <tr>
+                  <td>Pre-matric scholarship coverage return</td>
+                  <td>Tribal Welfare</td>
+                  <td>Monthly</td>
+                  <td>Nov 2026</td>
+                  <td class="mono">05.12.2026</td>
+                  <td><span class="pill bad">Pending data</span></td>
+                </tr>
+                <tr>
+                  <td>Hostel occupancy &amp; inspection report</td>
+                  <td>MoSJE</td>
+                  <td>Half-yearly</td>
+                  <td>Jul-Nov 2026</td>
+                  <td class="mono">20.12.2026</td>
+                  <td><span class="pill warn">Under preparation</span></td>
+                </tr>
+                <tr>
+                  <td>ADIP camp proceedings &amp; utilisation</td>
+                  <td>MoSJE</td>
+                  <td>Quarterly</td>
+                  <td>Q2 2026-27</td>
+                  <td class="mono">10.12.2026</td>
+                  <td><span class="pill warn">Under preparation</span></td>
+                </tr>
+                <tr>
+                  <td>Annual Administration Report (SWD)</td>
+                  <td>All three ministries</td>
+                  <td>Annual</td>
+                  <td>2025-26</td>
+                  <td class="mono">31.08.2026</td>
+                  <td><span class="pill ok">Submitted 28.08.2026</span></td>
+                </tr>
+                <tr>
+                  <td>Condensed Course of Education — enrolment</td>
+                  <td>MoWCD</td>
+                  <td>Half-yearly</td>
+                  <td>2026-27</td>
+                  <td class="mono">10.01.2027</td>
+                  <td><span class="pill idle">Scheduled</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Observations received from ministries &amp; ATRs</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Observation ref</th>
+                  <th>Ministry</th>
+                  <th>Observation</th>
+                  <th>Deadline</th>
+                  <th>Action taken by department</th>
+                  <th>ATR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono">MoSJE/Obs/2026/44</td>
+                  <td>MoSJE</td>
+                  <td>Delay in sanction of PMS renewals in 14 districts</td>
+                  <td class="mono">30.11.2026</td>
+                  <td>9 districts cleared; balance under verification</td>
+                  <td><span class="pill proc">Under approval</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">FIN/Audit/Para/3.2</td>
+                  <td>Finance</td>
+                  <td>Pension credits after 7th of month in 3 districts</td>
+                  <td class="mono">25.11.2026</td>
+                  <td>PFMS seeding corrected; ATR filed 25.11.2026</td>
+                  <td><span class="pill ok">Submitted</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">MoWCD/Obs/2026/19</td>
+                  <td>MoWCD</td>
+                  <td>SN stock registers not maintained in 22 AWCs</td>
+                  <td class="mono">15.12.2026</td>
+                  <td>Format circulated; DWCs directed to rectify</td>
+                  <td><span class="pill warn">In progress</span></td>
+                </tr>
+                <tr>
+                  <td class="mono">MoTA/Obs/2026/07</td>
+                  <td>Tribal Welfare</td>
+                  <td>DBT failures in pre-matric scholarship unaddressed</td>
+                  <td class="mono">05.12.2026</td>
+                  <td>Bank-mapping drive underway in 6 districts</td>
+                  <td><span class="pill warn">In progress</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <h3>Standard templates</h3>
+            <ul class="list">
+              <li>
+                <div class="t">NSAP Monthly MIS</div>
+                <div class="small">18 fields · compiles from beneficiary register</div>
+              </li>
+              <li>
+                <div class="t">PM-AJAY quarterly progress report</div>
+                <div class="small">26 fields · physical + financial</div>
+              </li>
+              <li>
+                <div class="t">AWC Utilisation Certificate</div>
+                <div class="small">14 fields · compiles from finance register</div>
+              </li>
+              <li>
+                <div class="t">Hostel inspection proforma</div>
+                <div class="small">22 fields · field verification</div>
+              </li>
+              <li>
+                <div class="t">ATR standard format</div>
+                <div class="small">9 fields · links observation to action taken</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Submission record — FY 2026-27</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Period</th>
+                  <th>Due</th>
+                  <th>On time</th>
+                  <th>Late</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Q1 (Apr-Jun)</td>
+                  <td class="mono">12</td>
+                  <td class="mono">12</td>
+                  <td class="mono">0</td>
+                </tr>
+                <tr>
+                  <td>Q2 (Jul-Sep)</td>
+                  <td class="mono">11</td>
+                  <td class="mono">10</td>
+                  <td class="mono">1</td>
+                </tr>
+                <tr>
+                  <td>Oct-Nov</td>
+                  <td class="mono">9</td>
+                  <td class="mono">7</td>
+                  <td class="mono">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>How compilation works</h3>
+            <div class="body small">Figures are auto-compiled from the scheme, beneficiary and finance registers. The
+              concerned officer verifies and finalises before submission. Every submitted report and ATR is stored
+              against its requirement, along with ministry observations, for future reference.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot"><span>SWD-MIS · Module 07 — Reports &amp; ATRs</span><span>Illustrative data · FY 2026-27</span>
+      </div>
+    </main>
+  </div>
 </body>
+
 </html>
 {% endblock %}

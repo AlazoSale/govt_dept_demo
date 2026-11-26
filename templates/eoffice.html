@@ -4,217 +4,945 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>e-Office Files — SWD MIS</title>
-<style>
-:root{--ink:#1c2733;--mut:#68757f;--paper:#eef1f4;--line:#d3d9e0;--line2:#b9c4cf;--blue:#1559a7;--blue2:#123f6d;--bluet:#e6eff8;--green:#1e7a3c;--greent:#eef6f0;--amber:#9a6700;--ambert:#fbf4e6;--red:#b3261e;--redt:#fbeeec;--mono:Consolas,"SF Mono","Courier New",monospace;--serif:Georgia,"Times New Roman",serif}
-*{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:13px/1.45 "Segoe UI",Arial,"Helvetica Neue",sans-serif}
-a{color:var(--blue)}
-.topline{height:4px;background:var(--blue2)}
-.masthead{background:var(--blue2);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 18px}
-.mh-left{display:flex;gap:10px;align-items:center}
-.monogram{width:34px;height:34px;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.06em}
-.dept{font-family:var(--serif);font-size:16px;line-height:1.1}
-.sys{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cfe1f5}
-.mh-right{display:flex;gap:8px;align-items:center;font-size:11.5px}
-.chip{border:1px solid #2f5f92;background:#0d3157;padding:3px 8px}
-.mono{font-family:var(--mono)}
-.user{display:flex;align-items:center;gap:7px}
-.avatar{width:24px;height:24px;border-radius:50%;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
-.shell{display:grid;grid-template-columns:212px minmax(0,1fr)}
-aside{background:#fbfcfd;border-right:1px solid var(--line);padding:12px 0 20px}
-.navlabel{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7b8794;padding:10px 16px 4px}
-a.nav{display:block;padding:6px 14px 6px 13px;border-left:3px solid transparent;color:#33475b;text-decoration:none;font-size:12.5px}
-a.nav:hover{background:#eef4fa}
-a.nav.active{border-left-color:var(--blue2);background:var(--bluet);color:#0d3c6e;font-weight:600}
-a.nav .n{font-family:var(--mono);font-size:10.5px;color:var(--mut);margin-right:7px}
-main{padding:16px 22px 34px;min-width:0}
-.crumb{font-size:11px;color:var(--mut);margin-bottom:8px}
-.pagehead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
-h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0 0 2px}
-.sub{font-size:12px;color:var(--mut)}
-.acts{display:flex;gap:8px;white-space:nowrap}
-.btn{font:inherit;font-size:12px;padding:6px 12px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer}
-.btn.primary{background:var(--blue);border-color:var(--blue2);color:#fff}
-.btn.sm{padding:3px 8px;font-size:11px}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.stat{background:#fff;padding:9px 12px 10px}
-.stat .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
-.stat .v{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.2}
-.stat .d{font-size:11px;color:var(--mut)}
-.stat .d.bad{color:var(--red)} .stat .d.ok{color:var(--green)}
-.tabs{display:flex;margin:16px 0 0;border-bottom:1px solid var(--line2)}
-.tab{padding:6px 12px;font-size:12px;color:var(--mut);border:1px solid transparent;border-bottom:none}
-.tab.on{background:#fff;border-color:var(--line2);color:var(--ink);font-weight:600}
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;margin-top:16px}
-.mt0{margin-top:0}
-.stack{display:grid;gap:16px;min-width:0}
-.card{background:#fff;border:1px solid var(--line);overflow-x:auto;min-width:0}
-.card.notop{border-top:none}
-.card>h3{margin:0;padding:8px 12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#1c2733;background:#f7f9fb;border-bottom:1px solid var(--line);font-weight:700}
-.body{padding:12px}
-table{width:100%;border-collapse:collapse;font-size:12.3px}
-thead th{background:#fafbfc;text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5c6b7a;border-bottom:1px solid var(--line);padding:7px 10px;font-weight:700}
-thead th.r{text-align:right}
-tbody td{border-bottom:1px solid #e6eaee;padding:7px 10px;vertical-align:top}
-tbody tr:last-child td{border-bottom:none}
-tbody tr:nth-child(even){background:#f7f9fb}
-td.num{text-align:right;font-family:var(--mono)}
-.small{font-size:11px;color:var(--mut)}
-.pill{display:inline-block;padding:1px 7px 2px;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid;border-radius:2px;white-space:nowrap}
-.pill.proc{color:var(--blue);border-color:#a6c6e4;background:#eef4fa}
-.pill.ok{color:var(--green);border-color:#a9cdb4;background:var(--greent)}
-.pill.warn{color:var(--amber);border-color:#dcc08a;background:var(--ambert)}
-.pill.bad{color:var(--red);border-color:#e0a9a5;background:var(--redt)}
-.pill.idle{color:#5c6b7a;border-color:#c4ccd4;background:#f2f4f6}
-.bar{height:7px;background:#e6eaee;border:1px solid var(--line);min-width:70px}
-.bar>i{display:block;height:100%;background:var(--blue)}
-.bar.g>i{background:var(--green)} .bar.a>i{background:#c08a2e} .bar.r>i{background:var(--red)}
-.cellbar{display:flex;align-items:center;gap:8px}
-.cellbar .bar{width:84px;flex:none}
-.trail{list-style:none;margin:0;padding:2px 0 0 4px}
-.trail li{position:relative;margin-left:5px;padding:0 0 13px 16px;border-left:2px solid var(--line)}
-.trail li:last-child{border-left-color:transparent;padding-bottom:2px}
-.trail li::before{content:"";position:absolute;left:-6px;top:1px;width:8px;height:8px;border:2px solid var(--blue);background:#fff;border-radius:50%}
-.trail li.ret::before{border-color:var(--red)} .trail li.ok::before{border-color:var(--green)}
-.trail .when{font-family:var(--mono);font-size:10.5px;color:var(--mut)}
-.trail .who{font-weight:600}
-.list{list-style:none;margin:0;padding:0}
-.list li{padding:8px 12px;border-bottom:1px solid var(--line)}
-.list li:last-child{border-bottom:none}
-.list .t{font-weight:600}
-.dlrow{padding:8px 12px;border-bottom:1px solid var(--line)}
-.dlrow:last-child{border-bottom:none}
-.dlrow .top{display:flex;justify-content:space-between;gap:8px;font-size:12px}
-.dlrow .bar{margin-top:5px}
-.qb{padding:8px 12px;border-bottom:1px solid var(--line)}
-.qb:last-child{border:none}
-.qb .lbl{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px}
-.qb .bar{margin-top:3px}
-.legend{display:flex;gap:14px;font-size:11px;color:var(--mut);padding:8px 12px;border-bottom:1px solid var(--line)}
-.sw{display:inline-block;width:9px;height:9px;border:1px solid var(--line2);margin-right:5px;vertical-align:-1px}
-.sw.b{background:var(--blue)} .sw.g{background:var(--green)} .sw.r{background:var(--redt)} .sw.a{background:var(--ambert)}
-td.hg{background:var(--greent)} td.hr{background:var(--redt)} td.ha{background:var(--ambert)}
-.foot{margin-top:26px;border-top:1px solid var(--line2);padding-top:8px;display:flex;justify-content:space-between;font-size:11px;color:var(--mut)}
-@media(max-width:1024px){.grid2{grid-template-columns:1fr}}
-@media(max-width:900px){.masthead,.pagehead,.foot,.tabs,.legend{flex-wrap:wrap;gap:8px}.shell{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:6px 12px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}.navlabel{width:100%;padding:4px 4px 2px}a.nav{border-left:0;border-bottom:2px solid transparent;padding:5px 8px}a.nav.active{border-left-color:transparent;border-bottom-color:var(--blue2)}.stats{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}}
-@media(max-width:600px){main{padding:12px}.acts{flex-wrap:wrap}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>e-Office Files — SWD MIS</title>
+  <style>
+    :root {
+      --ink: #1c2733;
+      --mut: #68757f;
+      --paper: #eef1f4;
+      --line: #d3d9e0;
+      --line2: #b9c4cf;
+      --blue: #1559a7;
+      --blue2: #123f6d;
+      --bluet: #e6eff8;
+      --green: #1e7a3c;
+      --greent: #eef6f0;
+      --amber: #9a6700;
+      --ambert: #fbf4e6;
+      --red: #b3261e;
+      --redt: #fbeeec;
+      --mono: Consolas, "SF Mono", "Courier New", monospace;
+      --serif: Georgia, "Times New Roman", serif
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 13px/1.45 "Segoe UI", Arial, "Helvetica Neue", sans-serif
+    }
+
+    a {
+      color: var(--blue)
+    }
+
+    .topline {
+      height: 4px;
+      background: var(--blue2)
+    }
+
+    .masthead {
+      background: var(--blue2);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 18px
+    }
+
+    .mh-left {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .monogram {
+      width: 34px;
+      height: 34px;
+      background: #0d3157;
+      border: 1px solid rgba(255, 255, 255, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em
+    }
+
+    .dept {
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.1
+    }
+
+    .sys {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #cfe1f5
+    }
+
+    .mh-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 11.5px
+    }
+
+    .chip {
+      border: 1px solid #2f5f92;
+      background: #0d3157;
+      padding: 3px 8px
+    }
+
+    .mono {
+      font-family: var(--mono)
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0d3157;
+      border: 1px solid rgba(255, 255, 255, .55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 212px minmax(0, 1fr)
+    }
+
+    aside {
+      background: #fbfcfd;
+      border-right: 1px solid var(--line);
+      padding: 12px 0 20px
+    }
+
+    .navlabel {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #7b8794;
+      padding: 10px 16px 4px
+    }
+
+    a.nav {
+      display: block;
+      padding: 6px 14px 6px 13px;
+      border-left: 3px solid transparent;
+      color: #33475b;
+      text-decoration: none;
+      font-size: 12.5px
+    }
+
+    a.nav:hover {
+      background: #eef4fa
+    }
+
+    a.nav.active {
+      border-left-color: var(--blue2);
+      background: var(--bluet);
+      color: #0d3c6e;
+      font-weight: 600
+    }
+
+    a.nav .n {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--mut);
+      margin-right: 7px
+    }
+
+    main {
+      padding: 16px 22px 34px;
+      min-width: 0
+    }
+
+    .crumb {
+      font-size: 11px;
+      color: var(--mut);
+      margin-bottom: 8px
+    }
+
+    .pagehead {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 10px;
+      margin-bottom: 14px
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 600;
+      margin: 0 0 2px
+    }
+
+    .sub {
+      font-size: 12px;
+      color: var(--mut)
+    }
+
+    .acts {
+      display: flex;
+      gap: 8px;
+      white-space: nowrap
+    }
+
+    .btn {
+      font: inherit;
+      font-size: 12px;
+      padding: 6px 12px;
+      border: 1px solid var(--line2);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer
+    }
+
+    .btn.primary {
+      background: var(--blue);
+      border-color: var(--blue2);
+      color: #fff
+    }
+
+    .btn.sm {
+      padding: 3px 8px;
+      font-size: 11px
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line)
+    }
+
+    .stat {
+      background: #fff;
+      padding: 9px 12px 10px
+    }
+
+    .stat .k {
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mut)
+    }
+
+    .stat .v {
+      font-family: var(--serif);
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.2
+    }
+
+    .stat .d {
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    .stat .d.bad {
+      color: var(--red)
+    }
+
+    .stat .d.ok {
+      color: var(--green)
+    }
+
+    .tabs {
+      display: flex;
+      margin: 16px 0 0;
+      border-bottom: 1px solid var(--line2)
+    }
+
+    .tab {
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--mut);
+      border: 1px solid transparent;
+      border-bottom: none
+    }
+
+    .tab.on {
+      background: #fff;
+      border-color: var(--line2);
+      color: var(--ink);
+      font-weight: 600
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 16px;
+      align-items: start;
+      margin-top: 16px
+    }
+
+    .mt0 {
+      margin-top: 0
+    }
+
+    .stack {
+      display: grid;
+      gap: 16px;
+      min-width: 0
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--line);
+      overflow-x: auto;
+      min-width: 0
+    }
+
+    .card.notop {
+      border-top: none
+    }
+
+    .card>h3 {
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 10.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #1c2733;
+      background: #f7f9fb;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700
+    }
+
+    .body {
+      padding: 12px
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.3px
+    }
+
+    thead th {
+      background: #fafbfc;
+      text-align: left;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #5c6b7a;
+      border-bottom: 1px solid var(--line);
+      padding: 7px 10px;
+      font-weight: 700
+    }
+
+    thead th.r {
+      text-align: right
+    }
+
+    tbody td {
+      border-bottom: 1px solid #e6eaee;
+      padding: 7px 10px;
+      vertical-align: top
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f7f9fb
+    }
+
+    td.num {
+      text-align: right;
+      font-family: var(--mono)
+    }
+
+    .small {
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 1px 7px 2px;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      border: 1px solid;
+      border-radius: 2px;
+      white-space: nowrap
+    }
+
+    .pill.proc {
+      color: var(--blue);
+      border-color: #a6c6e4;
+      background: #eef4fa
+    }
+
+    .pill.ok {
+      color: var(--green);
+      border-color: #a9cdb4;
+      background: var(--greent)
+    }
+
+    .pill.warn {
+      color: var(--amber);
+      border-color: #dcc08a;
+      background: var(--ambert)
+    }
+
+    .pill.bad {
+      color: var(--red);
+      border-color: #e0a9a5;
+      background: var(--redt)
+    }
+
+    .pill.idle {
+      color: #5c6b7a;
+      border-color: #c4ccd4;
+      background: #f2f4f6
+    }
+
+    .bar {
+      height: 7px;
+      background: #e6eaee;
+      border: 1px solid var(--line);
+      min-width: 70px
+    }
+
+    .bar>i {
+      display: block;
+      height: 100%;
+      background: var(--blue)
+    }
+
+    .bar.g>i {
+      background: var(--green)
+    }
+
+    .bar.a>i {
+      background: #c08a2e
+    }
+
+    .bar.r>i {
+      background: var(--red)
+    }
+
+    .cellbar {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .cellbar .bar {
+      width: 84px;
+      flex: none
+    }
+
+    .trail {
+      list-style: none;
+      margin: 0;
+      padding: 2px 0 0 4px
+    }
+
+    .trail li {
+      position: relative;
+      margin-left: 5px;
+      padding: 0 0 13px 16px;
+      border-left: 2px solid var(--line)
+    }
+
+    .trail li:last-child {
+      border-left-color: transparent;
+      padding-bottom: 2px
+    }
+
+    .trail li::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 1px;
+      width: 8px;
+      height: 8px;
+      border: 2px solid var(--blue);
+      background: #fff;
+      border-radius: 50%
+    }
+
+    .trail li.ret::before {
+      border-color: var(--red)
+    }
+
+    .trail li.ok::before {
+      border-color: var(--green)
+    }
+
+    .trail .when {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--mut)
+    }
+
+    .trail .who {
+      font-weight: 600
+    }
+
+    .list {
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .list li {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .list li:last-child {
+      border-bottom: none
+    }
+
+    .list .t {
+      font-weight: 600
+    }
+
+    .dlrow {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .dlrow:last-child {
+      border-bottom: none
+    }
+
+    .dlrow .top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px
+    }
+
+    .dlrow .bar {
+      margin-top: 5px
+    }
+
+    .qb {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .qb:last-child {
+      border: none
+    }
+
+    .qb .lbl {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      margin-bottom: 4px
+    }
+
+    .qb .bar {
+      margin-top: 3px
+    }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      font-size: 11px;
+      color: var(--mut);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .sw {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border: 1px solid var(--line2);
+      margin-right: 5px;
+      vertical-align: -1px
+    }
+
+    .sw.b {
+      background: var(--blue)
+    }
+
+    .sw.g {
+      background: var(--green)
+    }
+
+    .sw.r {
+      background: var(--redt)
+    }
+
+    .sw.a {
+      background: var(--ambert)
+    }
+
+    td.hg {
+      background: var(--greent)
+    }
+
+    td.hr {
+      background: var(--redt)
+    }
+
+    td.ha {
+      background: var(--ambert)
+    }
+
+    .foot {
+      margin-top: 26px;
+      border-top: 1px solid var(--line2);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    @media(max-width:1024px) {
+      .grid2 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:900px) {
+
+      .masthead,
+      .pagehead,
+      .foot,
+      .tabs,
+      .legend {
+        flex-wrap: wrap;
+        gap: 8px
+      }
+
+      .shell {
+        grid-template-columns: 1fr
+      }
+
+      aside {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 6px 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        align-items: center
+      }
+
+      .navlabel {
+        width: 100%;
+        padding: 4px 4px 2px
+      }
+
+      a.nav {
+        border-left: 0;
+        border-bottom: 2px solid transparent;
+        padding: 5px 8px
+      }
+
+      a.nav.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--blue2)
+      }
+
+      .stats {
+        grid-template-columns: repeat(auto-fit, minmax(145px, 1fr))
+      }
+    }
+
+    @media(max-width:600px) {
+      main {
+        padding: 12px
+      }
+
+      .acts {
+        flex-wrap: wrap
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="topline"></div>
-<header class="masthead">
-  <div class="mh-left">
-    <div class="monogram">SWD</div>
-    <div>
-      <div class="dept">Social Welfare Department</div>
-      <div class="sys">Management Information System</div>
+  <div class="topline"></div>
+  <header class="masthead">
+    <div class="mh-left">
+      <div class="monogram">SWD</div>
+      <div>
+        <div class="dept">XYZ Department</div>
+        <div class="sys">Management Information System</div>
+      </div>
     </div>
-  </div>
-  <div class="mh-right">
-    <span class="chip mono">FY 2026-27</span>
-    <span class="chip">Thu, 26 Nov 2026</span>
-    <span class="user"><span class="avatar">SD</span>S. Deshmukh · Under Secretary (SW-I)</span>
-  </div>
-</header>
-
-<div class="shell">
-<aside>
-  <!-- point 01-04 to the URLs of your existing pages 1-4 -->
-  <div class="navlabel">Department MIS</div>
-  <a class="nav" href="#"><span class="n">01</span>Console Home</a>
-  <a class="nav" href="#"><span class="n">02</span>Schemes &amp; Missions</a>
-  <a class="nav" href="#"><span class="n">03</span>Beneficiary Records</a>
-  <a class="nav" href="#"><span class="n">04</span>Establishment</a>
-  <div class="navlabel">Administration</div>
-  <a class="nav active" href="/e-office/"><span class="n">05</span>e-Office Files</a>
-  <a class="nav" href="/correspondence/"><span class="n">06</span>Correspondence</a>
-  <a class="nav" href="/reports-atr/"><span class="n">07</span>Reports &amp; ATRs</a>
-  <a class="nav" href="/monitoring/"><span class="n">08</span>Monitoring &amp; Eval.</a>
-</aside>
-
-<main>
-  <div class="crumb">MIS / Administration / <strong>e-Office &amp; File Management</strong></div>
-  <div class="pagehead">
-    <div>
-      <h1>e-Office — File Movement &amp; Approvals</h1>
-      <div class="sub">Module 05 · Drafting, remarks, forwarding and approval of departmental files, with complete movement history.</div>
+    <div class="mh-right">
+      <span class="chip mono">FY 2026-27</span>
+      <span class="chip">Thu, 26 Nov 2026</span>
+      <span class="user"><span class="avatar">SD</span>S. Deshmukh · Under Secretary (SW-I)</span>
     </div>
-    <div class="acts"><button class="btn">Register receipt</button><button class="btn primary">Open new file</button></div>
-  </div>
+  </header>
 
-  <div class="stats">
-    <div class="stat"><div class="k">Open files</div><div class="v">46</div><div class="d">3 opened this week</div></div>
-    <div class="stat"><div class="k">Pending with Director</div><div class="v">9</div><div class="d bad">2 beyond 10 days</div></div>
-    <div class="stat"><div class="k">Returned for correction</div><div class="v">4</div><div class="d">revision drafts due</div></div>
-    <div class="stat"><div class="k">Approved this month</div><div class="v">17</div><div class="d ok">Nov 2026</div></div>
-    <div class="stat"><div class="k">Closed FY 2026-27</div><div class="v">218</div><div class="d">archived with full trail</div></div>
-  </div>
+  <div class="shell">
+    <aside>
+      <!-- point 01-04 to the URLs of your existing pages 1-4 -->
+      <div class="navlabel">Department MIS</div>
+      <a class="nav" href="#"><span class="n">01</span>Console Home</a>
+      <a class="nav" href="#"><span class="n">02</span>Schemes &amp; Missions</a>
+      <a class="nav" href="#"><span class="n">03</span>Beneficiary Records</a>
+      <a class="nav" href="#"><span class="n">04</span>Establishment</a>
+      <div class="navlabel">Administration</div>
+      <a class="nav active" href="/e-office/"><span class="n">05</span>e-Office Files</a>
+      <a class="nav" href="/correspondence/"><span class="n">06</span>Correspondence</a>
+      <a class="nav" href="/reports-atr/"><span class="n">07</span>Reports &amp; ATRs</a>
+      <a class="nav" href="/monitoring/"><span class="n">08</span>Monitoring &amp; Eval.</a>
+    </aside>
 
-  <div class="tabs">
-    <span class="tab on">In movement (28)</span><span class="tab">Received &amp; new (7)</span><span class="tab">Returned (4)</span><span class="tab">Approved (12)</span><span class="tab">Closed (218)</span>
-  </div>
+    <main>
+      <div class="crumb">MIS / Administration / <strong>e-Office &amp; File Management</strong></div>
+      <div class="pagehead">
+        <div>
+          <h1>e-Office — File Movement &amp; Approvals</h1>
+          <div class="sub">Module 05 · Drafting, remarks, forwarding and approval of departmental files, with complete
+            movement history.</div>
+        </div>
+        <div class="acts"><button class="btn">Register receipt</button><button class="btn primary">Open new
+            file</button></div>
+      </div>
 
-  <div class="grid2 mt0">
-    <div class="card notop">
-      <table>
-        <thead><tr><th>File No.</th><th>Subject and origin</th><th>Initiated by</th><th>Presently at</th><th>Since</th><th class="r">Days</th><th>Stage</th></tr></thead>
-        <tbody>
-          <tr><td class="mono">SWD/EO/2026-27/0143</td><td>Sanction of 12 new hostel buildings under PM-AJAY Component-II<br><span class="small">Origin: MoSJE letter dt 02.11.2026</span></td><td>US (SW-I)</td><td>Director (SWD)</td><td class="mono">21.11.2026</td><td class="num">5</td><td><span class="pill proc">In movement</span></td></tr>
-          <tr><td class="mono">SWD/EO/2026-27/0139</td><td>Revision of maintenance-grant ceiling for protective homes<br><span class="small">Origin: departmental requirement</span></td><td>SO (SW-II)</td><td>Principal Secretary</td><td class="mono">24.11.2026</td><td class="num">2</td><td><span class="pill proc">In movement</span></td></tr>
-          <tr><td class="mono">SWD/EO/2026-27/0136</td><td>ATR on CAG observation regarding NSAP pension disbursement delays<br><span class="small">Origin: Finance Dept. audit para 3.2</span></td><td>US (SW-I)</td><td>Director (SWD)</td><td class="mono">19.11.2026</td><td class="num">7</td><td><span class="pill proc">In movement</span></td></tr>
-          <tr><td class="mono">SWD/EO/2026-27/0131</td><td>Draft MOU with State Handloom Corp for supply of uniforms<br><span class="small">Origin: ministry instruction</span></td><td>SO (Adm.)</td><td>US (SW-I)</td><td class="mono">25.11.2026</td><td class="num">1</td><td><span class="pill bad">Returned</span></td></tr>
-          <tr><td class="mono">SWD/EO/2026-27/0128</td><td>Engagement of 40 data-entry operators on outsourcing basis<br><span class="small">Origin: establishment requirement</span></td><td>SO (Estt.)</td><td>Director (SWD)</td><td class="mono">17.11.2026</td><td class="num">9</td><td><span class="pill proc">In movement</span></td></tr>
-          <tr><td class="mono">SWD/EO/2026-27/0125</td><td>Quarterly progress note on hostels for submission to MoSJE<br><span class="small">Origin: ministry instruction</span></td><td>US (SW-II)</td><td>PS office</td><td class="mono">23.11.2026</td><td class="num">3</td><td><span class="pill ok">Approved</span></td></tr>
-          <tr><td class="mono">SWD/EO/2026-27/0122</td><td>Purchase proposal for furniture of 6 new Anganwadi-cum-hostels<br><span class="small">Origin: departmental requirement</span></td><td>SO (SW-I)</td><td>Director (SWD)</td><td class="mono">13.11.2026</td><td class="num">13</td><td><span class="pill warn">Delayed</span></td></tr>
-          <tr><td class="mono">SWD/EO/2026-27/0118</td><td>Nomination of nodal officers for PM-AJAY portal<br><span class="small">Origin: MoSJE OM dt 28.10.2026</span></td><td>SO (SW-II)</td><td>—</td><td class="mono">10.11.2026</td><td class="num">—</td><td><span class="pill idle">Closed</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="stack">
-      <div class="card">
-        <h3>Movement trail · <span class="mono">SWD/EO/2026-27/0143</span></h3>
-        <div class="body">
-          <ul class="trail">
-            <li><div class="when">02.11.2026 · 11:20</div><div class="who">CR Cell — received &amp; registered</div><div class="small">Receipt MoSJE/DoSJE/Ltr/2026/1187 attached; file opened.</div></li>
-            <li><div class="when">03.11.2026 · 16:45</div><div class="who">US (SW-I) — draft note sheet put up</div><div class="small">Draft v1 with Annexure-A cost abstract.</div></li>
-            <li class="ret"><div class="when">07.11.2026 · 12:10</div><div class="who">Director (SWD) — returned with remarks</div><div class="small">"Estimates to be firmed up against PWD SoR 2026; recalculate Annexure-B."</div></li>
-            <li><div class="when">09.11.2026 · 17:30</div><div class="who">US (SW-I) — revised draft resubmitted</div><div class="small">Draft v2; earlier versions and remarks retained on file.</div></li>
-            <li class="ok"><div class="when">21.11.2026 · 10:05</div><div class="who">Director (SWD) — under consideration</div><div class="small">Pending 5 days at this stage.</div></li>
-          </ul>
+      <div class="stats">
+        <div class="stat">
+          <div class="k">Open files</div>
+          <div class="v">46</div>
+          <div class="d">3 opened this week</div>
+        </div>
+        <div class="stat">
+          <div class="k">Pending with Director</div>
+          <div class="v">9</div>
+          <div class="d bad">2 beyond 10 days</div>
+        </div>
+        <div class="stat">
+          <div class="k">Returned for correction</div>
+          <div class="v">4</div>
+          <div class="d">revision drafts due</div>
+        </div>
+        <div class="stat">
+          <div class="k">Approved this month</div>
+          <div class="v">17</div>
+          <div class="d ok">Nov 2026</div>
+        </div>
+        <div class="stat">
+          <div class="k">Closed FY 2026-27</div>
+          <div class="v">218</div>
+          <div class="d">archived with full trail</div>
         </div>
       </div>
 
-      <div class="card">
-        <h3>Drafts, versions &amp; references</h3>
-        <ul class="list">
-          <li><div class="t">Draft v2 — office note <span class="pill ok">current</span></div><div class="small mono">09.11.2026 · US (SW-I)</div></li>
-          <li><div class="t">Draft v1 — office note <span class="pill idle">superseded</span></div><div class="small mono">03.11.2026 · US (SW-I)</div></li>
-          <li><div class="t">Annexure-B — revised cost estimates</div><div class="small mono">09.11.2026 · PWD SoR 2026 basis</div></li>
-          <li><div class="t">Reference — MoSJE/DoSJE/Ltr/2026/1187</div><div class="small mono">dt 02.11.2026 · incoming</div></li>
-          <li><div class="t">Reference — prior file SWD/EO/2025-26/0201</div><div class="small mono">hostel building norms</div></li>
-        </ul>
+      <div class="tabs">
+        <span class="tab on">In movement (28)</span><span class="tab">Received &amp; new (7)</span><span
+          class="tab">Returned (4)</span><span class="tab">Approved (12)</span><span class="tab">Closed (218)</span>
       </div>
 
-      <div class="card">
-        <h3>Actions on file</h3>
-        <div class="body" style="display:grid;gap:7px">
-          <button class="btn">Put up note sheet</button>
-          <button class="btn">Record remarks</button>
-          <button class="btn primary">Forward for approval</button>
-          <button class="btn">Return for correction</button>
+      <div class="grid2 mt0">
+        <div class="card notop">
+          <table>
+            <thead>
+              <tr>
+                <th>File No.</th>
+                <th>Subject and origin</th>
+                <th>Initiated by</th>
+                <th>Presently at</th>
+                <th>Since</th>
+                <th class="r">Days</th>
+                <th>Stage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">SWD/EO/2026-27/0143</td>
+                <td>Sanction of 12 new hostel buildings under PM-AJAY Component-II<br><span class="small">Origin: MoSJE
+                    letter dt 02.11.2026</span></td>
+                <td>US (SW-I)</td>
+                <td>Director (SWD)</td>
+                <td class="mono">21.11.2026</td>
+                <td class="num">5</td>
+                <td><span class="pill proc">In movement</span></td>
+              </tr>
+              <tr>
+                <td class="mono">SWD/EO/2026-27/0139</td>
+                <td>Revision of maintenance-grant ceiling for protective homes<br><span class="small">Origin:
+                    departmental requirement</span></td>
+                <td>SO (SW-II)</td>
+                <td>Principal Secretary</td>
+                <td class="mono">24.11.2026</td>
+                <td class="num">2</td>
+                <td><span class="pill proc">In movement</span></td>
+              </tr>
+              <tr>
+                <td class="mono">SWD/EO/2026-27/0136</td>
+                <td>ATR on CAG observation regarding NSAP pension disbursement delays<br><span class="small">Origin:
+                    Finance Dept. audit para 3.2</span></td>
+                <td>US (SW-I)</td>
+                <td>Director (SWD)</td>
+                <td class="mono">19.11.2026</td>
+                <td class="num">7</td>
+                <td><span class="pill proc">In movement</span></td>
+              </tr>
+              <tr>
+                <td class="mono">SWD/EO/2026-27/0131</td>
+                <td>Draft MOU with State Handloom Corp for supply of uniforms<br><span class="small">Origin: ministry
+                    instruction</span></td>
+                <td>SO (Adm.)</td>
+                <td>US (SW-I)</td>
+                <td class="mono">25.11.2026</td>
+                <td class="num">1</td>
+                <td><span class="pill bad">Returned</span></td>
+              </tr>
+              <tr>
+                <td class="mono">SWD/EO/2026-27/0128</td>
+                <td>Engagement of 40 data-entry operators on outsourcing basis<br><span class="small">Origin:
+                    establishment requirement</span></td>
+                <td>SO (Estt.)</td>
+                <td>Director (SWD)</td>
+                <td class="mono">17.11.2026</td>
+                <td class="num">9</td>
+                <td><span class="pill proc">In movement</span></td>
+              </tr>
+              <tr>
+                <td class="mono">SWD/EO/2026-27/0125</td>
+                <td>Quarterly progress note on hostels for submission to MoSJE<br><span class="small">Origin: ministry
+                    instruction</span></td>
+                <td>US (SW-II)</td>
+                <td>PS office</td>
+                <td class="mono">23.11.2026</td>
+                <td class="num">3</td>
+                <td><span class="pill ok">Approved</span></td>
+              </tr>
+              <tr>
+                <td class="mono">SWD/EO/2026-27/0122</td>
+                <td>Purchase proposal for furniture of 6 new Anganwadi-cum-hostels<br><span class="small">Origin:
+                    departmental requirement</span></td>
+                <td>SO (SW-I)</td>
+                <td>Director (SWD)</td>
+                <td class="mono">13.11.2026</td>
+                <td class="num">13</td>
+                <td><span class="pill warn">Delayed</span></td>
+              </tr>
+              <tr>
+                <td class="mono">SWD/EO/2026-27/0118</td>
+                <td>Nomination of nodal officers for PM-AJAY portal<br><span class="small">Origin: MoSJE OM dt
+                    28.10.2026</span></td>
+                <td>SO (SW-II)</td>
+                <td>—</td>
+                <td class="mono">10.11.2026</td>
+                <td class="num">—</td>
+                <td><span class="pill idle">Closed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <h3>Movement trail · <span class="mono">SWD/EO/2026-27/0143</span></h3>
+            <div class="body">
+              <ul class="trail">
+                <li>
+                  <div class="when">02.11.2026 · 11:20</div>
+                  <div class="who">CR Cell — received &amp; registered</div>
+                  <div class="small">Receipt MoSJE/DoSJE/Ltr/2026/1187 attached; file opened.</div>
+                </li>
+                <li>
+                  <div class="when">03.11.2026 · 16:45</div>
+                  <div class="who">US (SW-I) — draft note sheet put up</div>
+                  <div class="small">Draft v1 with Annexure-A cost abstract.</div>
+                </li>
+                <li class="ret">
+                  <div class="when">07.11.2026 · 12:10</div>
+                  <div class="who">Director (SWD) — returned with remarks</div>
+                  <div class="small">"Estimates to be firmed up against PWD SoR 2026; recalculate Annexure-B."</div>
+                </li>
+                <li>
+                  <div class="when">09.11.2026 · 17:30</div>
+                  <div class="who">US (SW-I) — revised draft resubmitted</div>
+                  <div class="small">Draft v2; earlier versions and remarks retained on file.</div>
+                </li>
+                <li class="ok">
+                  <div class="when">21.11.2026 · 10:05</div>
+                  <div class="who">Director (SWD) — under consideration</div>
+                  <div class="small">Pending 5 days at this stage.</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Drafts, versions &amp; references</h3>
+            <ul class="list">
+              <li>
+                <div class="t">Draft v2 — office note <span class="pill ok">current</span></div>
+                <div class="small mono">09.11.2026 · US (SW-I)</div>
+              </li>
+              <li>
+                <div class="t">Draft v1 — office note <span class="pill idle">superseded</span></div>
+                <div class="small mono">03.11.2026 · US (SW-I)</div>
+              </li>
+              <li>
+                <div class="t">Annexure-B — revised cost estimates</div>
+                <div class="small mono">09.11.2026 · PWD SoR 2026 basis</div>
+              </li>
+              <li>
+                <div class="t">Reference — MoSJE/DoSJE/Ltr/2026/1187</div>
+                <div class="small mono">dt 02.11.2026 · incoming</div>
+              </li>
+              <li>
+                <div class="t">Reference — prior file SWD/EO/2025-26/0201</div>
+                <div class="small mono">hostel building norms</div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Actions on file</h3>
+            <div class="body" style="display:grid;gap:7px">
+              <button class="btn">Put up note sheet</button>
+              <button class="btn">Record remarks</button>
+              <button class="btn primary">Forward for approval</button>
+              <button class="btn">Return for correction</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="foot"><span>SWD-MIS · Module 05 — e-Office &amp; File Management</span><span>Illustrative data · FY 2026-27</span></div>
-</main>
-</div>
+      <div class="foot"><span>SWD-MIS · Module 05 — e-Office &amp; File Management</span><span>Illustrative data · FY
+          2026-27</span></div>
+    </main>
+  </div>
 </body>
+
 </html>
 {% endblock %}

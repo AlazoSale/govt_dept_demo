@@ -14,13 +14,13 @@
 body{margin:0;background:var(--paper);color:var(--ink);font:13px/1.45 "Segoe UI",Arial,"Helvetica Neue",sans-serif}
 a{color:var(--blue)}
 .topline{height:4px;background:var(--blue2)}
-.masthead{background:var(--blue2);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 18px}
+.masthead{background:var(--blue2);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 18px;gap:10px}
 .mh-left{display:flex;gap:10px;align-items:center}
-.monogram{width:34px;height:34px;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.06em}
+.monogram{width:34px;height:34px;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.06em;flex:none}
 .dept{font-family:var(--serif);font-size:16px;line-height:1.1}
 .sys{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cfe1f5}
-.mh-right{display:flex;gap:8px;align-items:center;font-size:11.5px}
-.chip{border:1px solid #2f5f92;background:#0d3157;padding:3px 8px}
+.mh-right{display:flex;gap:8px;align-items:center;font-size:11.5px;flex-wrap:wrap}
+.chip{border:1px solid #2f5f92;background:#0d3157;padding:3px 8px;white-space:nowrap}
 .mono{font-family:var(--mono)}
 .user{display:flex;align-items:center;gap:7px}
 .avatar{width:24px;height:24px;border-radius:50%;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
@@ -33,40 +33,69 @@ a.nav.active{border-left-color:var(--blue2);background:var(--bluet);color:#0d3c6
 a.nav .n{font-family:var(--mono);font-size:10.5px;color:var(--mut);margin-right:7px}
 main{padding:16px 22px 34px;min-width:0}
 .crumb{font-size:11px;color:var(--mut);margin-bottom:8px}
-.pagehead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
+main .pagehead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:12px}
 h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0 0 2px}
 .sub{font-size:12px;color:var(--mut)}
-.acts{display:flex;gap:8px;white-space:nowrap}
-.btn{font:inherit;font-size:12px;padding:6px 12px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font:inherit;font-size:12px;padding:6px 12px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer;border-radius:2px}
+.btn:hover{background:#f2f6fa}
 .btn.primary{background:var(--blue);border-color:var(--blue2);color:#fff}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.stat{background:#fff;padding:9px 12px 10px}
-.stat .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
-.stat .v{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.2}
-.stat .d{font-size:11px;color:var(--mut)}
-.stat .d.bad{color:var(--red)} .stat .d.ok{color:var(--green)}
-.grid2{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;margin-top:16px}
-.stack{display:grid;gap:16px;min-width:0}
-.card{background:#fff;border:1px solid var(--line);overflow-x:auto;min-width:0}
-.card>h3{margin:0;padding:8px 12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#1c2733;background:#f7f9fb;border-bottom:1px solid var(--line);font-weight:700}
+.btn.primary:hover{background:var(--blue2)}
+
+/* Filter & Section Controls */
+.fbar{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:#fff;border:1px solid var(--line);padding:10px 12px;margin-bottom:14px}
+.fgrp{display:flex;flex-direction:column;gap:3px;min-width:140px;flex:1 1 150px}
+.fgrp label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700}
+.fgrp select{font:inherit;font-size:12px;padding:5px 8px;border:1px solid var(--line2);background:#fbfcfd;color:var(--ink);border-radius:2px;width:100%}
+.fbar .fmeta{margin-left:auto;font-size:11px;color:var(--mut);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sechead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.sechead h2{margin:0;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue2);font-weight:700}
+.sechead span{font-size:11px;color:var(--mut)}
+
+/* KPI Strip */
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.kpi{background:#fff;padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.kpi .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--mut)}
+.kpi .row{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.kpi .v{font-family:var(--serif);font-size:20px;font-weight:700;line-height:1.15}
+.kpi .d{font-size:11px;color:var(--mut)}
+.kpi .d.ok{color:var(--green)} .kpi .d.bad{color:var(--red)} .kpi .d.warn{color:var(--amber)}
+.spark{width:68px;height:22px;flex:none}
+
+/* Responsive Grids & Cards */
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+.g21{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:14px;margin-top:14px}
+.g12{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:14px;margin-top:14px}
+.stack{display:grid;gap:14px;min-width:0}
+.card{background:#fff;border:1px solid var(--line);min-width:0;display:flex;flex-direction:column}
+.card>header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;background:#f7f9fb;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.card>header h3{margin:0;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink);font-weight:700}
+.card>header .hint{font-size:11px;color:var(--mut)}
+.card>h3{margin:0;padding:8px 12px;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink);background:#f7f9fb;border-bottom:1px solid var(--line);font-weight:700}
 .body{padding:12px}
-table{width:100%;border-collapse:collapse;font-size:12.3px}
-thead th{background:#fafbfc;text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5c6b7a;border-bottom:1px solid var(--line);padding:7px 10px;font-weight:700}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
+
+/* Tables, Bars & Badges */
+table{width:100%;border-collapse:collapse;font-size:12.2px}
+thead th{background:#fafbfc;text-align:left;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#5c6b7a;border-bottom:1px solid var(--line);padding:7px 10px;font-weight:700;white-space:nowrap}
 thead th.r{text-align:right}
-tbody td{border-bottom:1px solid #e6eaee;padding:7px 10px;vertical-align:top}
+tbody td{border-bottom:1px solid #e6eaee;padding:7px 10px;vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:nth-child(even){background:#f7f9fb}
-td.num{text-align:right;font-family:var(--mono)}
+tbody tr:hover{background:#eef4fa}
+td.num{text-align:right;font-family:var(--mono);white-space:nowrap}
 .small{font-size:11px;color:var(--mut)}
-.pill{display:inline-block;padding:1px 7px 2px;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid;border-radius:2px;white-space:nowrap}
+.pill{display:inline-block;padding:1px 7px 2px;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid;border-radius:2px;white-space:nowrap}
 .pill.proc{color:var(--blue);border-color:#a6c6e4;background:#eef4fa}
 .pill.ok{color:var(--green);border-color:#a9cdb4;background:var(--greent)}
 .pill.warn{color:var(--amber);border-color:#dcc08a;background:var(--ambert)}
 .pill.bad{color:var(--red);border-color:#e0a9a5;background:var(--redt)}
 .pill.idle{color:#5c6b7a;border-color:#c4ccd4;background:#f2f4f6}
-.bar{height:7px;background:#e6eaee;border:1px solid var(--line);min-width:70px}
+.bar{height:7px;background:#e6eaee;border:1px solid var(--line);min-width:64px;position:relative}
 .bar>i{display:block;height:100%;background:var(--blue)}
 .bar.g>i{background:var(--green)} .bar.a>i{background:#c08a2e} .bar.r>i{background:var(--red)}
+.bar .tick{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
 .cellbar{display:flex;align-items:center;gap:8px}
 .cellbar .bar{width:84px;flex:none}
 .list{list-style:none;margin:0;padding:0}
@@ -75,16 +104,82 @@ td.num{text-align:right;font-family:var(--mono)}
 .list .t{font-weight:600}
 .qb{padding:8px 12px;border-bottom:1px solid var(--line)}
 .qb:last-child{border:none}
-.qb .lbl{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px}
+.qb .lbl{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px;gap:8px}
 .qb .bar{margin-top:3px}
-.legend{display:flex;gap:14px;font-size:11px;color:var(--mut);padding:8px 12px;border-bottom:1px solid var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--mut);padding:8px 12px;border-bottom:1px solid var(--line)}
 .sw{display:inline-block;width:9px;height:9px;border:1px solid var(--line2);margin-right:5px;vertical-align:-1px}
-.sw.b{background:var(--blue)} .sw.g{background:var(--green)} .sw.r{background:var(--redt)} .sw.a{background:var(--ambert)}
-td.hg{background:var(--greent)} td.hr{background:var(--redt)} td.ha{background:var(--ambert)}
-.foot{margin-top:26px;border-top:1px solid var(--line2);padding-top:8px;display:flex;justify-content:space-between;font-size:11px;color:var(--mut)}
-@media(max-width:1024px){.grid2{grid-template-columns:1fr}}
-@media(max-width:900px){.masthead,.pagehead,.foot,.legend{flex-wrap:wrap;gap:8px}.shell{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:6px 12px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}.navlabel{width:100%;padding:4px 4px 2px}a.nav{border-left:0;border-bottom:2px solid transparent;padding:5px 8px}a.nav.active{border-left-color:transparent;border-bottom-color:var(--blue2)}.stats{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}}
-@media(max-width:600px){main{padding:12px}.acts{flex-wrap:wrap}}
+.sw.b{background:var(--blue)} .sw.b2{background:var(--blue2)} .sw.g{background:var(--green)} .sw.r{background:var(--red)} .sw.rt{background:var(--redt)} .sw.a{background:#c08a2e} .sw.at{background:var(--ambert)} .sw.m{background:#93a0ad}
+td.hg{background:var(--greent);color:var(--green);font-weight:600} td.hr{background:var(--redt);color:var(--red);font-weight:600} td.ha{background:var(--ambert);color:var(--amber);font-weight:600}
+
+/* Charts & Visual Analytics */
+svg.viz{width:100%;height:auto;display:block}
+.donut-wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+.donut-svg{width:164px;height:164px;flex:none}
+.donut-leg{flex:1 1 180px;display:grid;gap:6px;min-width:0}
+.dl-row{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11.8px;padding-bottom:5px;border-bottom:1px solid #eef1f4}
+.dl-row:last-child{border-bottom:0;padding-bottom:0}
+.dl-name{display:flex;align-items:center;gap:6px;min-width:0}
+.dl-dot{width:9px;height:9px;border-radius:1px;flex:none}
+
+/* Funnel */
+.funnel{display:grid;gap:8px}
+.fn-step{display:grid;grid-template-columns:138px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:11.8px}
+.fn-track{height:22px;background:#eef1f4;border:1px solid var(--line);position:relative;overflow:hidden}
+.fn-fill{height:100%;background:var(--blue);display:flex;align-items:center;padding-left:7px;color:#fff;font-size:10.5px;font-weight:600;white-space:nowrap}
+.fn-val{text-align:right;font-family:var(--mono);font-size:11.5px}
+
+/* Bullet Variance Rows */
+.bullets{display:grid;gap:10px}
+.bl-row{display:grid;gap:4px}
+.bl-top{display:flex;justify-content:space-between;font-size:11.5px;gap:8px}
+.bl-track{height:14px;background:#eef1f4;border:1px solid var(--line);position:relative}
+.bl-band{position:absolute;inset:0;background:linear-gradient(90deg,#fbeeec 0 60%,#fbf4e6 60% 80%,#eef6f0 80% 100%);opacity:.75}
+.bl-bar{position:relative;height:8px;margin-top:2px;background:var(--blue2)}
+.bl-tgt{position:absolute;top:-1px;bottom:-1px;width:2px;background:var(--red)}
+
+/* Aging & Forecast Gauges */
+.segbar{display:flex;height:14px;border:1px solid var(--line);overflow:hidden;margin:6px 0 10px}
+.segbar>span{display:block;height:100%}
+.gauges{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.gauge{background:#fbfcfd;border:1px solid var(--line);padding:10px;text-align:center}
+.gauge svg{width:110px;max-width:100%;height:auto;margin:0 auto 4px;display:block}
+.gauge .gt{font-size:11px;font-weight:700;color:var(--ink)}
+.gauge .gs{font-size:10.5px;color:var(--mut)}
+
+/* Interactive Tooltip & Tabs */
+.tip{position:fixed;z-index:99;pointer-events:none;background:#1c2733;color:#fff;padding:6px 9px;border-radius:2px;font-size:11px;line-height:1.35;box-shadow:0 4px 12px rgba(0,0,0,.2);opacity:0;transition:opacity .12s;max-width:240px}
+.tip.on{opacity:1}
+.vtabs{display:flex;gap:4px;flex-wrap:wrap}
+.vtab{font:inherit;font-size:10.5px;padding:3px 8px;border:1px solid var(--line2);background:#fff;color:var(--mut);cursor:pointer;border-radius:2px}
+.vtab.on{background:var(--blue2);border-color:var(--blue2);color:#fff;font-weight:600}
+[data-tip]{cursor:pointer}
+
+.foot{margin-top:26px;border-top:1px solid var(--line2);padding-top:8px;display:flex;justify-content:space-between;font-size:11px;color:var(--mut);flex-wrap:wrap;gap:8px}
+
+/* Responsive Breakpoints */
+@media(max-width:1240px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1080px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.gauges{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:960px){
+  .shell{grid-template-columns:1fr}
+  aside{border-right:0;border-bottom:1px solid var(--line);padding:6px 12px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+  .navlabel{width:100%;padding:4px 4px 2px}
+  a.nav{border-left:0;border-bottom:2px solid transparent;padding:5px 8px}
+  a.nav.active{border-left-color:transparent;border-bottom-color:var(--blue2)}
+  .g2,.g21,.g12{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .masthead,.pagehead{flex-wrap:wrap}
+  .g3{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fn-step{grid-template-columns:1fr;gap:3px}
+  .fn-val{text-align:left}
+}
+@media(max-width:460px){
+  main{padding:12px}
+  .kpis,.gauges{grid-template-columns:1fr}
+  .acts{width:100%}
+  .acts .btn{flex:1 1 auto;text-align:center}
+}
 </style>
 </head>
 <body>
@@ -106,106 +201,663 @@ td.hg{background:var(--greent)} td.hr{background:var(--redt)} td.ha{background:v
 
 <div class="shell">
 <aside>
-  <!-- point 01-04 to the URLs of your existing pages 1-4 -->
   <div class="navlabel">Department MIS</div>
-  <a class="nav" href="#"><span class="n">01</span>Console Home</a>
-  <a class="nav" href="#"><span class="n">02</span>Schemes &amp; Missions</a>
-  <a class="nav" href="#"><span class="n">03</span>Beneficiary Records</a>
-  <a class="nav" href="#"><span class="n">04</span>Establishment</a>
+  <a class="nav" href="/"><span class="n">01</span>Console Home</a>
+  <a class="nav" href="/schemes/"><span class="n">02</span>Schemes &amp; Missions</a>
+  <a class="nav" href="/data/"><span class="n">03</span>Beneficiary Records</a>
+  <a class="nav" href="/documents/"><span class="n">04</span>Record Room</a>
   <div class="navlabel">Administration</div>
   <a class="nav" href="/e-office/"><span class="n">05</span>e-Office Files</a>
   <a class="nav" href="/correspondence/"><span class="n">06</span>Correspondence</a>
   <a class="nav" href="/reports-atr/"><span class="n">07</span>Reports &amp; ATRs</a>
   <a class="nav active" href="/monitoring/"><span class="n">08</span>Monitoring &amp; Eval.</a>
+  <div class="navlabel">Governance</div>
+  <a class="nav" href="/users-roles/"><span class="n">09</span>Users &amp; Roles</a>
+  <a class="nav" href="/notifications/"><span class="n">10</span>Notifications</a>
+  <a class="nav" href="/data-sharing/"><span class="n">11</span>Data Sharing</a>
+  <a class="nav" href="/security-audit/"><span class="n">12</span>Security &amp; Audit</a>
 </aside>
 
 <main>
-  <div class="crumb">MIS / Administration / <strong>Monitoring &amp; Evaluation</strong></div>
+  <div class="crumb">MIS / Administration / <strong>Monitoring &amp; Evaluation Analytics</strong></div>
   <div class="pagehead">
     <div>
-      <h1>Monitoring &amp; Evaluation — Scheme Performance</h1>
-      <div class="sub">Module 08 · Indicator-wise targets against achievement, utilisation, district comparison and field verification records.</div>
+      <h1>Monitoring &amp; Evaluation — Departmental Analytics Console</h1>
+      <div class="sub">Module 08 · Multi-dimensional performance intelligence across physical targets, financial utilisation, DBT pipelines, district equity, inspections &amp; year-end forecasts.</div>
     </div>
-    <div class="acts"><button class="btn">Review meeting minutes</button><button class="btn primary">Record inspection</button></div>
+    <div class="acts">
+      <button class="btn" onclick="window.print()">Print analytics brief</button>
+      <button class="btn primary" id="resetBtn">Reset filters</button>
+    </div>
   </div>
 
-  <div class="stats">
-    <div class="stat"><div class="k">Schemes tracked</div><div class="v">14</div><div class="d">across 3 ministries</div></div>
-    <div class="stat"><div class="k">Indicators defined</div><div class="v">62</div><div class="d">physical + financial</div></div>
-    <div class="stat"><div class="k">On track</div><div class="v">9</div><div class="d ok">as on 26.11.2026</div></div>
-    <div class="stat"><div class="k">Delayed / gap</div><div class="v">5</div><div class="d bad">2 need Director review</div></div>
-    <div class="stat"><div class="k">Inspections FY</div><div class="v">47</div><div class="d">field + desk</div></div>
+  <!-- ANALYTICS CONTROL BAR -->
+  <section class="fbar" aria-label="Analytics filters">
+    <div class="fgrp">
+      <label for="fFy">Financial Year</label>
+      <select id="fFy">
+        <option value="2026-27" selected>FY 2026-27 (to 26 Nov)</option>
+        <option value="2025-26">FY 2025-26 (Full Year)</option>
+        <option value="2024-25">FY 2024-25 (Full Year)</option>
+      </select>
+    </div>
+    <div class="fgrp">
+      <label for="fMin">Nodal Ministry</label>
+      <select id="fMin">
+        <option value="all" selected>All Ministries (14 schemes)</option>
+        <option value="MoSJE">MoSJE (Social Justice)</option>
+        <option value="MoWCD">MoWCD (Women &amp; Child)</option>
+        <option value="MoRD">MoRD (NSAP / Rural)</option>
+      </select>
+    </div>
+    <div class="fgrp">
+      <label for="fTier">District Cluster</label>
+      <select id="fTier">
+        <option value="all" selected>All 34 Districts</option>
+        <option value="high">High Performing (≥88%)</option>
+        <option value="watch">Watchlist (75–87%)</option>
+        <option value="crit">Priority Gap (&lt;75%)</option>
+      </select>
+    </div>
+    <div class="fgrp">
+      <label for="fQuarter">Reporting Window</label>
+      <select id="fQuarter">
+        <option value="ytd" selected>YTD (Apr–Nov 2026)</option>
+        <option value="q1">Q1 (Apr–Jun 2026)</option>
+        <option value="q2">Q2 (Jul–Sep 2026)</option>
+        <option value="q3">Q3 (Oct–Nov 2026)</option>
+      </select>
+    </div>
+    <div class="fmeta">
+      <span class="pill proc" id="scopePill">Scope: All Ministries · 34 Districts</span>
+      <span id="lastSync">Synced 26.11.2026 10:42</span>
+    </div>
+  </section>
+
+  <!-- 1. EXECUTIVE KPI RIBBON WITH SPARKLINES -->
+  <div class="kpis" id="kpiStrip">
+    <div class="kpi">
+      <div class="k">Composite Attainment</div>
+      <div class="row"><div class="v" id="kAtt">84.6%</div><svg class="spark" viewBox="0 0 68 22"><polyline fill="none" stroke="#1e7a3c" stroke-width="1.8" points="2,18 13,15 24,14 35,11 46,9 57,6 66,4"/></svg></div>
+      <div class="d ok">+4.2 pp vs FY 25-26</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Fund Utilisation</div>
+      <div class="row"><div class="v" id="kUtil">79.5%</div><svg class="spark" viewBox="0 0 68 22"><polyline fill="none" stroke="#1559a7" stroke-width="1.8" points="2,19 13,17 24,14 35,12 46,10 57,8 66,7"/></svg></div>
+      <div class="d">₹323.4 / ₹407.0 Cr</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Active Beneficiaries</div>
+      <div class="row"><div class="v" id="kBen">6.05 L</div><svg class="spark" viewBox="0 0 68 22"><polyline fill="none" stroke="#123f6d" stroke-width="1.8" points="2,17 13,16 24,12 35,10 46,8 57,5 66,3"/></svg></div>
+      <div class="d ok">94.8% of annual target</div>
+    </div>
+    <div class="kpi">
+      <div class="k">DBT Success Rate</div>
+      <div class="row"><div class="v" id="kDbt">96.7%</div><svg class="spark" viewBox="0 0 68 22"><polyline fill="none" stroke="#1e7a3c" stroke-width="1.8" points="2,13 13,11 24,10 35,9 46,6 57,5 66,4"/></svg></div>
+      <div class="d warn">3.3% PFMS rejects</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Schemes On Track</div>
+      <div class="row"><div class="v" id="kSch">9 / 14</div><svg class="spark" viewBox="0 0 68 22"><polyline fill="none" stroke="#9a6700" stroke-width="1.8" points="2,10 13,10 24,12 35,8 46,8 57,10 66,9"/></svg></div>
+      <div class="d bad">5 delayed / gap flagged</div>
+    </div>
+    <div class="kpi">
+      <div class="k">Field Inspections</div>
+      <div class="row"><div class="v" id="kIns">47</div><svg class="spark" viewBox="0 0 68 22"><polyline fill="none" stroke="#1559a7" stroke-width="1.8" points="2,18 13,16 24,15 35,12 46,11 57,7 66,5"/></svg></div>
+      <div class="d">198 obs · 84% resolved</div>
+    </div>
   </div>
 
-  <div class="card" style="margin-top:16px">
-    <h3>Physical &amp; financial progress — FY 2026-27 (to 26.11.2026)</h3>
-    <table>
-      <thead><tr><th>Scheme / programme</th><th>Indicator</th><th class="r">Target</th><th class="r">Achieved</th><th>Attainment</th><th class="r">Utilisation</th><th class="r">Districts</th><th>Flag</th></tr></thead>
-      <tbody>
-        <tr><td>NSAP (old age, widow, disability pension)</td><td>Beneficiaries sanctioned</td><td class="num">4,12,000</td><td class="num">3,98,440</td><td><div class="cellbar"><div class="bar g"><i style="width:97%"></i></div><span class="mono">96.7</span></div></td><td class="num">91.2%</td><td class="num">34/34</td><td><span class="pill ok">On track</span></td></tr>
-        <tr><td>PM-AJAY Component-I (hostels)</td><td>Beds created</td><td class="num">6,500</td><td class="num">4,870</td><td><div class="cellbar"><div class="bar a"><i style="width:75%"></i></div><span class="mono">74.9</span></div></td><td class="num">58.4%</td><td class="num">21/34</td><td><span class="pill warn">Delayed (works)</span></td></tr>
-        <tr><td>Post-Matric Scholarship</td><td>Students paid</td><td class="num">1,85,000</td><td class="num">1,49,300</td><td><div class="cellbar"><div class="bar g"><i style="width:81%"></i></div><span class="mono">80.7</span></div></td><td class="num">77.0%</td><td class="num">34/34</td><td><span class="pill ok">On track</span></td></tr>
-        <tr><td>Saksham Anganwadi Phase-II</td><td>AWCs upgraded</td><td class="num">480</td><td class="num">402</td><td><div class="cellbar"><div class="bar g"><i style="width:84%"></i></div><span class="mono">83.8</span></div></td><td class="num">69.5%</td><td class="num">28/34</td><td><span class="pill ok">On track</span></td></tr>
-        <tr><td>ADIP (aids &amp; appliances)</td><td>Camps held</td><td class="num">96</td><td class="num">61</td><td><div class="cellbar"><div class="bar r"><i style="width:64%"></i></div><span class="mono">63.5</span></div></td><td class="num">66.1%</td><td class="num">19/34</td><td><span class="pill bad">Gap identified</span></td></tr>
-        <tr><td>Condensed Course of Education (women)</td><td>Enrolments</td><td class="num">2,400</td><td class="num">2,215</td><td><div class="cellbar"><div class="bar g"><i style="width:92%"></i></div><span class="mono">92.3</span></div></td><td class="num">84.0%</td><td class="num">30/34</td><td><span class="pill ok">On track</span></td></tr>
-      </tbody>
-    </table>
+  <!-- 2. TIME-SERIES TRAJECTORY & MINISTRY COMPOSITION -->
+  <div class="sechead">
+    <h2>01 · Time-Series Trajectory &amp; Financial Composition</h2>
+    <span>Hover or tap chart points for monthly metrics</span>
+  </div>
+  <div class="g21">
+    <section class="card">
+      <header>
+        <h3>Monthly Attainment vs Fund Utilisation Trajectory (Apr–Nov 2026)</h3>
+        <div class="vtabs" id="trendTabs">
+          <button class="vtab on" data-mode="pct">% Progress</button>
+          <button class="vtab" data-mode="cr">₹ Crore Flow</button>
+        </div>
+      </header>
+      <div class="legend">
+        <span><span class="sw b2"></span>Physical Attainment</span>
+        <span><span class="sw g"></span>Financial Utilisation</span>
+        <span><span class="sw m"></span>Planned Benchmark</span>
+      </div>
+      <div class="body">
+        <svg id="trendSvg" class="viz" viewBox="0 0 620 220" role="img" aria-label="Monthly progress trend chart"></svg>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h3>Allocation &amp; Spend by Ministry</h3>
+        <span class="hint">Total ₹407.0 Cr released</span>
+      </header>
+      <div class="body">
+        <div class="donut-wrap">
+          <svg class="donut-svg" viewBox="0 0 160 160" role="img" aria-label="Ministry allocation share donut">
+            <circle cx="80" cy="80" r="56" fill="none" stroke="#eef1f4" stroke-width="22"/>
+            <!-- Circumference = 2*pi*56 = 351.86 -->
+            <circle cx="80" cy="80" r="56" fill="none" stroke="#123f6d" stroke-width="22" stroke-dasharray="154.8 351.86" transform="rotate(-90 80 80)" data-tip="MoRD (NSAP): ₹179.1 Cr (44%) · 91.2% utilised"/>
+            <circle cx="80" cy="80" r="56" fill="none" stroke="#1559a7" stroke-width="22" stroke-dasharray="116.1 351.86" stroke-dashoffset="-154.8" transform="rotate(-90 80 80)" data-tip="MoSJE (Hostels, PMS, ADIP): ₹134.3 Cr (33%) · 72.4% utilised"/>
+            <circle cx="80" cy="80" r="56" fill="none" stroke="#1e7a3c" stroke-width="22" stroke-dasharray="56.3 351.86" stroke-dashoffset="-270.9" transform="rotate(-90 80 80)" data-tip="MoWCD (Anganwadi, Nutrition): ₹65.1 Cr (16%) · 76.8% utilised"/>
+            <circle cx="80" cy="80" r="56" fill="none" stroke="#c08a2e" stroke-width="22" stroke-dasharray="24.6 351.86" stroke-dashoffset="-327.2" transform="rotate(-90 80 80)" data-tip="State Plan Top-up: ₹28.5 Cr (7%) · 84.0% utilised"/>
+            <text x="80" y="75" text-anchor="middle" font-size="18" font-weight="700" fill="#1c2733" font-family="Georgia,serif">₹407 Cr</text>
+            <text x="80" y="92" text-anchor="middle" font-size="9.5" fill="#68757f" letter-spacing=".8">RELEASED YTD</text>
+          </svg>
+          <div class="donut-leg">
+            <div class="dl-row"><span class="dl-name"><span class="dl-dot" style="background:#123f6d"></span>MoRD · NSAP</span><span class="mono">44% · ₹179.1 Cr</span></div>
+            <div class="dl-row"><span class="dl-name"><span class="dl-dot" style="background:#1559a7"></span>MoSJE · Welfare</span><span class="mono">33% · ₹134.3 Cr</span></div>
+            <div class="dl-row"><span class="dl-name"><span class="dl-dot" style="background:#1e7a3c"></span>MoWCD · ICDS</span><span class="mono">16% · ₹65.1 Cr</span></div>
+            <div class="dl-row"><span class="dl-name"><span class="dl-dot" style="background:#c08a2e"></span>State Plan</span><span class="mono">7% · ₹28.5 Cr</span></div>
+          </div>
+        </div>
+        <div class="qb" style="padding:10px 0 0;border-top:1px solid var(--line);margin-top:12px">
+          <div class="lbl"><span>Central Share vs State Matching Share</span><span class="mono">₹264.6 Cr / ₹142.4 Cr</span></div>
+          <div class="segbar">
+            <span style="width:65%;background:#123f6d" data-tip="Central Share Released: ₹264.6 Cr (65%)"></span>
+            <span style="width:35%;background:#1559a7" data-tip="State Matching Share: ₹142.4 Cr (35%)"></span>
+          </div>
+          <div class="small">100% of Q1–Q2 state matching share released; 22 UCs pending audit counter-sign.</div>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <div class="grid2">
-    <div class="card">
-      <h3>District-wise attainment snapshot (excerpt — 6 of 34 districts)</h3>
-      <div class="legend"><span><span class="sw g"></span>90 and above</span><span><span class="sw"></span>75 to 89</span><span><span class="sw r"></span>below 75</span><span><span class="sw a"></span>inspections pending 2+</span></div>
-      <table>
-        <thead><tr><th>District</th><th class="r">NSAP coverage</th><th class="r">PMS payments</th><th class="r">Hostel occupancy</th><th class="r">AWC upgrades</th><th class="r">Inspections pending</th></tr></thead>
+  <!-- 3. BUDGET WATERFALL, TARGET VARIANCE BULLETS & DBT FUNNEL -->
+  <div class="sechead">
+    <h2>02 · Budget Waterfall, Variance &amp; Beneficiary Delivery Funnel</h2>
+    <span>Fund flow leakage &amp; DBT processing conversion</span>
+  </div>
+  <div class="g3">
+    <section class="card">
+      <header>
+        <h3>Fund Flow Waterfall (₹ Cr)</h3>
+        <span class="hint">Sanction to UC</span>
+      </header>
+      <div class="body">
+        <svg class="viz" viewBox="0 0 360 205" role="img" aria-label="Budget waterfall chart">
+          <line x1="34" y1="20" x2="345" y2="20" stroke="#eef1f4"/><text x="28" y="24" text-anchor="end" font-size="9" fill="#68757f">480</text>
+          <line x1="34" y1="60" x2="345" y2="60" stroke="#eef1f4"/><text x="28" y="64" text-anchor="end" font-size="9" fill="#68757f">360</text>
+          <line x1="34" y1="100" x2="345" y2="100" stroke="#eef1f4"/><text x="28" y="104" text-anchor="end" font-size="9" fill="#68757f">240</text>
+          <line x1="34" y1="140" x2="345" y2="140" stroke="#eef1f4"/><text x="28" y="144" text-anchor="end" font-size="9" fill="#68757f">120</text>
+          <line x1="34" y1="175" x2="345" y2="175" stroke="#b9c4cf"/>
+          <!-- Scale: 175 = 0, 20 = 480 => 0.3229 px/Cr -->
+          <rect x="44" y="26" width="38" height="149" fill="#123f6d" data-tip="Annual Allocation: ₹461.4 Cr"/><text x="63" y="21" text-anchor="middle" font-size="9" font-weight="700" fill="#1c2733">461.4</text>
+          <rect x="96" y="26" width="38" height="17.5" fill="#b3261e" data-tip="Q4 Tranche Pending: -₹54.4 Cr"/><text x="115" y="54" text-anchor="middle" font-size="9" fill="#b3261e">-54.4</text>
+          <rect x="148" y="43.5" width="38" height="131.5" fill="#1559a7" data-tip="Released YTD: ₹407.0 Cr"/><text x="167" y="39" text-anchor="middle" font-size="9" font-weight="700" fill="#1c2733">407.0</text>
+          <rect x="200" y="43.5" width="38" height="27" fill="#c08a2e" data-tip="Unspent with DWOs: -₹83.6 Cr"/><text x="219" y="81" text-anchor="middle" font-size="9" fill="#9a6700">-83.6</text>
+          <rect x="252" y="70.5" width="38" height="104.5" fill="#1e7a3c" data-tip="Utilised YTD: ₹323.4 Cr"/><text x="271" y="66" text-anchor="middle" font-size="9" font-weight="700" fill="#1e7a3c">323.4</text>
+          <rect x="304" y="89" width="38" height="86" fill="#4f7c9f" data-tip="UC Certified: ₹266.2 Cr (82.3% of spend)"/><text x="323" y="84" text-anchor="middle" font-size="9" font-weight="700" fill="#1c2733">266.2</text>
+          <g font-size="8.8" fill="#5c6b7a" text-anchor="middle">
+            <text x="63" y="190">Budget</text><text x="115" y="190">Q4 Hold</text><text x="167" y="190">Released</text><text x="219" y="190">Balance</text><text x="271" y="190">Utilised</text><text x="323" y="190">UC Filed</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h3>Target vs Attainment Variance</h3>
+        <span class="hint">Red line = YTD benchmark (85%)</span>
+      </header>
+      <div class="body bullets">
+        <div class="bl-row" data-tip="NSAP: 96.7% attained (+11.7 pp above YTD benchmark)">
+          <div class="bl-top"><span>NSAP Pensions</span><span class="mono" style="color:var(--green)">96.7% (+11.7)</span></div>
+          <div class="bl-track"><div class="bl-band"></div><div class="bl-bar" style="width:96.7%;background:var(--green)"></div><div class="bl-tgt" style="left:85%"></div></div>
+        </div>
+        <div class="bl-row" data-tip="Condensed Course: 92.3% attained (+7.3 pp)">
+          <div class="bl-top"><span>Women's Education</span><span class="mono" style="color:var(--green)">92.3% (+7.3)</span></div>
+          <div class="bl-track"><div class="bl-band"></div><div class="bl-bar" style="width:92.3%;background:var(--green)"></div><div class="bl-tgt" style="left:85%"></div></div>
+        </div>
+        <div class="bl-row" data-tip="Saksham Anganwadi: 83.8% attained (-1.2 pp)">
+          <div class="bl-top"><span>Saksham Anganwadi</span><span class="mono">83.8% (-1.2)</span></div>
+          <div class="bl-track"><div class="bl-band"></div><div class="bl-bar" style="width:83.8%"></div><div class="bl-tgt" style="left:85%"></div></div>
+        </div>
+        <div class="bl-row" data-tip="Post-Matric Scholarship: 80.7% attained (-4.3 pp)">
+          <div class="bl-top"><span>Post-Matric Schol.</span><span class="mono">80.7% (-4.3)</span></div>
+          <div class="bl-track"><div class="bl-band"></div><div class="bl-bar" style="width:80.7%"></div><div class="bl-tgt" style="left:85%"></div></div>
+        </div>
+        <div class="bl-row" data-tip="PM-AJAY Hostels: 74.9% attained (-10.1 pp)">
+          <div class="bl-top"><span>PM-AJAY Hostels</span><span class="mono" style="color:var(--amber)">74.9% (-10.1)</span></div>
+          <div class="bl-track"><div class="bl-band"></div><div class="bl-bar" style="width:74.9%;background:#c08a2e"></div><div class="bl-tgt" style="left:85%"></div></div>
+        </div>
+        <div class="bl-row" data-tip="ADIP Camps: 63.5% attained (-21.5 pp critical gap)">
+          <div class="bl-top"><span>ADIP Appliance Camps</span><span class="mono" style="color:var(--red)">63.5% (-21.5)</span></div>
+          <div class="bl-track"><div class="bl-band"></div><div class="bl-bar" style="width:63.5%;background:var(--red)"></div><div class="bl-tgt" style="left:85%"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h3>Beneficiary &amp; DBT Pipeline</h3>
+        <span class="hint">End-to-end conversion</span>
+      </header>
+      <div class="body funnel">
+        <div class="fn-step"><span>Applications Recd.</span><div class="fn-track"><div class="fn-fill" style="width:100%;background:#123f6d">100%</div></div><span class="fn-val">4,62,800</span></div>
+        <div class="fn-step"><span>Eligibility Verified</span><div class="fn-track"><div class="fn-fill" style="width:94.7%;background:#1559a7">94.7%</div></div><span class="fn-val">4,38,150</span></div>
+        <div class="fn-step"><span>Sanctioned by BDO</span><div class="fn-track"><div class="fn-fill" style="width:89.0%;background:#266bb8">89.0%</div></div><span class="fn-val">4,12,000</span></div>
+        <div class="fn-step"><span>PFMS / Bank Seeded</span><div class="fn-track"><div class="fn-fill" style="width:87.5%;background:#257c58">87.5%</div></div><span class="fn-val">4,04,900</span></div>
+        <div class="fn-step"><span>DBT Disbursed</span><div class="fn-track"><div class="fn-fill" style="width:86.1%;background:#1e7a3c">86.1%</div></div><span class="fn-val">3,98,440</span></div>
+        <div style="border-top:1px solid var(--line);padding-top:8px;margin-top:4px;font-size:11px;color:var(--mut)">
+          <strong>Drop-off causes (13,560):</strong> Aadhaar mismatch (46%) · Dormant bank a/c (31%) · Duplicate flag (14%) · Pending KYC (9%)
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 4. GEOSPATIAL EQUITY QUADRANT & 5-AXIS RADAR -->
+  <div class="sechead">
+    <h2>03 · District Equity Matrix &amp; Multi-Axis Health Radar</h2>
+    <span>Dispersion across 34 districts &amp; composite benchmark</span>
+  </div>
+  <div class="g2">
+    <section class="card">
+      <header>
+        <h3>District Quadrant: Financial Utilisation vs Physical Attainment</h3>
+        <span class="hint">Bubble size = beneficiaries</span>
+      </header>
+      <div class="legend">
+        <span><span class="sw g"></span>Leaders (≥85% both)</span>
+        <span><span class="sw b"></span>Efficient / Low Spend</span>
+        <span><span class="sw a"></span>High Spend / Lagging</span>
+        <span><span class="sw r"></span>Priority Intervention</span>
+      </div>
+      <div class="body">
+        <svg class="viz" viewBox="0 0 540 250" role="img" aria-label="District performance quadrant scatter plot">
+          <!-- Quadrant backgrounds: split at X=290 (75% util), Y=120 (82% att) -->
+          <rect x="46" y="14" width="244" height="106" fill="#eef4fa" opacity=".6"/>
+          <rect x="290" y="14" width="234" height="106" fill="#eef6f0" opacity=".8"/>
+          <rect x="46" y="120" width="244" height="100" fill="#fbeeec" opacity=".65"/>
+          <rect x="290" y="120" width="234" height="100" fill="#fbf4e6" opacity=".75"/>
+          <!-- Axes & Crosshair -->
+          <line x1="46" y1="220" x2="524" y2="220" stroke="#8a97a0"/>
+          <line x1="46" y1="14" x2="46" y2="220" stroke="#8a97a0"/>
+          <line x1="290" y1="14" x2="290" y2="220" stroke="#b9c4cf" stroke-dasharray="4 3"/>
+          <line x1="46" y1="120" x2="524" y2="120" stroke="#b9c4cf" stroke-dasharray="4 3"/>
+          <text x="518" y="26" text-anchor="end" font-size="9.5" font-weight="700" fill="#1e7a3c">MODEL LEADERS</text>
+          <text x="52" y="26" font-size="9.5" font-weight="700" fill="#1559a7">HIGH OUTPUT / LOW RELEASE</text>
+          <text x="52" y="212" font-size="9.5" font-weight="700" fill="#b3261e">PRIORITY INTERVENTION</text>
+          <text x="518" y="212" text-anchor="end" font-size="9.5" font-weight="700" fill="#9a6700">UNDER-UTILISED OUTPUT</text>
+          <!-- Axis labels -->
+          <text x="285" y="240" text-anchor="middle" font-size="10" fill="#5c6b7a">Financial Utilisation (%) →</text>
+          <text x="14" y="120" text-anchor="middle" font-size="10" fill="#5c6b7a" transform="rotate(-90 14 120)">Physical Attainment (%) →</text>
+          <g font-size="8.5" fill="#68757f" text-anchor="middle">
+            <text x="46" y="231">50%</text><text x="168" y="231">65%</text><text x="290" y="231">75%</text><text x="407" y="231">88%</text><text x="520" y="231">100%</text>
+          </g>
+          <!-- Bubbles -->
+          <g stroke="#fff" stroke-width="1.2">
+            <circle cx="472" cy="40" r="11" fill="#1e7a3c" opacity=".88" data-tip="Mirzapur: 95.1% Attainment · 92.4% Utilised · 28,400 benef."/><text x="472" y="59" text-anchor="middle" font-size="9" fill="#1c2733" stroke="none">Mirzapur</text>
+            <circle cx="436" cy="54" r="10" fill="#1e7a3c" opacity=".88" data-tip="Balapur: 92.8% Attainment · 89.0% Utilised · 24,100 benef."/><text x="436" y="72" text-anchor="middle" font-size="9" fill="#1c2733" stroke="none">Balapur</text>
+            <circle cx="388" cy="70" r="8" fill="#1e7a3c" opacity=".85" data-tip="Nandgaon: 89.2% Attainment · 84.5% Utilised"/><text x="388" y="86" text-anchor="middle" font-size="9" fill="#1c2733" stroke="none">Nandgaon</text>
+            <circle cx="348" cy="84" r="9" fill="#1e7a3c" opacity=".82" data-tip="Seoni: 87.1% Attainment · 80.2% Utilised"/><text x="348" y="101" text-anchor="middle" font-size="9" fill="#1c2733" stroke="none">Seoni</text>
+            <circle cx="240" cy="76" r="8" fill="#1559a7" opacity=".85" data-tip="Durgapur: 88.0% Attainment · 70.1% Utilised (fund delay)"/><text x="240" y="92" text-anchor="middle" font-size="9" fill="#1c2733" stroke="none">Durgapur</text>
+            <circle cx="205" cy="96" r="7" fill="#1559a7" opacity=".85" data-tip="Bilaspur: 84.9% Attainment · 66.8% Utilised"/><text x="205" y="111" text-anchor="middle" font-size="9" fill="#1c2733" stroke="none">Bilaspur</text>
+            <circle cx="364" cy="152" r="8" fill="#c08a2e" opacity=".88" data-tip="Alipur: 76.2% Attainment · 82.0% Utilised (unit cost overrun)"/><text x="364" y="168" text-anchor="middle" font-size="9" fill="#1c2733" stroke="none">Alipur</text>
+            <circle cx="414" cy="142" r="7" fill="#c08a2e" opacity=".85" data-tip="Sagar: 78.4% Attainment · 86.9% Utilised"/>
+            <circle cx="152" cy="166" r="9" fill="#b3261e" opacity=".88" data-tip="Rampur: 73.8% Attainment · 61.5% Utilised · 3 inspections pending"/><text x="152" y="183" text-anchor="middle" font-size="9" fill="#b3261e" stroke="none">Rampur</text>
+            <circle cx="114" cy="184" r="10" fill="#b3261e" opacity=".9" data-tip="Kheri: 69.2% Attainment · 57.4% Utilised · 2 inspections pending"/><text x="114" y="202" text-anchor="middle" font-size="9" fill="#b3261e" stroke="none">Kheri</text>
+            <circle cx="194" cy="146" r="7" fill="#b3261e" opacity=".82" data-tip="Hills East: 76.9% Attainment · 65.2% Utilised"/>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h3>5-Dimension M&amp;E Health Radar</h3>
+        <span class="hint">State avg vs Mirzapur vs Kheri</span>
+      </header>
+      <div class="legend">
+        <span><span class="sw b2"></span>State Avg (84.6)</span>
+        <span><span class="sw g"></span>Top: Mirzapur (94.2)</span>
+        <span><span class="sw r"></span>Lagging: Kheri (68.5)</span>
+      </div>
+      <div class="body">
+        <svg class="viz" viewBox="0 0 460 235" role="img" aria-label="5-axis scheme health radar chart">
+          <!-- Center (230, 122), Radius 82 -->
+          <g fill="none" stroke="#d3d9e0" stroke-width="1">
+            <polygon points="230,40 308,97 278,188 182,188 152,97"/>
+            <polygon points="230,60.5 288.5,103 266,171.5 194,171.5 171.5,103"/>
+            <polygon points="230,81 269,109 254,155 206,155 191,109"/>
+            <polygon points="230,101.5 249.5,115 242,138.5 218,138.5 210.5,115"/>
+            <line x1="230" y1="122" x2="230" y2="40"/>
+            <line x1="230" y1="122" x2="308" y2="97"/>
+            <line x1="230" y1="122" x2="278" y2="188"/>
+            <line x1="230" y1="122" x2="182" y2="188"/>
+            <line x1="230" y1="122" x2="152" y2="97"/>
+          </g>
+          <!-- Top: Mirzapur -->
+          <polygon points="230,44 302,99 275,184 186,182 158,99" fill="rgba(30,122,60,.14)" stroke="#1e7a3c" stroke-width="1.8"/>
+          <!-- State Average -->
+          <polygon points="230,53 292,102 276,185 191,175 167,101" fill="rgba(18,63,109,.14)" stroke="#123f6d" stroke-width="2"/>
+          <!-- Lagging: Kheri -->
+          <polygon points="230,65 275,107 264,168 204,158 179,105" fill="rgba(179,38,30,.12)" stroke="#b3261e" stroke-width="1.8" stroke-dasharray="4 2"/>
+          <g font-size="10" fill="#1c2733" font-weight="600">
+            <text x="230" y="26" text-anchor="middle">Physical Attainment (85%)</text>
+            <text x="316" y="96">Fund Utilisation (80%)</text>
+            <text x="282" y="206">DBT Timeliness (97%)</text>
+            <text x="178" y="206" text-anchor="end">UC Compliance (82%)</text>
+            <text x="144" y="96" text-anchor="end">Inspections (78%)</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+  </div>
+
+  <!-- 5. SCHEME REGISTER & DISTRICT HEATMAP -->
+  <div class="sechead">
+    <h2>04 · Scheme Progress Register &amp; District Heatmap</h2>
+    <span>Sortable/filterable by ministry &amp; district tier</span>
+  </div>
+  <section class="card">
+    <header>
+      <h3>Physical &amp; Financial Progress — Scheme Scorecard</h3>
+      <span class="hint" id="schCount">Showing 6 core schemes</span>
+    </header>
+    <div class="tblwrap">
+      <table id="schTable">
+        <thead><tr><th>Scheme / Programme</th><th>Ministry</th><th>Indicator</th><th class="r">Target</th><th class="r">Achieved</th><th>Attainment</th><th class="r">Utilisation</th><th class="r">Districts</th><th>Flag</th></tr></thead>
         <tbody>
-          <tr><td>Balapur</td><td class="num hg">96.4</td><td class="num">88.1</td><td class="num hg">91.0</td><td class="num">85.7</td><td class="num">1</td></tr>
-          <tr><td>Nandgaon</td><td class="num hg">94.0</td><td class="num">79.6</td><td class="num">84.2</td><td class="num hg">90.8</td><td class="num">0</td></tr>
-          <tr><td>Rampur</td><td class="num hg">91.8</td><td class="num hr">74.2</td><td class="num hr">68.5</td><td class="num">79.3</td><td class="num ha">3</td></tr>
-          <tr><td>Kheri</td><td class="num">88.6</td><td class="num hr">66.9</td><td class="num hr">72.4</td><td class="num hr">74.1</td><td class="num ha">2</td></tr>
-          <tr><td>Seoni</td><td class="num hg">93.2</td><td class="num">82.4</td><td class="num">88.7</td><td class="num">81.5</td><td class="num">0</td></tr>
-          <tr><td>Mirzapur</td><td class="num hg">97.1</td><td class="num hg">90.3</td><td class="num hg">93.6</td><td class="num hg">90.2</td><td class="num">1</td></tr>
+          <tr data-min="MoRD"><td>NSAP (Old Age, Widow, Disability)</td><td><span class="pill idle">MoRD</span></td><td>Beneficiaries sanctioned</td><td class="num">4,12,000</td><td class="num">3,98,440</td><td><div class="cellbar"><div class="bar g"><i style="width:97%"></i><span class="tick" style="left:85%"></span></div><span class="mono">96.7%</span></div></td><td class="num">91.2%</td><td class="num">34/34</td><td><span class="pill ok">On track</span></td></tr>
+          <tr data-min="MoSJE"><td>PM-AJAY Component-I (Hostels)</td><td><span class="pill idle">MoSJE</span></td><td>Beds created</td><td class="num">6,500</td><td class="num">4,870</td><td><div class="cellbar"><div class="bar a"><i style="width:75%"></i><span class="tick" style="left:85%"></span></div><span class="mono">74.9%</span></div></td><td class="num">58.4%</td><td class="num">21/34</td><td><span class="pill warn">Delayed (works)</span></td></tr>
+          <tr data-min="MoSJE"><td>Post-Matric Scholarship</td><td><span class="pill idle">MoSJE</span></td><td>Students paid</td><td class="num">1,85,000</td><td class="num">1,49,300</td><td><div class="cellbar"><div class="bar g"><i style="width:81%"></i><span class="tick" style="left:85%"></span></div><span class="mono">80.7%</span></div></td><td class="num">77.0%</td><td class="num">34/34</td><td><span class="pill ok">On track</span></td></tr>
+          <tr data-min="MoWCD"><td>Saksham Anganwadi Phase-II</td><td><span class="pill idle">MoWCD</span></td><td>AWCs upgraded</td><td class="num">480</td><td class="num">402</td><td><div class="cellbar"><div class="bar g"><i style="width:84%"></i><span class="tick" style="left:85%"></span></div><span class="mono">83.8%</span></div></td><td class="num">69.5%</td><td class="num">28/34</td><td><span class="pill ok">On track</span></td></tr>
+          <tr data-min="MoSJE"><td>ADIP (Aids &amp; Appliances)</td><td><span class="pill idle">MoSJE</span></td><td>Camps held</td><td class="num">96</td><td class="num">61</td><td><div class="cellbar"><div class="bar r"><i style="width:64%"></i><span class="tick" style="left:85%"></span></div><span class="mono">63.5%</span></div></td><td class="num">66.1%</td><td class="num">19/34</td><td><span class="pill bad">Gap identified</span></td></tr>
+          <tr data-min="MoWCD"><td>Condensed Course of Education</td><td><span class="pill idle">MoWCD</span></td><td>Enrolments</td><td class="num">2,400</td><td class="num">2,215</td><td><div class="cellbar"><div class="bar g"><i style="width:92%"></i><span class="tick" style="left:85%"></span></div><span class="mono">92.3%</span></div></td><td class="num">84.0%</td><td class="num">30/34</td><td><span class="pill ok">On track</span></td></tr>
         </tbody>
       </table>
     </div>
+  </section>
+
+  <div class="g21">
+    <section class="card">
+      <header>
+        <h3>District-Wise Attainment Heatmap (8 of 34 Districts)</h3>
+        <span class="hint">Composite score &amp; domain breakdown</span>
+      </header>
+      <div class="legend"><span><span class="sw g"></span>≥90% Target</span><span><span class="sw"></span>75–89%</span><span><span class="sw rt"></span>&lt;75% Gap</span><span><span class="sw at"></span>2+ Pending Inspections</span></div>
+      <div class="tblwrap">
+        <table id="distTable">
+          <thead><tr><th>District</th><th class="r">NSAP</th><th class="r">PMS</th><th class="r">Hostels</th><th class="r">AWCs</th><th class="r">DBT %</th><th class="r">Pending Insp.</th><th class="r">Index</th></tr></thead>
+          <tbody>
+            <tr data-tier="high"><td>Mirzapur</td><td class="num hg">97.1</td><td class="num hg">90.3</td><td class="num hg">93.6</td><td class="num hg">90.2</td><td class="num">98.8</td><td class="num">1</td><td class="num"><strong>94.2</strong></td></tr>
+            <tr data-tier="high"><td>Balapur</td><td class="num hg">96.4</td><td class="num">88.1</td><td class="num hg">91.0</td><td class="num">85.7</td><td class="num">97.9</td><td class="num">1</td><td class="num"><strong>91.8</strong></td></tr>
+            <tr data-tier="high"><td>Nandgaon</td><td class="num hg">94.0</td><td class="num">79.6</td><td class="num">84.2</td><td class="num hg">90.8</td><td class="num">97.4</td><td class="num">0</td><td class="num"><strong>89.2</strong></td></tr>
+            <tr data-tier="watch"><td>Seoni</td><td class="num hg">93.2</td><td class="num">82.4</td><td class="num">88.7</td><td class="num">81.5</td><td class="num">96.1</td><td class="num">0</td><td class="num"><strong>87.1</strong></td></tr>
+            <tr data-tier="watch"><td>Durgapur</td><td class="num">88.9</td><td class="num">86.4</td><td class="num">81.2</td><td class="num">84.0</td><td class="num">95.2</td><td class="num">1</td><td class="num"><strong>85.1</strong></td></tr>
+            <tr data-tier="watch"><td>Alipur</td><td class="num">85.4</td><td class="num hr">73.8</td><td class="num">76.5</td><td class="num">79.1</td><td class="num">94.0</td><td class="num">1</td><td class="num"><strong>78.7</strong></td></tr>
+            <tr data-tier="crit"><td>Rampur</td><td class="num hg">91.8</td><td class="num hr">74.2</td><td class="num hr">68.5</td><td class="num">79.3</td><td class="num">91.4</td><td class="num ha">3</td><td class="num"><strong>73.8</strong></td></tr>
+            <tr data-tier="crit"><td>Kheri</td><td class="num">88.6</td><td class="num hr">66.9</td><td class="num hr">72.4</td><td class="num hr">74.1</td><td class="num">89.8</td><td class="num ha">2</td><td class="num"><strong>69.2</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <div class="stack">
-      <div class="card">
-        <h3>Release vs utilisation (Rs crore)</h3>
+      <section class="card">
+        <header>
+          <h3>Quarterly Release vs Utilisation</h3>
+          <span class="hint">₹ Crore</span>
+        </header>
         <div class="legend"><span><span class="sw b"></span>Released</span><span><span class="sw g"></span>Utilised</span></div>
-        <div class="qb"><div class="lbl"><span>Q1 · Apr-Jun</span><span class="mono">148.6 / 132.4</span></div><div class="bar"><i style="width:92%"></i></div><div class="bar g"><i style="width:81%"></i></div></div>
-        <div class="qb"><div class="lbl"><span>Q2 · Jul-Sep</span><span class="mono">162.0 / 119.8</span></div><div class="bar"><i style="width:100%"></i></div><div class="bar g"><i style="width:74%"></i></div></div>
-        <div class="qb"><div class="lbl"><span>Q3 · Oct-Nov</span><span class="mono">96.4 / 71.2</span></div><div class="bar"><i style="width:60%"></i></div><div class="bar g"><i style="width:44%"></i></div></div>
-      </div>
+        <div class="qb"><div class="lbl"><span>Q1 · Apr–Jun</span><span class="mono">148.6 / 132.4 (89%)</span></div><div class="bar"><i style="width:92%"></i></div><div class="bar g"><i style="width:81%"></i></div></div>
+        <div class="qb"><div class="lbl"><span>Q2 · Jul–Sep</span><span class="mono">162.0 / 119.8 (74%)</span></div><div class="bar"><i style="width:100%"></i></div><div class="bar g"><i style="width:74%"></i></div></div>
+        <div class="qb"><div class="lbl"><span>Q3 · Oct–Nov</span><span class="mono">96.4 / 71.2 (74%)</span></div><div class="bar"><i style="width:60%"></i></div><div class="bar g"><i style="width:44%"></i></div></div>
+      </section>
 
-      <div class="card">
-        <h3>Flags for review</h3>
+      <section class="card">
+        <header>
+          <h3>Action Flags &amp; Bottlenecks</h3>
+          <span class="hint">3 priority alerts</span>
+        </header>
         <ul class="list">
           <li><div class="t"><span class="pill bad">Gap</span> PM-AJAY hostel works</div><div class="small">13 districts at tender stage; beds target at risk for Q3.</div></li>
           <li><div class="t"><span class="pill bad">Gap</span> ADIP camp calendar</div><div class="small">Slipped in 15 districts; 35 camps balance in 4 months.</div></li>
           <li><div class="t"><span class="pill warn">Watch</span> Supplementary nutrition</div><div class="small">Utilisation below 70% in 6 districts; UCs awaited.</div></li>
         </ul>
-      </div>
+      </section>
     </div>
   </div>
 
-  <div class="card" style="margin-top:16px">
-    <h3>Inspections, evaluations &amp; review meetings</h3>
-    <table>
-      <thead><tr><th>Date</th><th>Type</th><th>Scheme / unit</th><th>Place</th><th>Officer</th><th class="r">Observations</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">10.11.2026</td><td>Field inspection</td><td>PM-AJAY hostels</td><td>Rampur Govt. Hostel</td><td>Dy. Director (SW)</td><td class="num">6 (2 major)</td><td><span class="pill ok">Report submitted</span></td></tr>
-        <tr><td class="mono">14.11.2026</td><td>Field inspection</td><td>Saksham Anganwadi</td><td>Nandgaon cluster IV</td><td>District Welfare Officer</td><td class="num">3</td><td><span class="pill ok">Report submitted</span></td></tr>
-        <tr><td class="mono">18.11.2026</td><td>Review meeting</td><td>NSAP DBT</td><td>Directorate</td><td>Director (SWD)</td><td class="num">4 decisions</td><td><span class="pill ok">Minutes approved</span></td></tr>
-        <tr><td class="mono">21.11.2026</td><td>Evaluation</td><td>ADIP camp</td><td>Seoni camp site</td><td>Joint Director (SW)</td><td class="num">5</td><td><span class="pill warn">Under review</span></td></tr>
-        <tr><td class="mono">24.11.2026</td><td>Field inspection</td><td>PMS renewals</td><td>Kheri DWO office</td><td>US (SW-II)</td><td class="num">2</td><td><span class="pill proc">In progress</span></td></tr>
-      </tbody>
-    </table>
+  <!-- 6. OPERATIONAL CADENCE, SLA AGING & YEAR-END FORECASTS -->
+  <div class="sechead">
+    <h2>05 · Operational SLA Aging, Inspections &amp; Year-End Forecasts</h2>
+    <span>Predictive run-rate &amp; governance compliance</span>
+  </div>
+  <div class="g2">
+    <section class="card">
+      <header>
+        <h3>Monthly Inspection &amp; Evaluation Volume</h3>
+        <span class="hint">Field visits · Desk audits · Evaluations</span>
+      </header>
+      <div class="legend"><span><span class="sw b2"></span>Field Visits</span><span><span class="sw b"></span>Desk Audits</span><span><span class="sw g"></span>Evaluations</span></div>
+      <div class="body">
+        <svg class="viz" viewBox="0 0 460 175" role="img" aria-label="Monthly inspections stacked bar chart">
+          <line x1="30" y1="20" x2="445" y2="20" stroke="#eef1f4"/><text x="24" y="24" text-anchor="end" font-size="9" fill="#68757f">12</text>
+          <line x1="30" y1="60" x2="445" y2="60" stroke="#eef1f4"/><text x="24" y="64" text-anchor="end" font-size="9" fill="#68757f">8</text>
+          <line x1="30" y1="100" x2="445" y2="100" stroke="#eef1f4"/><text x="24" y="104" text-anchor="end" font-size="9" fill="#68757f">4</text>
+          <line x1="30" y1="140" x2="445" y2="140" stroke="#b9c4cf"/>
+          <!-- Scale: 10px per count, base=140 -->
+          <g>
+            <rect x="48" y="100" width="28" height="40" fill="#123f6d" data-tip="Apr: 4 field, 1 desk"/><rect x="48" y="90" width="28" height="10" fill="#1559a7"/>
+            <rect x="98" y="90" width="28" height="50" fill="#123f6d" data-tip="May: 5 field, 1 desk"/><rect x="98" y="80" width="28" height="10" fill="#1559a7"/>
+            <rect x="148" y="90" width="28" height="50" fill="#123f6d" data-tip="Jun: 5 field, 1 desk, 1 eval"/><rect x="148" y="80" width="28" height="10" fill="#1559a7"/><rect x="148" y="70" width="28" height="10" fill="#1e7a3c"/>
+            <rect x="198" y="100" width="28" height="40" fill="#123f6d" data-tip="Jul: 4 field, 1 desk"/><rect x="198" y="90" width="28" height="10" fill="#1559a7"/>
+            <rect x="248" y="80" width="28" height="60" fill="#123f6d" data-tip="Aug: 6 field, 1 desk"/><rect x="248" y="70" width="28" height="10" fill="#1559a7"/>
+            <rect x="298" y="80" width="28" height="60" fill="#123f6d" data-tip="Sep: 6 field, 1 desk, 1 eval"/><rect x="298" y="70" width="28" height="10" fill="#1559a7"/><rect x="298" y="60" width="28" height="10" fill="#1e7a3c"/>
+            <rect x="348" y="70" width="28" height="70" fill="#123f6d" data-tip="Oct: 7 field, 2 desk"/><rect x="348" y="50" width="28" height="20" fill="#1559a7"/>
+            <rect x="398" y="70" width="28" height="70" fill="#123f6d" data-tip="Nov (to 26th): 7 field, 2 desk, 1 eval"/><rect x="398" y="50" width="28" height="20" fill="#1559a7"/><rect x="398" y="40" width="28" height="10" fill="#1e7a3c"/>
+          </g>
+          <g font-size="9" fill="#5c6b7a" text-anchor="middle">
+            <text x="62" y="156">Apr</text><text x="112" y="156">May</text><text x="162" y="156">Jun</text><text x="212" y="156">Jul</text><text x="262" y="156">Aug</text><text x="312" y="156">Sep</text><text x="362" y="156">Oct</text><text x="412" y="156">Nov</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h3>Observation Resolution &amp; ATR SLA Aging</h3>
+        <span class="hint">198 total observations raised</span>
+      </header>
+      <div class="body">
+        <div class="qb" style="padding:0 0 10px;border:0">
+          <div class="lbl"><span>ATR &amp; Observation Aging Distribution</span><span class="mono">166 closed · 32 open</span></div>
+          <div class="segbar">
+            <span style="width:58%;background:#1e7a3c" data-tip="Resolved ≤7 days: 115 (58%)"></span>
+            <span style="width:26%;background:#1559a7" data-tip="Resolved 8–15 days: 51 (26%)"></span>
+            <span style="width:10%;background:#c08a2e" data-tip="Open 16–30 days: 20 (10%)"></span>
+            <span style="width:6%;background:#b3261e" data-tip="Overdue >30 days: 12 (6%)"></span>
+          </div>
+          <div class="legend" style="padding:4px 0 8px;border:0">
+            <span><span class="sw g"></span>≤7d (58%)</span>
+            <span><span class="sw b"></span>8–15d (26%)</span>
+            <span><span class="sw a"></span>16–30d (10%)</span>
+            <span><span class="sw r"></span>&gt;30d (6%)</span>
+          </div>
+        </div>
+        <div class="gauges">
+          <div class="gauge" data-tip="Projected FY26-27 Fund Utilisation based on Q1-Q3 burn rate">
+            <svg viewBox="0 0 100 58"><path d="M12,50 A38,38 0 0,1 88,50" fill="none" stroke="#e6eaee" stroke-width="8"/><path d="M12,50 A38,38 0 0,1 88,50" fill="none" stroke="#1559a7" stroke-width="8" stroke-dasharray="105 119.4"/><text x="50" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#1c2733">88.4%</text></svg>
+            <div class="gt">EOY Spend Forecast</div>
+            <div class="gs">Target: 90.0%</div>
+          </div>
+          <div class="gauge" data-tip="Projected Annual Beneficiary Attainment by 31 Mar 2027">
+            <svg viewBox="0 0 100 58"><path d="M12,50 A38,38 0 0,1 88,50" fill="none" stroke="#e6eaee" stroke-width="8"/><path d="M12,50 A38,38 0 0,1 88,50" fill="none" stroke="#1e7a3c" stroke-width="8" stroke-dasharray="113 119.4"/><text x="50" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#1e7a3c">95.1%</text></svg>
+            <div class="gt">EOY Coverage</div>
+            <div class="gs">On track (+1.8%)</div>
+          </div>
+          <div class="gauge" data-tip="Data completeness & duplicate-free verification index">
+            <svg viewBox="0 0 100 58"><path d="M12,50 A38,38 0 0,1 88,50" fill="none" stroke="#e6eaee" stroke-width="8"/><path d="M12,50 A38,38 0 0,1 88,50" fill="none" stroke="#123f6d" stroke-width="8" stroke-dasharray="111 119.4"/><text x="50" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#1c2733">93.4%</text></svg>
+            <div class="gt">Data Quality Index</div>
+            <div class="gs">63 flags open</div>
+          </div>
+          <div class="gauge" data-tip="Geo-tagged physical works & AWC verification coverage">
+            <svg viewBox="0 0 100 58"><path d="M12,50 A38,38 0 0,1 88,50" fill="none" stroke="#e6eaee" stroke-width="8"/><path d="M12,50 A38,38 0 0,1 88,50" fill="none" stroke="#c08a2e" stroke-width="8" stroke-dasharray="93 119.4"/><text x="50" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#9a6700">78.2%</text></svg>
+            <div class="gt">GIS Geotagging</div>
+            <div class="gs">Works photos</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <div class="foot"><span>SWD-MIS · Module 08 — Monitoring &amp; Evaluation</span><span>Illustrative data · FY 2026-27</span></div>
+  <!-- 7. INSPECTION & EVALUATION LOG -->
+  <section class="card" style="margin-top:14px">
+    <header>
+      <h3>Recent Field Inspections, Evaluations &amp; Review Meetings</h3>
+      <span class="hint">Verification log linked to e-Office ATRs</span>
+    </header>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>Date</th><th>Type</th><th>Scheme / Unit</th><th>Place</th><th>Inspecting Officer</th><th class="r">Observations</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">10.11.2026</td><td>Field inspection</td><td>PM-AJAY hostels</td><td>Rampur Govt. Hostel</td><td>Dy. Director (SW)</td><td class="num">6 (2 major)</td><td><span class="pill ok">Report submitted</span></td></tr>
+          <tr><td class="mono">14.11.2026</td><td>Field inspection</td><td>Saksham Anganwadi</td><td>Nandgaon cluster IV</td><td>District Welfare Officer</td><td class="num">3</td><td><span class="pill ok">Report submitted</span></td></tr>
+          <tr><td class="mono">18.11.2026</td><td>Review meeting</td><td>NSAP DBT</td><td>Directorate</td><td>Director (SWD)</td><td class="num">4 decisions</td><td><span class="pill ok">Minutes approved</span></td></tr>
+          <tr><td class="mono">21.11.2026</td><td>Evaluation</td><td>ADIP camp</td><td>Seoni camp site</td><td>Joint Director (SW)</td><td class="num">5</td><td><span class="pill warn">Under review</span></td></tr>
+          <tr><td class="mono">24.11.2026</td><td>Field inspection</td><td>PMS renewals</td><td>Kheri DWO office</td><td>US (SW-II)</td><td class="num">2</td><td><span class="pill proc">In progress</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="foot"><span>SWD-MIS · Module 08 — Monitoring &amp; Evaluation Analytics</span><span>Illustrative data · FY 2026-27</span></div>
 </main>
 </div>
+
+<div class="tip" id="tip" role="status"></div>
+
+<script>
+(function(){
+  const MONTHS = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'];
+  const TREND = {
+    pct: {
+      unit:'%', max:100, ticks:[0,25,50,75,100],
+      att:[68,72,75,77,80,82,83.5,84.6],
+      util:[54,61,68,71,74,76,78.1,79.5],
+      plan:[65,69,73,77,80,83,85,87]
+    },
+    cr: {
+      unit:' Cr', max:420, ticks:[0,100,200,300,400],
+      att:[48,96,148,204,262,310,358,407],
+      util:[32,74,132,178,224,252,289,323.4],
+      plan:[50,100,150,210,270,320,365,410]
+    }
+  };
+  let trendMode = 'pct';
+
+  function renderTrend(){
+    const svg = document.getElementById('trendSvg');
+    const d = TREND[trendMode];
+    const W=620, H=220, L=44, R=18, T=16, B=30, pw=W-L-R, ph=H-T-B;
+    const x = i => L + (i/(MONTHS.length-1))*pw;
+    const y = v => T + ph - (v/d.max)*ph;
+    const pts = arr => arr.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).join(' ');
+    const area = arr => `M${x(0).toFixed(1)},${T+ph} ` + arr.map((v,i)=>`L${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ') + ` L${x(arr.length-1).toFixed(1)},${T+ph} Z`;
+
+    let html = '';
+    d.ticks.forEach(t=>{
+      const yy = y(t).toFixed(1);
+      html += `<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#e6eaee"/>`;
+      html += `<text x="${L-6}" y="${+yy+3}" text-anchor="end" font-size="9.5" fill="#68757f">${t}${trendMode==='pct'?'%':''}</text>`;
+    });
+    html += `<path d="${area(d.att)}" fill="rgba(18,63,109,.08)"/>`;
+    html += `<path d="${area(d.util)}" fill="rgba(30,122,60,.08)"/>`;
+    html += `<polyline fill="none" stroke="#93a0ad" stroke-width="1.5" stroke-dasharray="4 3" points="${pts(d.plan)}"/>`;
+    html += `<polyline fill="none" stroke="#123f6d" stroke-width="2.2" points="${pts(d.att)}"/>`;
+    html += `<polyline fill="none" stroke="#1e7a3c" stroke-width="2.2" points="${pts(d.util)}"/>`;
+    MONTHS.forEach((m,i)=>{
+      const xi=x(i).toFixed(1);
+      html += `<text x="${xi}" y="${H-10}" text-anchor="middle" font-size="9.5" fill="#5c6b7a">${m}</text>`;
+      html += `<circle cx="${xi}" cy="${y(d.att[i]).toFixed(1)}" r="3.8" fill="#123f6d" stroke="#fff" stroke-width="1.2" data-tip="${m}: Attainment ${d.att[i]}${d.unit} · Utilised ${d.util[i]}${d.unit} (Plan ${d.plan[i]}${d.unit})"/>`;
+      html += `<circle cx="${xi}" cy="${y(d.util[i]).toFixed(1)}" r="3.8" fill="#1e7a3c" stroke="#fff" stroke-width="1.2" data-tip="${m}: Utilised ${d.util[i]}${d.unit} · Attainment ${d.att[i]}${d.unit}"/>`;
+    });
+    svg.innerHTML = html;
+  }
+
+  document.getElementById('trendTabs').addEventListener('click', e=>{
+    const btn = e.target.closest('.vtab');
+    if(!btn) return;
+    trendMode = btn.dataset.mode;
+    document.querySelectorAll('#trendTabs .vtab').forEach(b=>b.classList.toggle('on', b===btn));
+    renderTrend();
+  });
+
+  // Filters across KPIs, Scheme table, District table
+  const FY_DATA = {
+    '2026-27':{att:'84.6%',util:'79.5%',ben:'6.05 L',dbt:'96.7%',sch:'9 / 14',ins:'47'},
+    '2025-26':{att:'89.2%',util:'92.8%',ben:'5.74 L',dbt:'95.9%',sch:'12 / 14',ins:'68'},
+    '2024-25':{att:'87.4%',util:'94.1%',ben:'5.41 L',dbt:'94.2%',sch:'11 / 14',ins:'64'}
+  };
+  const fFy=document.getElementById('fFy'), fMin=document.getElementById('fMin'), fTier=document.getElementById('fTier'), fQ=document.getElementById('fQuarter');
+
+  function applyFilters(){
+    const fy = FY_DATA[fFy.value] || FY_DATA['2026-27'];
+    document.getElementById('kAtt').textContent = fy.att;
+    document.getElementById('kUtil').textContent = fy.util;
+    document.getElementById('kBen').textContent = fy.ben;
+    document.getElementById('kDbt').textContent = fy.dbt;
+    document.getElementById('kSch').textContent = fy.sch;
+    document.getElementById('kIns').textContent = fy.ins;
+
+    const minVal = fMin.value;
+    let visSch = 0;
+    document.querySelectorAll('#schTable tbody tr').forEach(tr=>{
+      const show = minVal==='all' || tr.dataset.min===minVal;
+      tr.style.display = show ? '' : 'none';
+      if(show) visSch++;
+    });
+    document.getElementById('schCount').textContent = `Showing ${visSch} scheme${visSch===1?'':'s'}`;
+
+    const tierVal = fTier.value;
+    document.querySelectorAll('#distTable tbody tr').forEach(tr=>{
+      tr.style.display = (tierVal==='all' || tr.dataset.tier===tierVal) ? '' : 'none';
+    });
+
+    const minLbl = minVal==='all' ? 'All Ministries' : minVal;
+    const tierLbl = fTier.options[fTier.selectedIndex].text.split(' (')[0];
+    document.getElementById('scopePill').textContent = `Scope: ${fFy.value} · ${minLbl} · ${tierLbl} · ${fQ.value.toUpperCase()}`;
+  }
+
+  [fFy,fMin,fTier,fQ].forEach(el=>el.addEventListener('change', applyFilters));
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    fFy.value='2026-27'; fMin.value='all'; fTier.value='all'; fQ.value='ytd';
+    applyFilters();
+  });
+
+  // Viewport-safe hover/tap tooltip for all [data-tip]
+  const tip = document.getElementById('tip');
+  function showTip(el, cx, cy){
+    tip.textContent = el.getAttribute('data-tip');
+    tip.classList.add('on');
+    const r = tip.getBoundingClientRect();
+    const left = Math.min(window.innerWidth - r.width - 10, Math.max(10, cx + 12));
+    const top = Math.max(10, cy - r.height - 12);
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  document.addEventListener('mousemove', e=>{
+    const el = e.target.closest('[data-tip]');
+    if(el) showTip(el, e.clientX, e.clientY);
+    else tip.classList.remove('on');
+  });
+  document.addEventListener('click', e=>{
+    const el = e.target.closest('[data-tip]');
+    if(el) showTip(el, e.clientX, e.clientY);
+    else tip.classList.remove('on');
+  });
+
+  renderTrend();
+  applyFilters();
+})();
+</script>
 </body>
 </html>
 {% endblock %}

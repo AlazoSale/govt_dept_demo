@@ -4,189 +4,776 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Notifications &amp; Reminders - SWD MIS</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font:13px/1.5 "Segoe UI",Arial,sans-serif;color:#1c2733;background:#eef1f4}
-a{color:#1559a7;text-decoration:none}a:hover{text-decoration:underline}
-.topbar{display:flex;align-items:center;gap:14px;height:48px;padding:0 16px;background:#123f6d;color:#fff}
-.emblem{width:28px;height:28px;border:1px solid rgba(255,255,255,.55);display:grid;place-items:center;font-size:10px;letter-spacing:.5px}
-.topbar .t1{font-size:13.5px;font-weight:600}.topbar .t2{font-size:11px;opacity:.75}
-.topsearch{margin-left:24px;flex:0 0 300px}
-.topsearch input{width:100%;padding:5px 9px;font-size:12px;border:1px solid #2f5f92;background:#0d3157;color:#fff;border-radius:2px}
-.topsearch input::placeholder{color:#9db8d6}
-.topright{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:12px}
-.topright .who{text-align:right;line-height:1.25}.topright .who small{display:block;opacity:.75;font-size:10.5px}
-.topright a{color:#cfe1f5}
-.shell{display:flex;min-height:calc(100vh - 48px)}
-.side{width:236px;flex:0 0 236px;background:#fbfcfd;border-right:1px solid #d3d9e0;padding:10px 0 24px}
-.side h4{margin:16px 16px 5px;font-size:10px;letter-spacing:.9px;text-transform:uppercase;color:#7b8794}
-.side h4:first-child{margin-top:6px}
-.side a{display:flex;gap:8px;padding:5px 16px 5px 13px;border-left:3px solid transparent;color:#33475b;font-size:12.5px}
-.side a .no{color:#93a0ad;font-size:11px;width:16px;text-align:right;flex:0 0 16px}
-.side a:hover{background:#eef4fa;text-decoration:none}
-.side a.on{background:#e6eff8;border-left-color:#123f6d;color:#0d3c6e;font-weight:600}
-.main{flex:1;padding:16px 22px 30px;min-width:0}
-.crumb{font-size:11.5px;color:#68757f;margin-bottom:4px}
-.phead{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
-.phead h1{margin:0;font-size:18px;font-weight:600}
-.phead p{margin:2px 0 0;font-size:12px;color:#5c6b7a}
-.phead .acts{margin-left:auto;display:flex;gap:8px}
-.btn{display:inline-block;padding:5px 12px;font-size:12px;color:#243447;background:#fff;border:1px solid #b9c4cf;border-radius:2px;cursor:pointer}
-.btn:hover{background:#f2f6fa}
-.btn.pri{background:#123f6d;border-color:#123f6d;color:#fff}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#d3d9e0;border:1px solid #d3d9e0;margin-bottom:16px}
-.stat{background:#fff;padding:9px 14px}
-.stat .k{font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:#5c6b7a}
-.stat .v{font-size:20px;font-weight:600;margin-top:2px}
-.stat .s{font-size:11px;color:#68757f}
-.card{background:#fff;border:1px solid #d3d9e0;border-radius:3px;margin-bottom:16px}
-.card>header{display:flex;align-items:center;gap:10px;padding:8px 14px;background:#f7f9fb;border-bottom:1px solid #d3d9e0}
-.card>header h2{margin:0;font-size:13px;font-weight:600}
-.card>header .hint{font-size:11px;color:#68757f}
-.card>header .tools{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:12px}
-.card .body{padding:14px}.card .body.pad0{padding:0}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th{text-align:left;font-size:10.5px;letter-spacing:.7px;text-transform:uppercase;color:#5c6b7a;background:#fafbfc;border-bottom:1px solid #d3d9e0;padding:7px 10px}
-td{padding:7px 10px;border-bottom:1px solid #e6eaee;vertical-align:top}
-tbody tr:last-child td{border-bottom:0}
-tbody tr:hover{background:#f6f9fc}
-.mut{color:#68757f}.small{font-size:11.5px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.grid21{display:grid;grid-template-columns:2fr 1fr;gap:16px}
-.tag{display:inline-block;padding:0 6px;font-size:11px;border:1px solid;border-radius:2px;margin:0 3px 2px 0;background:#fff}
-.tg-x{color:#5c6b7a;border-color:#c4ccd4;background:#f2f4f6}
-.over{color:#b3261e;font-weight:600}.near{color:#9a6700;font-weight:600}.fine{color:#1e7a3c}
-.feed{list-style:none;margin:0;padding:0}
-.feed li{display:flex;gap:10px;padding:9px 14px;border-bottom:1px solid #e6eaee;font-size:12.5px}
-.feed li:last-child{border-bottom:0}
-.feed .when{margin-left:auto;flex:0 0 auto;color:#68757f;font-size:11px;padding-top:1px}
-.feed li.unread{background:#f4f8fc}
-.note{border:1px solid #d8dee5;background:#f7f9fb;padding:9px 12px;font-size:12px;color:#41505e;border-radius:2px}
-footer.foot{padding:10px 22px 26px;font-size:11px;color:#68757f}
-.card>header{flex-wrap:wrap}.card .body.pad0{overflow-x:auto}
-@media(max-width:900px){.topbar{height:auto;flex-wrap:wrap;padding:8px 14px;gap:8px}.topsearch{order:3;flex:1 0 100%;margin-left:0}.shell{flex-direction:column}.side{width:100%;flex:none;border-right:0;border-bottom:1px solid #d3d9e0;display:flex;flex-wrap:wrap;padding:6px 10px;gap:2px}.side h4{width:100%;margin:6px 6px 2px}.side a{border-left:0;border-bottom:2px solid transparent;padding:4px 8px}.side a.on{border-left-color:transparent;border-bottom-color:#123f6d}.stats{grid-template-columns:repeat(2,1fr)}.grid2,.grid21{grid-template-columns:1fr}}
-@media(max-width:600px){.main{padding:12px}.phead,.phead .acts,.topright{flex-wrap:wrap}.phead .acts{margin-left:0}.stats{grid-template-columns:1fr}.feed li{flex-wrap:wrap}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notifications &amp; Reminders - SWD MIS</title>
+  <style>
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font: 13px/1.5 "Segoe UI", Arial, sans-serif;
+      color: #1c2733;
+      background: #eef1f4
+    }
+
+    a {
+      color: #1559a7;
+      text-decoration: none
+    }
+
+    a:hover {
+      text-decoration: underline
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      height: 48px;
+      padding: 0 16px;
+      background: #123f6d;
+      color: #fff
+    }
+
+    .emblem {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(255, 255, 255, .55);
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      letter-spacing: .5px
+    }
+
+    .topbar .t1 {
+      font-size: 13.5px;
+      font-weight: 600
+    }
+
+    .topbar .t2 {
+      font-size: 11px;
+      opacity: .75
+    }
+
+    .topsearch {
+      margin-left: 24px;
+      flex: 0 0 300px
+    }
+
+    .topsearch input {
+      width: 100%;
+      padding: 5px 9px;
+      font-size: 12px;
+      border: 1px solid #2f5f92;
+      background: #0d3157;
+      color: #fff;
+      border-radius: 2px
+    }
+
+    .topsearch input::placeholder {
+      color: #9db8d6
+    }
+
+    .topright {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px
+    }
+
+    .topright .who {
+      text-align: right;
+      line-height: 1.25
+    }
+
+    .topright .who small {
+      display: block;
+      opacity: .75;
+      font-size: 10.5px
+    }
+
+    .topright a {
+      color: #cfe1f5
+    }
+
+    .shell {
+      display: flex;
+      min-height: calc(100vh - 48px)
+    }
+
+    .side {
+      width: 236px;
+      flex: 0 0 236px;
+      background: #fbfcfd;
+      border-right: 1px solid #d3d9e0;
+      padding: 10px 0 24px
+    }
+
+    .side h4 {
+      margin: 16px 16px 5px;
+      font-size: 10px;
+      letter-spacing: .9px;
+      text-transform: uppercase;
+      color: #7b8794
+    }
+
+    .side h4:first-child {
+      margin-top: 6px
+    }
+
+    .side a {
+      display: flex;
+      gap: 8px;
+      padding: 5px 16px 5px 13px;
+      border-left: 3px solid transparent;
+      color: #33475b;
+      font-size: 12.5px
+    }
+
+    .side a .no {
+      color: #93a0ad;
+      font-size: 11px;
+      width: 16px;
+      text-align: right;
+      flex: 0 0 16px
+    }
+
+    .side a:hover {
+      background: #eef4fa;
+      text-decoration: none
+    }
+
+    .side a.on {
+      background: #e6eff8;
+      border-left-color: #123f6d;
+      color: #0d3c6e;
+      font-weight: 600
+    }
+
+    .main {
+      flex: 1;
+      padding: 16px 22px 30px;
+      min-width: 0
+    }
+
+    .crumb {
+      font-size: 11.5px;
+      color: #68757f;
+      margin-bottom: 4px
+    }
+
+    .phead {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 14px
+    }
+
+    .phead h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600
+    }
+
+    .phead p {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: #5c6b7a
+    }
+
+    .phead .acts {
+      margin-left: auto;
+      display: flex;
+      gap: 8px
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: #243447;
+      background: #fff;
+      border: 1px solid #b9c4cf;
+      border-radius: 2px;
+      cursor: pointer
+    }
+
+    .btn:hover {
+      background: #f2f6fa
+    }
+
+    .btn.pri {
+      background: #123f6d;
+      border-color: #123f6d;
+      color: #fff
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #d3d9e0;
+      border: 1px solid #d3d9e0;
+      margin-bottom: 16px
+    }
+
+    .stat {
+      background: #fff;
+      padding: 9px 14px
+    }
+
+    .stat .k {
+      font-size: 10.5px;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: #5c6b7a
+    }
+
+    .stat .v {
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 2px
+    }
+
+    .stat .s {
+      font-size: 11px;
+      color: #68757f
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #d3d9e0;
+      border-radius: 3px;
+      margin-bottom: 16px
+    }
+
+    .card>header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      background: #f7f9fb;
+      border-bottom: 1px solid #d3d9e0
+    }
+
+    .card>header h2 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 600
+    }
+
+    .card>header .hint {
+      font-size: 11px;
+      color: #68757f
+    }
+
+    .card>header .tools {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px
+    }
+
+    .card .body {
+      padding: 14px
+    }
+
+    .card .body.pad0 {
+      padding: 0
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px
+    }
+
+    th {
+      text-align: left;
+      font-size: 10.5px;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+      color: #5c6b7a;
+      background: #fafbfc;
+      border-bottom: 1px solid #d3d9e0;
+      padding: 7px 10px
+    }
+
+    td {
+      padding: 7px 10px;
+      border-bottom: 1px solid #e6eaee;
+      vertical-align: top
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0
+    }
+
+    tbody tr:hover {
+      background: #f6f9fc
+    }
+
+    .mut {
+      color: #68757f
+    }
+
+    .small {
+      font-size: 11.5px
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    .grid21 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0 6px;
+      font-size: 11px;
+      border: 1px solid;
+      border-radius: 2px;
+      margin: 0 3px 2px 0;
+      background: #fff
+    }
+
+    .tg-x {
+      color: #5c6b7a;
+      border-color: #c4ccd4;
+      background: #f2f4f6
+    }
+
+    .over {
+      color: #b3261e;
+      font-weight: 600
+    }
+
+    .near {
+      color: #9a6700;
+      font-weight: 600
+    }
+
+    .fine {
+      color: #1e7a3c
+    }
+
+    .feed {
+      list-style: none;
+      margin: 0;
+      padding: 0
+    }
+
+    .feed li {
+      display: flex;
+      gap: 10px;
+      padding: 9px 14px;
+      border-bottom: 1px solid #e6eaee;
+      font-size: 12.5px
+    }
+
+    .feed li:last-child {
+      border-bottom: 0
+    }
+
+    .feed .when {
+      margin-left: auto;
+      flex: 0 0 auto;
+      color: #68757f;
+      font-size: 11px;
+      padding-top: 1px
+    }
+
+    .feed li.unread {
+      background: #f4f8fc
+    }
+
+    .note {
+      border: 1px solid #d8dee5;
+      background: #f7f9fb;
+      padding: 9px 12px;
+      font-size: 12px;
+      color: #41505e;
+      border-radius: 2px
+    }
+
+    footer.foot {
+      padding: 10px 22px 26px;
+      font-size: 11px;
+      color: #68757f
+    }
+
+    .card>header {
+      flex-wrap: wrap
+    }
+
+    .card .body.pad0 {
+      overflow-x: auto
+    }
+
+    @media(max-width:900px) {
+      .topbar {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 8px 14px;
+        gap: 8px
+      }
+
+      .topsearch {
+        order: 3;
+        flex: 1 0 100%;
+        margin-left: 0
+      }
+
+      .shell {
+        flex-direction: column
+      }
+
+      .side {
+        width: 100%;
+        flex: none;
+        border-right: 0;
+        border-bottom: 1px solid #d3d9e0;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 6px 10px;
+        gap: 2px
+      }
+
+      .side h4 {
+        width: 100%;
+        margin: 6px 6px 2px
+      }
+
+      .side a {
+        border-left: 0;
+        border-bottom: 2px solid transparent;
+        padding: 4px 8px
+      }
+
+      .side a.on {
+        border-left-color: transparent;
+        border-bottom-color: #123f6d
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .grid2,
+      .grid21 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:600px) {
+      .main {
+        padding: 12px
+      }
+
+      .phead,
+      .phead .acts,
+      .topright {
+        flex-wrap: wrap
+      }
+
+      .phead .acts {
+        margin-left: 0
+      }
+
+      .stats {
+        grid-template-columns: 1fr
+      }
+
+      .feed li {
+        flex-wrap: wrap
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header class="topbar">
-  <div class="emblem">SWD</div>
-  <div><div class="t1">Social Welfare Department</div><div class="t2">MIS &amp; e-Office Portal</div></div>
-  <div class="topsearch"><input type="text" placeholder="Search files, reports, officers"></div>
-  <div class="topright"><span class="who">S. Rathore<small>Director (SWD)</small></span><a href="#">Sign out</a></div>
-</header>
-<div class="shell">
-  <nav class="side">
-    <h4>Phase 1 - Foundation</h4>
-    <a href="#"><span class="no">01</span> Dashboard</a>
-    <a href="/users-roles/"><span class="no">09</span> User &amp; Role Management</a>
-    <a href="/security-audit/"><span class="no">12</span> Security &amp; Audit Logs</a>
-    <h4>Phase 2 - Paperless Office</h4>
-    <a href="#"><span class="no">02</span> Document Repository</a>
-    <a href="#"><span class="no">03</span> e-Office File Management</a>
-    <a href="#"><span class="no">04</span> Correspondence</a>
-    <h4>Phase 3 - Data &amp; Reporting</h4>
-    <a href="#"><span class="no">05</span> Schemes &amp; Programmes</a>
-    <a href="#"><span class="no">06</span> Data Management</a>
-    <a href="#"><span class="no">07</span> Reports &amp; ATRs</a>
-    <h4>Phase 4 - Coordination</h4>
-    <a href="#"><span class="no">08</span> Monitoring &amp; Evaluation</a>
-    <a href="/notifications/" class="on"><span class="no">10</span> Notifications &amp; Reminders</a>
-    <a href="/data-sharing/"><span class="no">11</span> Interdepartmental Sharing</a>
-  </nav>
-  <div class="main">
-    <div class="crumb"><a href="#">Home</a> / <a href="#">Workflow</a> / Notifications &amp; Reminders</div>
-    <div class="phead">
-      <div>
-        <h1>Notifications &amp; Reminders</h1>
-        <p>Consolidated pending tasks, deadline alerts and the history of every notification issued.</p>
+  <header class="topbar">
+    <div class="emblem">SWD</div>
+    <div>
+      <div class="t1">XYZ Department</div>
+      <div class="t2">MIS &amp; e-Office Portal</div>
+    </div>
+    <div class="topsearch"><input type="text" placeholder="Search files, reports, officers"></div>
+    <div class="topright"><span class="who">S. Rathore<small>Director (SWD)</small></span><a href="#">Sign out</a></div>
+  </header>
+  <div class="shell">
+    <nav class="side">
+      <h4>Phase 1 - Foundation</h4>
+      <a href="#"><span class="no">01</span> Dashboard</a>
+      <a href="/users-roles/"><span class="no">09</span> User &amp; Role Management</a>
+      <a href="/security-audit/"><span class="no">12</span> Security &amp; Audit Logs</a>
+      <h4>Phase 2 - Paperless Office</h4>
+      <a href="#"><span class="no">02</span> Document Repository</a>
+      <a href="#"><span class="no">03</span> e-Office File Management</a>
+      <a href="#"><span class="no">04</span> Correspondence</a>
+      <h4>Phase 3 - Data &amp; Reporting</h4>
+      <a href="#"><span class="no">05</span> Schemes &amp; Programmes</a>
+      <a href="#"><span class="no">06</span> Data Management</a>
+      <a href="#"><span class="no">07</span> Reports &amp; ATRs</a>
+      <h4>Phase 4 - Coordination</h4>
+      <a href="#"><span class="no">08</span> Monitoring &amp; Evaluation</a>
+      <a href="/notifications/" class="on"><span class="no">10</span> Notifications &amp; Reminders</a>
+      <a href="/data-sharing/"><span class="no">11</span> Interdepartmental Sharing</a>
+    </nav>
+    <div class="main">
+      <div class="crumb"><a href="#">Home</a> / <a href="#">Workflow</a> / Notifications &amp; Reminders</div>
+      <div class="phead">
+        <div>
+          <h1>Notifications &amp; Reminders</h1>
+          <p>Consolidated pending tasks, deadline alerts and the history of every notification issued.</p>
+        </div>
+        <div class="acts"><button class="btn">Reminder settings</button><button class="btn pri">Mark all as
+            read</button></div>
       </div>
-      <div class="acts"><button class="btn">Reminder settings</button><button class="btn pri">Mark all as read</button></div>
-    </div>
 
-    <div class="stats">
-      <div class="stat"><div class="k">Unread alerts</div><div class="v">6</div><div class="s">2 need escalation</div></div>
-      <div class="stat"><div class="k">Tasks due this week</div><div class="v">4</div><div class="s">Up to 30 Nov 2026</div></div>
-      <div class="stat"><div class="k">Overdue items</div><div class="v">2</div><div class="s">Both ATRs</div></div>
-      <div class="stat"><div class="k">Pending approvals</div><div class="v">3</div><div class="s">With Deputy Director and Director</div></div>
-    </div>
-
-    <div class="grid21">
-      <section class="card">
-        <header><h2>Consolidated pending tasks</h2><span class="hint">Sorted by due date; escalations shown in red</span>
-          <span class="tools"><a href="#">My tasks only</a></span></header>
-        <div class="body pad0">
-          <table>
-            <thead><tr><th>Task</th><th>Type</th><th>Assigned to</th><th>Due date</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>ATR on Social Justice Ministry letter No. 41/2026</td><td>Correspondence ATR</td><td>K. Deshmukh</td><td>24 Nov 2026</td><td><span class="over">Overdue by 2 days</span></td></tr>
-              <tr><td>ATR on Rural Development Ministry query on SHG linkage</td><td>Correspondence ATR</td><td>N. Borah</td><td>21 Nov 2026</td><td><span class="over">Overdue by 5 days</span></td></tr>
-              <tr><td>Approval: ICPS institutional grant file F-11/2026</td><td>File approval</td><td>M. Iyer</td><td>27 Nov 2026</td><td><span class="near">Awaited 3 days</span></td></tr>
-              <tr><td>NSAP monthly progress report (November)</td><td>Report</td><td>P. Nair</td><td>28 Nov 2026</td><td><span class="near">Due in 2 days</span></td></tr>
-              <tr><td>Verification of 142 new pension beneficiaries</td><td>Verification</td><td>R. Meena</td><td>30 Nov 2026</td><td><span class="fine">On track</span></td></tr>
-              <tr><td>Draft note for Director's signature on ICPS grants</td><td>File approval</td><td>Director</td><td>02 Dec 2026</td><td><span class="mut">With Director</span></td></tr>
-              <tr><td>Quarterly utilisation certificate, Jul-Sep 2026</td><td>Ministry submission</td><td>V. Sharma</td><td>05 Dec 2026</td><td><span class="fine">On track</span></td></tr>
-            </tbody>
-          </table>
+      <div class="stats">
+        <div class="stat">
+          <div class="k">Unread alerts</div>
+          <div class="v">6</div>
+          <div class="s">2 need escalation</div>
         </div>
-      </section>
-
-      <section class="card">
-        <header><h2>Alerts</h2><span class="hint">Newest first</span></header>
-        <ul class="feed">
-          <li class="unread"><span>File F-11/2026 forwarded to you for approval - from K. Deshmukh</span><span class="when">12 min ago</span></li>
-          <li class="unread"><span>Draft returned with observations: NSAP November report - to P. Nair</span><span class="when">1 hr ago</span></li>
-          <li class="unread"><span>New correspondence: WCD Ministry D.O. letter 25/2026, assigned to P. Nair</span><span class="when">3 hrs ago</span></li>
-          <li class="unread"><span>Deadline exceeded: ATR on letter 41/2026, escalated to Director</span><span class="when">Yesterday</span></li>
-          <li class="unread"><span>Reminder: ICPS physical-financial returns due 28 Nov 2026</span><span class="when">Today 09:00</span></li>
-          <li><span>Nightly backup completed and verified</span><span class="when">Today 02:00</span></li>
-        </ul>
-      </section>
-    </div>
-
-    <div class="grid2">
-      <section class="card">
-        <header><h2>Notification history</h2><span class="hint">Action status retained for audit</span></header>
-        <div class="body pad0">
-          <table>
-            <thead><tr><th>Date</th><th>Notification</th><th>Category</th><th>Sent to</th><th>Action status</th></tr></thead>
-            <tbody>
-              <tr><td>26 Nov 2026, 09:00</td><td>Reminder: NSAP monthly report due 28 Nov</td><td>Deadline reminder</td><td>P. Nair</td><td>Open</td></tr>
-              <tr><td>25 Nov 2026, 16:12</td><td>File F-10/2026 approved and returned</td><td>Approval outcome</td><td>K. Deshmukh</td><td>Closed</td></tr>
-              <tr><td>25 Nov 2026, 11:47</td><td>Correspondence assigned: SJ Ministry letter 47/2026</td><td>Assignment</td><td>N. Borah</td><td>Acknowledged</td></tr>
-              <tr><td>24 Nov 2026, 17:05</td><td>Draft returned with observations: ICPS grant note</td><td>Review outcome</td><td>P. Nair</td><td>Action taken</td></tr>
-              <tr><td>24 Nov 2026, 09:00</td><td>Escalation: ATR on letter 41/2026 overdue</td><td>Escalation</td><td>K. Deshmukh, Director</td><td>Open</td></tr>
-              <tr><td>21 Nov 2026, 14:30</td><td>Delegation active: duties of A. Kulkarni to R. Meena</td><td>System</td><td>R. Meena</td><td>Closed</td></tr>
-            </tbody>
-          </table>
+        <div class="stat">
+          <div class="k">Tasks due this week</div>
+          <div class="v">4</div>
+          <div class="s">Up to 30 Nov 2026</div>
         </div>
-      </section>
-
-      <section class="card">
-        <header><h2>Reminder rules in force</h2><span class="hint">How each alert is generated</span></header>
-        <div class="body pad0">
-          <table>
-            <thead><tr><th>Event</th><th>Alert behaviour</th></tr></thead>
-            <tbody>
-              <tr><td>File forwarded for review or approval</td><td>Immediate alert to the receiving officer</td></tr>
-              <tr><td>Draft returned with observations</td><td>Immediate alert to drafting officer, observations attached</td></tr>
-              <tr><td>Report or ATR deadline</td><td>Reminder 3 days before and on the due date</td></tr>
-              <tr><td>Deadline crossed</td><td>Escalation to officer and supervising officer on the next day</td></tr>
-              <tr><td>Ministry correspondence received</td><td>Alert on assignment; daily digest of pending items at 09:00</td></tr>
-              <tr><td>Delegation started or ended</td><td>Alert to both officers on the same day</td></tr>
-            </tbody>
-          </table>
+        <div class="stat">
+          <div class="k">Overdue items</div>
+          <div class="v">2</div>
+          <div class="s">Both ATRs</div>
         </div>
-        <div class="body"><div class="note">Escalations for ministry submissions are copied to the Director automatically. Rules can be changed only by the Director; changes are recorded in the audit log.</div></div>
-      </section>
+        <div class="stat">
+          <div class="k">Pending approvals</div>
+          <div class="v">3</div>
+          <div class="s">With Deputy Director and Director</div>
+        </div>
+      </div>
+
+      <div class="grid21">
+        <section class="card">
+          <header>
+            <h2>Consolidated pending tasks</h2><span class="hint">Sorted by due date; escalations shown in red</span>
+            <span class="tools"><a href="#">My tasks only</a></span>
+          </header>
+          <div class="body pad0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Type</th>
+                  <th>Assigned to</th>
+                  <th>Due date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ATR on Social Justice Ministry letter No. 41/2026</td>
+                  <td>Correspondence ATR</td>
+                  <td>K. Deshmukh</td>
+                  <td>24 Nov 2026</td>
+                  <td><span class="over">Overdue by 2 days</span></td>
+                </tr>
+                <tr>
+                  <td>ATR on Rural Development Ministry query on SHG linkage</td>
+                  <td>Correspondence ATR</td>
+                  <td>N. Borah</td>
+                  <td>21 Nov 2026</td>
+                  <td><span class="over">Overdue by 5 days</span></td>
+                </tr>
+                <tr>
+                  <td>Approval: ICPS institutional grant file F-11/2026</td>
+                  <td>File approval</td>
+                  <td>M. Iyer</td>
+                  <td>27 Nov 2026</td>
+                  <td><span class="near">Awaited 3 days</span></td>
+                </tr>
+                <tr>
+                  <td>NSAP monthly progress report (November)</td>
+                  <td>Report</td>
+                  <td>P. Nair</td>
+                  <td>28 Nov 2026</td>
+                  <td><span class="near">Due in 2 days</span></td>
+                </tr>
+                <tr>
+                  <td>Verification of 142 new pension beneficiaries</td>
+                  <td>Verification</td>
+                  <td>R. Meena</td>
+                  <td>30 Nov 2026</td>
+                  <td><span class="fine">On track</span></td>
+                </tr>
+                <tr>
+                  <td>Draft note for Director's signature on ICPS grants</td>
+                  <td>File approval</td>
+                  <td>Director</td>
+                  <td>02 Dec 2026</td>
+                  <td><span class="mut">With Director</span></td>
+                </tr>
+                <tr>
+                  <td>Quarterly utilisation certificate, Jul-Sep 2026</td>
+                  <td>Ministry submission</td>
+                  <td>V. Sharma</td>
+                  <td>05 Dec 2026</td>
+                  <td><span class="fine">On track</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <header>
+            <h2>Alerts</h2><span class="hint">Newest first</span>
+          </header>
+          <ul class="feed">
+            <li class="unread"><span>File F-11/2026 forwarded to you for approval - from K. Deshmukh</span><span
+                class="when">12 min ago</span></li>
+            <li class="unread"><span>Draft returned with observations: NSAP November report - to P. Nair</span><span
+                class="when">1 hr ago</span></li>
+            <li class="unread"><span>New correspondence: WCD Ministry D.O. letter 25/2026, assigned to P.
+                Nair</span><span class="when">3 hrs ago</span></li>
+            <li class="unread"><span>Deadline exceeded: ATR on letter 41/2026, escalated to Director</span><span
+                class="when">Yesterday</span></li>
+            <li class="unread"><span>Reminder: ICPS physical-financial returns due 28 Nov 2026</span><span
+                class="when">Today 09:00</span></li>
+            <li><span>Nightly backup completed and verified</span><span class="when">Today 02:00</span></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="grid2">
+        <section class="card">
+          <header>
+            <h2>Notification history</h2><span class="hint">Action status retained for audit</span>
+          </header>
+          <div class="body pad0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Notification</th>
+                  <th>Category</th>
+                  <th>Sent to</th>
+                  <th>Action status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>26 Nov 2026, 09:00</td>
+                  <td>Reminder: NSAP monthly report due 28 Nov</td>
+                  <td>Deadline reminder</td>
+                  <td>P. Nair</td>
+                  <td>Open</td>
+                </tr>
+                <tr>
+                  <td>25 Nov 2026, 16:12</td>
+                  <td>File F-10/2026 approved and returned</td>
+                  <td>Approval outcome</td>
+                  <td>K. Deshmukh</td>
+                  <td>Closed</td>
+                </tr>
+                <tr>
+                  <td>25 Nov 2026, 11:47</td>
+                  <td>Correspondence assigned: SJ Ministry letter 47/2026</td>
+                  <td>Assignment</td>
+                  <td>N. Borah</td>
+                  <td>Acknowledged</td>
+                </tr>
+                <tr>
+                  <td>24 Nov 2026, 17:05</td>
+                  <td>Draft returned with observations: ICPS grant note</td>
+                  <td>Review outcome</td>
+                  <td>P. Nair</td>
+                  <td>Action taken</td>
+                </tr>
+                <tr>
+                  <td>24 Nov 2026, 09:00</td>
+                  <td>Escalation: ATR on letter 41/2026 overdue</td>
+                  <td>Escalation</td>
+                  <td>K. Deshmukh, Director</td>
+                  <td>Open</td>
+                </tr>
+                <tr>
+                  <td>21 Nov 2026, 14:30</td>
+                  <td>Delegation active: duties of A. Kulkarni to R. Meena</td>
+                  <td>System</td>
+                  <td>R. Meena</td>
+                  <td>Closed</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <header>
+            <h2>Reminder rules in force</h2><span class="hint">How each alert is generated</span>
+          </header>
+          <div class="body pad0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Alert behaviour</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>File forwarded for review or approval</td>
+                  <td>Immediate alert to the receiving officer</td>
+                </tr>
+                <tr>
+                  <td>Draft returned with observations</td>
+                  <td>Immediate alert to drafting officer, observations attached</td>
+                </tr>
+                <tr>
+                  <td>Report or ATR deadline</td>
+                  <td>Reminder 3 days before and on the due date</td>
+                </tr>
+                <tr>
+                  <td>Deadline crossed</td>
+                  <td>Escalation to officer and supervising officer on the next day</td>
+                </tr>
+                <tr>
+                  <td>Ministry correspondence received</td>
+                  <td>Alert on assignment; daily digest of pending items at 09:00</td>
+                </tr>
+                <tr>
+                  <td>Delegation started or ended</td>
+                  <td>Alert to both officers on the same day</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="body">
+            <div class="note">Escalations for ministry submissions are copied to the Director automatically. Rules can
+              be changed only by the Director; changes are recorded in the audit log.</div>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
-</div>
-<footer class="foot">Restricted government system. All activity is logged under the departmental audit policy. MIS version 1.4, Phase 1 rollout.</footer>
+  <footer class="foot">Restricted government system. All activity is logged under the departmental audit policy. MIS
+    version 1.4, Phase 1 rollout.</footer>
 </body>
+
 </html>
 {% endblock %}
