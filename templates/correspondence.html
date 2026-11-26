@@ -49,8 +49,8 @@ h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0 0 2px}
 .stat .d{font-size:11px;color:var(--mut)}
 .stat .d.bad{color:var(--red)} .stat .d.ok{color:var(--green)}
 .grid2{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;margin-top:16px}
-.stack{display:grid;gap:16px}
-.card{background:#fff;border:1px solid var(--line)}
+.stack{display:grid;gap:16px;min-width:0}
+.card{background:#fff;border:1px solid var(--line);overflow-x:auto;min-width:0}
 .card>h3{margin:0;padding:8px 12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#1c2733;background:#f7f9fb;border-bottom:1px solid var(--line);font-weight:700}
 .body{padding:12px}
 table{width:100%;border-collapse:collapse;font-size:12.3px}
@@ -77,6 +77,9 @@ tbody tr:nth-child(even){background:#f7f9fb}
 .dlrow .top{display:flex;justify-content:space-between;gap:8px;font-size:12px}
 .dlrow .bar{margin-top:5px}
 .foot{margin-top:26px;border-top:1px solid var(--line2);padding-top:8px;display:flex;justify-content:space-between;font-size:11px;color:var(--mut)}
+@media(max-width:1024px){.grid2{grid-template-columns:1fr}}
+@media(max-width:900px){.masthead,.pagehead,.foot{flex-wrap:wrap;gap:8px}.shell{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:6px 12px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}.navlabel{width:100%;padding:4px 4px 2px}a.nav{border-left:0;border-bottom:2px solid transparent;padding:5px 8px}a.nav.active{border-left-color:transparent;border-bottom-color:var(--blue2)}.stats{grid-template-columns:repeat(auto-fit,minmax(145px,1fr))}}
+@media(max-width:600px){main{padding:12px}.acts{flex-wrap:wrap}}
 </style>
 </head>
 <body>

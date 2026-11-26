@@ -32,9 +32,10 @@ a:hover{text-decoration:underline}
 .pagemeta{font-size:11.5px;color:#68757f}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
 .c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c7{grid-column:span 7}.c8{grid-column:span 8}.c9{grid-column:span 9}.c12{grid-column:span 12}
-.colstack{display:flex;flex-direction:column;gap:14px}
-.panel{background:#fff;border:1px solid #d3d9e0}
-.phead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;border-bottom:1px solid #d3d9e0;background:#f7f9fb}
+.colstack{display:flex;flex-direction:column;gap:14px;min-width:0}
+.grid>*,.statrow>*{min-width:0}
+.panel{background:#fff;border:1px solid #d3d9e0;overflow-x:auto}
+.phead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 12px;border-bottom:1px solid #d3d9e0;background:#f7f9fb}
 .phead h2{font-size:13px;margin:0;font-weight:700}
 .phead .tools{display:flex;align-items:center;gap:10px;font-size:11.5px;color:#68757f}
 .infolink{font-size:11px;color:#1559a7;font-weight:400;margin-left:6px}
@@ -87,7 +88,9 @@ table.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
 .foot{border-top:1px solid #d3d9e0;background:#fff;margin-top:10px}
 .foot .in{max-width:1400px;margin:0 auto;padding:10px 16px;display:flex;justify-content:space-between;font-size:11px;color:#68757f}
 @media(max-width:1100px){.c3,.c4,.c5{grid-column:span 6}.c7,.c8,.c9{grid-column:span 12}.qa{grid-template-columns:repeat(2,1fr)}.statrow{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:720px){.grid>div{grid-column:span 12}.kv{grid-template-columns:1fr}.qa{grid-template-columns:1fr}}
+@media(max-width:900px){.topbar{height:auto;flex-wrap:wrap;padding:8px 14px;gap:8px}.topsearch{order:3;flex:1 0 100%;max-width:none;margin:0}}
+@media(max-width:720px){.grid>div{grid-column:span 12}.kv{grid-template-columns:1fr}.qa{grid-template-columns:1fr}.pagehead,.foot .in{flex-direction:column;align-items:flex-start;gap:4px}.toolbar .grow,.field{min-width:0;width:100%}.pfoot .btn{margin-bottom:4px}}
+@media(max-width:480px){.statrow{grid-template-columns:1fr}}
 </style>
 </head>
 <body>

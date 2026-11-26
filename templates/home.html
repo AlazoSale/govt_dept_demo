@@ -370,11 +370,11 @@ footer.site{background:var(--espresso);padding:clamp(56px,7vw,84px) 0 0;position
   .band{grid-template-columns:1fr}
 }
 @media(max-width:560px){
-  .foot-grid{grid-template-columns:1fr}
-  .news{transform:translateY(-40px)}
+  .foot-grid,.cats,.review-grid{grid-template-columns:1fr}
+  .news{transform:translateY(-40px);padding:24px 18px}.news form{min-width:0;width:100%;flex-wrap:wrap}.news input{min-width:0;width:100%}
   .collage{grid-template-rows:150px 150px}
-  .collage img:nth-child(1){transform:none}
-  .collage img:nth-child(4){transform:none}
+  .collage img:nth-child(1),.collage img:nth-child(4){transform:none}
+  .spin-badge{display:none}.loc-card{padding:24px 20px}.map-wrap,.map-wrap iframe{min-height:260px}
   #menuGrid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
   .menu-item img{width:96px;height:96px}
 }
