@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Document Repository - Digital Record Room{% endblock %}
+{% block h1 %}Document Repository - Digital Record Room{% endblock %}
+{% block content %}
+
+<div class="grid">
+
+  <div class="c3 colstack">
+    <div class="panel">
+      <div class="phead"><h2>Categories<a class="infolink" href="#">Info</a></h2></div>
+      <div class="pbody">
+        <ul class="list">
+          <li><span><a href="#">Government Orders</a></span><span class="muted">142</span></li>
+          <li><span><a href="#">Notifications</a></span><span class="muted">86</span></li>
+          <li><span><a href="#">Circulars &amp; Office Orders</a></span><span class="muted">210</span></li>
+          <li><span><a href="#">Scheme Guidelines</a></span><span class="muted">58</span></li>
+          <li><span><a href="#">Correspondence (received)</a></span><span class="muted">1,104</span></li>
+          <li><span><a href="#">Scheme Documents</a></span><span class="muted">96</span></li>
+          <li><span><a href="#">Reports &amp; ATRs</a></span><span class="muted">341</span></li>
+          <li><span><a href="#">Meeting Records</a></span><span class="muted">47</span></li>
+          <li><span><a href="#">Scanned legacy records</a></span><span class="muted">1,642</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h2>Digitisation status<a class="infolink" href="#">Info</a></h2></div>
+      <div class="pbody">
+        <div class="small muted">Physical records scanned</div>
+        <div style="font-size:19px;font-weight:600">1,642 of 2,084</div>
+        <div class="bar"><i style="width:79%"></i></div>
+        <div class="small muted">79% complete &middot; 442 records pending scan</div>
+        <div class="small muted" style="margin-top:8px">Scanning unit: Record Room, Section III. Scanned copies are indexed by scheme, ministry, financial year, subject and document type.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="c9 colstack">
+    <div class="panel">
+      <div class="phead"><h2>Document register<a class="infolink" href="#">Info</a></h2><div class="tools">2,084 documents &middot; showing 10 &middot; <a href="#">Upload document</a></div></div>
+      <div class="toolbar">
+        <label class="field grow">Search
+          <input type="text" placeholder="Title, GO number, subject, keyword">
+        </label>
+        <label class="field">Type
+          <select><option>All types</option><option>Government Order</option><option>Notification</option><option>Circular</option><option>Guidelines</option><option>Correspondence</option><option>Report / ATR</option><option>Meeting record</option></select>
+        </label>
+        <label class="field">Scheme
+          <select><option>All schemes</option><option>SWD-01 Old Age Pension</option><option>SWD-02 Widow Pension</option><option>SWD-04 Mission Vatsalya</option><option>SWD-06 ADIP</option><option>SWD-08 Kanya Vivah</option></select>
+        </label>
+        <label class="field">Financial year
+          <select><option>2026-27</option><option>2025-26</option><option>2024-25</option></select>
+        </label>
+        <button class="btn">Search</button>
+        <button class="btn">Reset</button>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Document</th><th>Type</th><th>Scheme / Subject</th><th>Ministry</th><th>FY</th><th>Ver.</th><th>Uploaded by</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody>
+          <tr><td><a href="#ver">GO No. SWD/2026/132 - Revision of pension rates under Social Security and Widow Pension</a></td><td>Government Order</td><td>SSP / Widow Pension</td><td>State Plan</td><td>2026-27</td><td>v1.0</td><td>P. Nair</td><td>25 Nov 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver">Draft Q2 progress report - Mission Vatsalya (for approval)</a></td><td>Report</td><td>Mission Vatsalya</td><td>Women &amp; Child Dev.</td><td>2026-27</td><td>v0.3</td><td>A. K. Srivastava</td><td>24 Nov 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver">Consolidated ATR on Audit paras 2025-26</a></td><td>ATR</td><td>Departmental</td><td>Finance Dept.</td><td>2026-27</td><td>v1.2</td><td>S. Banerjee</td><td>22 Nov 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver">Notification SWD/NOT/2026/41 - Guidelines amendment, Kanya Vivah Yojana</a></td><td>Notification</td><td>CM Kanya Vivah</td><td>State Plan</td><td>2026-27</td><td>v1.0</td><td>S. Banerjee</td><td>18 Nov 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver">Minutes - State Level Monitoring Committee, 07 Nov 2026</a></td><td>Meeting record</td><td>All schemes</td><td>-</td><td>2026-27</td><td>v1.0</td><td>S. Banerjee</td><td>12 Nov 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver">Circular SWD/C-2026/118 - Q2 data submission timeline for districts</a></td><td>Circular</td><td>All schemes</td><td>-</td><td>2026-27</td><td>v1.0</td><td>P. Nair</td><td>10 Nov 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver">MoWCD letter No. 12-14/2026-CW-I - calling for monthly MIS report</a></td><td>Correspondence</td><td>MIS reporting</td><td>Women &amp; Child Dev.</td><td>2026-27</td><td>v1.0</td><td>Record Room</td><td>05 Nov 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver">ADIP camp utilisation statement (scanned copy)</a></td><td>Scheme document</td><td>ADIP</td><td>Social Justice &amp; Emp.</td><td>2025-26</td><td>v1.0</td><td>Record Room</td><td>30 Oct 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver">GO No. SWD/2025/097 - Constitution of District Sanction Committees</a></td><td>Government Order</td><td>Departmental</td><td>State Plan</td><td>2025-26</td><td>v1.1</td><td>Record Room</td><td>21 Jul 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+          <tr><td><a href="#ver" id="ver">Scheme guidelines - Widow &amp; Destitute Women Pension</a></td><td>Guidelines</td><td>Widow Pension</td><td>State Plan</td><td>2024-25</td><td>v2.2</td><td>Record Room</td><td>08 Sep 2026</td><td><a href="#">View</a> &middot; <a href="#">Download</a></td></tr>
+        </tbody>
+      </table>
+      <div class="pager"><span>Previous</span> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <span>...</span> <a href="#">209</a> <span>Next</span></div>
+    </div>
+
+    <div class="grid" style="margin:0">
+      <div class="c5 panel">
+        <div class="phead"><h2>Version history - Scheme guidelines, Widow Pension<a class="infolink" href="#">Info</a></h2></div>
+        <table class="tbl">
+          <thead><tr><th>Version</th><th>Date</th><th>Uploaded by</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>v2.2 <span class="chip ok">Current</span></td><td>08 Sep 2026</td><td>Record Room</td><td>Amendment 2026 incorporated</td></tr>
+            <tr><td>v2.1</td><td>14 Mar 2024</td><td>Record Room</td><td>Eligibility clause 4.2 revised</td></tr>
+            <tr><td>v2.0</td><td>02 Feb 2024</td><td>Record Room</td><td>Consolidated guidelines</td></tr>
+            <tr><td>v1.0</td><td>12 Oct 2019</td><td>Record Room</td><td>Original guidelines</td></tr>
+          </tbody>
+        </table>
+        <div class="small muted" style="padding:8px 12px">Earlier versions remain accessible for reference after a revision is uploaded.</div>
+      </div>
+      <div class="c4 panel">
+        <div class="phead"><h2>Linked references<a class="infolink" href="#">Info</a></h2></div>
+        <div class="pbody">
+          <ul class="list">
+            <li><span>Scheme record SWD-02</span><span><a href="{% url 'schemes' %}">Open</a></span></li>
+            <li><span>e-Office file SWD/e-O/2026/114 (rate revision proposal)</span><span><a href="#">Open</a></span></li>
+            <li><span>Correspondence entry C-2026-441 (MoRD query)</span><span><a href="#">Open</a></span></li>
+            <li><span>Report R-2026-41 (Q2 progress)</span><span><a href="#">Open</a></span></li>
+          </ul>
+          <div class="small muted" style="margin-top:8px">Documents are linked to the concerned scheme record, correspondence entry and e-Office file at the time of upload.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

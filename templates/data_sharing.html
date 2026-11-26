@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %}Data Sharing &amp; Reminders{% endblock %}
+{% block h1 %}Data Sharing &amp; Reminders{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Interdepartmental Data Sharing - SWD MIS</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:13px/1.5 "Segoe UI",Arial,sans-serif;color:#1c2733;background:#eef1f4}
+a{color:#1559a7;text-decoration:none}a:hover{text-decoration:underline}
+.topbar{display:flex;align-items:center;gap:14px;height:48px;padding:0 16px;background:#123f6d;color:#fff}
+.emblem{width:28px;height:28px;border:1px solid rgba(255,255,255,.55);display:grid;place-items:center;font-size:10px;letter-spacing:.5px}
+.topbar .t1{font-size:13.5px;font-weight:600}.topbar .t2{font-size:11px;opacity:.75}
+.topsearch{margin-left:24px;flex:0 0 300px}
+.topsearch input{width:100%;padding:5px 9px;font-size:12px;border:1px solid #2f5f92;background:#0d3157;color:#fff;border-radius:2px}
+.topsearch input::placeholder{color:#9db8d6}
+.topright{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:12px}
+.topright .who{text-align:right;line-height:1.25}.topright .who small{display:block;opacity:.75;font-size:10.5px}
+.topright a{color:#cfe1f5}
+.shell{display:flex;min-height:calc(100vh - 48px)}
+.side{width:236px;flex:0 0 236px;background:#fbfcfd;border-right:1px solid #d3d9e0;padding:10px 0 24px}
+.side h4{margin:16px 16px 5px;font-size:10px;letter-spacing:.9px;text-transform:uppercase;color:#7b8794}
+.side h4:first-child{margin-top:6px}
+.side a{display:flex;gap:8px;padding:5px 16px 5px 13px;border-left:3px solid transparent;color:#33475b;font-size:12.5px}
+.side a .no{color:#93a0ad;font-size:11px;width:16px;text-align:right;flex:0 0 16px}
+.side a:hover{background:#eef4fa;text-decoration:none}
+.side a.on{background:#e6eff8;border-left-color:#123f6d;color:#0d3c6e;font-weight:600}
+.main{flex:1;padding:16px 22px 30px;min-width:0}
+.crumb{font-size:11.5px;color:#68757f;margin-bottom:4px}
+.phead{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+.phead h1{margin:0;font-size:18px;font-weight:600}
+.phead p{margin:2px 0 0;font-size:12px;color:#5c6b7a}
+.phead .acts{margin-left:auto;display:flex;gap:8px}
+.btn{display:inline-block;padding:5px 12px;font-size:12px;color:#243447;background:#fff;border:1px solid #b9c4cf;border-radius:2px;cursor:pointer}
+.btn:hover{background:#f2f6fa}
+.btn.pri{background:#123f6d;border-color:#123f6d;color:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#d3d9e0;border:1px solid #d3d9e0;margin-bottom:16px}
+.stat{background:#fff;padding:9px 14px}
+.stat .k{font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:#5c6b7a}
+.stat .v{font-size:20px;font-weight:600;margin-top:2px}
+.stat .s{font-size:11px;color:#68757f}
+.card{background:#fff;border:1px solid #d3d9e0;border-radius:3px;margin-bottom:16px}
+.card>header{display:flex;align-items:center;gap:10px;padding:8px 14px;background:#f7f9fb;border-bottom:1px solid #d3d9e0}
+.card>header h2{margin:0;font-size:13px;font-weight:600}
+.card>header .hint{font-size:11px;color:#68757f}
+.card>header .tools{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:12px}
+.card .body{padding:14px}.card .body.pad0{padding:0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10.5px;letter-spacing:.7px;text-transform:uppercase;color:#5c6b7a;background:#fafbfc;border-bottom:1px solid #d3d9e0;padding:7px 10px}
+td{padding:7px 10px;border-bottom:1px solid #e6eaee;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#f6f9fc}
+.mut{color:#68757f}.small{font-size:11.5px}
+.grid21{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+.tag{display:inline-block;padding:0 6px;font-size:11px;border:1px solid;border-radius:2px;margin:0 3px 2px 0;background:#fff}
+.tg-x{color:#5c6b7a;border-color:#c4ccd4;background:#f2f4f6}
+.tg-b{color:#1559a7;border-color:#a6c6e4;background:#eef4fa}
+.tg-g{color:#1e7a3c;border-color:#a9cdb4;background:#eef6f0}
+.tg-a{color:#9a6700;border-color:#dcc08a;background:#fbf4e6}
+.tg-r{color:#b3261e;border-color:#e0a9a5;background:#fbeeec}
+.note{border:1px solid #d8dee5;background:#f7f9fb;padding:9px 12px;font-size:12px;color:#41505e;border-radius:2px}
+footer.foot{padding:10px 22px 26px;font-size:11px;color:#68757f}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="emblem">SWD</div>
+  <div><div class="t1">Social Welfare Department</div><div class="t2">MIS &amp; e-Office Portal</div></div>
+  <div class="topsearch"><input type="text" placeholder="Search files, reports, officers"></div>
+  <div class="topright"><span class="who">S. Rathore<small>Director (SWD)</small></span><a href="#">Sign out</a></div>
+</header>
+<div class="shell">
+  <nav class="side">
+    <h4>Phase 1 - Foundation</h4>
+    <a href="#"><span class="no">01</span> Dashboard</a>
+    <a href="/users-roles/"><span class="no">09</span> User &amp; Role Management</a>
+    <a href="/security-audit/"><span class="no">12</span> Security &amp; Audit Logs</a>
+    <h4>Phase 2 - Paperless Office</h4>
+    <a href="#"><span class="no">02</span> Document Repository</a>
+    <a href="#"><span class="no">03</span> e-Office File Management</a>
+    <a href="#"><span class="no">04</span> Correspondence</a>
+    <h4>Phase 3 - Data &amp; Reporting</h4>
+    <a href="#"><span class="no">05</span> Schemes &amp; Programmes</a>
+    <a href="#"><span class="no">06</span> Data Management</a>
+    <a href="#"><span class="no">07</span> Reports &amp; ATRs</a>
+    <h4>Phase 4 - Coordination</h4>
+    <a href="#"><span class="no">08</span> Monitoring &amp; Evaluation</a>
+    <a href="/notifications/"><span class="no">10</span> Notifications &amp; Reminders</a>
+    <a href="/data-sharing/" class="on"><span class="no">11</span> Interdepartmental Sharing</a>
+  </nav>
+  <div class="main">
+    <div class="crumb"><a href="#">Home</a> / <a href="#">Coordination</a> / Interdepartmental Data Sharing</div>
+    <div class="phead">
+      <div>
+        <h1>Interdepartmental Data Sharing</h1>
+        <p>Controlled exchange of approved reports and datasets with the three associated ministries. No personal email or public cloud storage is used.</p>
+      </div>
+      <div class="acts"><button class="btn">Exchange register</button><button class="btn pri">Open new sharing area</button></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">Active sharing areas</div><div class="v">5</div><div class="s">1 held confidential</div></div>
+      <div class="stat"><div class="k">Documents shared this month</div><div class="v">23</div><div class="s">November 2026</div></div>
+      <div class="stat"><div class="k">External accesses, 30 days</div><div class="v">41</div><div class="s">All logged</div></div>
+      <div class="stat"><div class="k">Pending access requests</div><div class="v">2</div><div class="s">Awaiting Director's decision</div></div>
+    </div>
+
+    <section class="card">
+      <header><h2>Sharing areas</h2><span class="hint">Permission-based; access is per area and revocable</span>
+        <span class="tools"><a href="#">Review access</a></span></header>
+      <div class="body pad0">
+        <table>
+          <thead><tr><th>Sharing area</th><th>Shared with</th><th>Access level</th><th>Docs</th><th>Last update</th><th>Maintained by</th></tr></thead>
+          <tbody>
+            <tr><td>NSAP monthly progress pack</td><td>Ministry of Social Justice &amp; Empowerment</td><td><span class="tag tg-b">View + download</span> approved reports only</td><td>9</td><td>25 Nov 2026</td><td>P. Nair</td></tr>
+            <tr><td>ICPS physical-financial returns</td><td>Ministry of Women &amp; Child Development</td><td><span class="tag tg-b">View + download</span></td><td>6</td><td>24 Nov 2026</td><td>P. Nair</td></tr>
+            <tr><td>SHG linkage summary, district-wise</td><td>Ministry of Rural Development &amp; Panchayati Raj</td><td><span class="tag tg-x">View only</span></td><td>4</td><td>18 Nov 2026</td><td>N. Borah</td></tr>
+            <tr><td>Utilisation certificates repository</td><td>Accounts wings of all three ministries</td><td><span class="tag tg-b">View + download</span></td><td>12</td><td>12 Nov 2026</td><td>V. Sharma</td></tr>
+            <tr><td>Beneficiary master data (NSAP)</td><td>Not shared</td><td><span class="tag tg-r">Confidential - internal only</span></td><td>-</td><td>-</td><td>Director</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="grid21">
+      <section class="card">
+        <header><h2>Exchange record, last 30 days</h2><span class="hint">Who shared, accessed, downloaded or modified</span></header>
+        <div class="body pad0">
+          <table>
+            <thead><tr><th>Date</th><th>Document</th><th>Action</th><th>By</th><th>Sharing area</th></tr></thead>
+            <tbody>
+              <tr><td>26 Nov 2026, 10:04</td><td>NSAP November progress (draft)</td><td><span class="tag tg-a">Modified</span></td><td>P. Nair</td><td>NSAP pack</td></tr>
+              <tr><td>25 Nov 2026, 18:22</td><td>NSAP October progress (final)</td><td><span class="tag tg-b">Downloaded</span></td><td>SJE Ministry, Desk Officer</td><td>NSAP pack</td></tr>
+              <tr><td>25 Nov 2026, 15:10</td><td>ICPS October returns</td><td><span class="tag tg-x">Accessed</span></td><td>WCD Ministry, Programme Officer</td><td>ICPS returns</td></tr>
+              <tr><td>22 Nov 2026, 11:36</td><td>Utilisation certificate Q2 2026-27</td><td><span class="tag tg-g">Shared</span></td><td>V. Sharma</td><td>UC repository</td></tr>
+              <tr><td>20 Nov 2026, 09:58</td><td>SHG linkage summary, October</td><td><span class="tag tg-x">Accessed</span></td><td>RD &amp; PR Ministry, Section Officer</td><td>SHG summary</td></tr>
+              <tr><td>18 Nov 2026, 14:02</td><td>Beneficiary master extract, request refused</td><td><span class="tag tg-r">Denied</span></td><td>WCD Ministry request; Director</td><td>Restricted</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <header><h2>Pending access requests</h2></header>
+        <div class="body pad0">
+          <table>
+            <thead><tr><th>Requested by</th><th>Document sought</th><th>Received</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>WCD Ministry</td><td>Case-wise ICPS beneficiary list for institutional grant review</td><td>24 Nov 2026</td><td><span class="near" style="color:#9a6700;font-weight:600">With Director</span></td></tr>
+              <tr><td>RD &amp; PR Ministry</td><td>District SHG-wise pension linkage for audit reply</td><td>22 Nov 2026</td><td><span style="color:#9a6700;font-weight:600">With Deputy Director</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="body"><div class="note">Confidential material (beneficiary identities, case records, draft notes) is excluded from every sharing area. External access is granted per document, for a fixed period, and can be revoked by the Director at any time.</div></div>
+      </section>
+    </div>
+
+    <section class="card">
+      <header><h2>Ministry-wise exchange summary</h2><span class="hint">Financial year 2026-27, for reference</span>
+        <span class="tools"><a href="#">Export</a></span></header>
+      <div class="body pad0">
+        <table>
+          <thead><tr><th>Ministry</th><th>Documents shared</th><th>Downloads by ministry</th><th>Last exchange</th><th>Nodal officer</th></tr></thead>
+          <tbody>
+            <tr><td>Social Justice &amp; Empowerment</td><td>34</td><td>51</td><td>25 Nov 2026</td><td>P. Nair</td></tr>
+            <tr><td>Women &amp; Child Development</td><td>21</td><td>27</td><td>25 Nov 2026</td><td>P. Nair</td></tr>
+            <tr><td>Rural Development &amp; Panchayati Raj</td><td>12</td><td>9</td><td>18 Nov 2026</td><td>N. Borah</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="body"><div class="note">This summary is the standing record of information exchanged with each ministry and is produced during coordination meetings and audit.</div></div>
+    </section>
+  </div>
+</div>
+<footer class="foot">Restricted government system. All activity is logged under the departmental audit policy. MIS version 1.4, Phase 1 rollout.</footer>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Departmental Overview{% endblock %}
+{% block h1 %}Dashboard - Departmental Overview{% endblock %}
+{% block content %}
+<div class="grid">
+
+  <div class="c4 panel">
+    <div class="phead"><h2>Department at a glance<a class="infolink" href="#">Info</a></h2><div class="tools">Q2 2026-27</div></div>
+    <div class="pbody">
+      <div style="padding:6px 0;border-bottom:1px solid #e6eaee">
+        <div class="small muted">Active schemes, missions and programmes</div>
+        <div style="font-size:19px;font-weight:600">22</div>
+        <div class="small muted">14 schemes, 3 missions, 5 programmes</div>
+      </div>
+      <div style="padding:6px 0;border-bottom:1px solid #e6eaee">
+        <div class="small muted">Ongoing activities this quarter</div>
+        <div style="font-size:19px;font-weight:600">47</div>
+        <div class="small muted">12 nearing completion, 4 delayed</div>
+      </div>
+      <div style="padding:6px 0;border-bottom:1px solid #e6eaee">
+        <div class="small muted">Beneficiaries covered (2026-27)</div>
+        <div style="font-size:19px;font-weight:600">1,28,450</div>
+        <div class="bar"><i style="width:80%"></i></div>
+        <div class="small muted">80% of annual target of 1,60,000</div>
+      </div>
+      <div style="padding:6px 0;border-bottom:1px solid #e6eaee">
+        <div class="small muted">Utilisation of released allocation</div>
+        <div style="font-size:19px;font-weight:600">Rs 42.10 crore</div>
+        <div class="bar"><i style="width:68%"></i></div>
+        <div class="small muted">68% of Rs 61.50 crore released</div>
+      </div>
+      <div style="padding:6px 0">
+        <div class="small muted">Districts reporting (Q2)</div>
+        <div style="font-size:19px;font-weight:600">21 of 23</div>
+        <div class="small muted">East and Hills districts pending</div>
+      </div>
+    </div>
+    <div class="pfoot"><a href="{% url 'schemes' %}">Open scheme register</a></div>
+  </div>
+
+  <div class="c4 panel">
+    <div class="phead"><h2>Pending for attention<a class="infolink" href="#">Info</a></h2><div class="tools">as on today</div></div>
+    <div class="pbody">
+      <ul class="list">
+        <li><span>Files awaiting approval (e-Office)</span><span><b>6</b> &nbsp;<a href="#">View</a></span></li>
+        <li><span>Correspondence pending action</span><span><b>11</b> &nbsp;<a href="#">View</a></span></li>
+        <li><span>Reports to be compiled</span><span><b>4</b> &nbsp;<a href="#">View</a></span></li>
+        <li><span>ATRs pending submission</span><span><b>3</b> &nbsp;<a href="#">View</a></span></li>
+        <li><span>Drafts returned for correction</span><span><b>2</b> &nbsp;<a href="#">View</a></span></li>
+        <li><span>Physical records awaiting digitisation</span><span><b>442</b> &nbsp;<a href="{% url 'document_repository' %}">View</a></span></li>
+      </ul>
+    </div>
+    <div class="pfoot"><a href="#">Go to e-Office</a> &nbsp;&middot;&nbsp; <a href="#">Go to Correspondence</a></div>
+  </div>
+
+  <div class="c4 panel">
+    <div class="phead"><h2>Alerts<a class="infolink" href="#">Info</a></h2><div class="tools">7 open</div></div>
+    <div class="pbody">
+      <ul class="list">
+        <li><span class="dot late"></span><span>Quarterly progress report (NSAP, MoRD) was due 23 Nov 2026. Overdue by 3 days.</span></li>
+        <li><span class="dot late"></span><span>File SWD/e-O/2026/114 (pension rate revision) awaiting Director approval since 19 Nov 2026.</span></li>
+        <li><span class="dot warn"></span><span>Q2 institutional occupancy data incomplete: 4 districts yet to submit.</span></li>
+        <li><span class="dot warn"></span><span>Utilisation certificate for Mission Vatsalya due 05 Dec 2026; compilation not started.</span></li>
+        <li><span class="dot warn"></span><span>6 beneficiary records flagged as suspected duplicates in ADIP (Hills district).</span></li>
+      </ul>
+    </div>
+    <div class="pfoot"><a href="#">View all alerts (7)</a></div>
+  </div>
+
+  <div class="c7 panel">
+    <div class="phead"><h2>Upcoming deadlines for submissions<a class="infolink" href="#">Info</a></h2><div class="tools">next 60 days</div></div>
+    <table class="tbl">
+      <thead><tr><th>Submission</th><th>To (Ministry / Department)</th><th>Due date</th><th class="num">Days left</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Monthly MIS progress report (November)</td><td>Ministry of Women &amp; Child Development</td><td>30 Nov 2026</td><td class="num">4</td><td><span class="chip warn">Attention</span></td></tr>
+        <tr><td>ATR on Audit paras 2025-26 (consolidated)</td><td>Finance Department</td><td>01 Dec 2026</td><td class="num">5</td><td><span class="chip ok">On track</span></td></tr>
+        <tr><td>Q2 utilisation certificate - Mission Vatsalya</td><td>Ministry of Women &amp; Child Development</td><td>05 Dec 2026</td><td class="num">9</td><td><span class="chip ok">On track</span></td></tr>
+        <tr><td>Half-yearly progress report - ADIP</td><td>Ministry of Social Justice &amp; Empowerment</td><td>31 Dec 2026</td><td class="num">35</td><td><span class="chip ok">On track</span></td></tr>
+        <tr><td>Annual Action Plan 2027-28</td><td>Planning &amp; Coordination Department</td><td>15 Jan 2027</td><td class="num">50</td><td><span class="chip ok">On track</span></td></tr>
+        <tr><td>Quarterly progress report - NSAP</td><td>Ministry of Rural Development</td><td>23 Nov 2026</td><td class="num">-3</td><td><span class="chip late">Overdue</span></td></tr>
+      </tbody>
+    </table>
+    <div class="pfoot"><a href="#">Full submission calendar</a></div>
+  </div>
+
+  <div class="c5 panel">
+    <div class="phead"><h2>Officer task summary<a class="infolink" href="#">Info</a></h2><div class="tools">current week</div></div>
+    <table class="tbl">
+      <thead><tr><th>Officer</th><th>Designation</th><th class="num">Assigned</th><th class="num">Completed</th><th class="num">Pending</th></tr></thead>
+      <tbody>
+        <tr><td>R. Meena</td><td>Director</td><td class="num">3</td><td class="num">1</td><td class="num">2</td></tr>
+        <tr><td>S. Banerjee</td><td>Section Officer (Estt.)</td><td class="num">9</td><td class="num">6</td><td class="num">3</td></tr>
+        <tr><td>P. Nair</td><td>Section Officer (MIS)</td><td class="num">11</td><td class="num">9</td><td class="num">2</td></tr>
+        <tr><td>M. Hussain</td><td>Assistant</td><td class="num">8</td><td class="num">5</td><td class="num">3</td></tr>
+        <tr><td>K. Devi</td><td>Data Entry Operator</td><td class="num">14</td><td class="num">12</td><td class="num">2</td></tr>
+      </tbody>
+    </table>
+    <div class="pfoot"><a href="#">View task register</a></div>
+  </div>
+
+  <div class="c8 panel">
+    <div class="phead"><h2>Quick access<a class="infolink" href="#">Info</a></h2></div>
+    <div class="pbody">
+      <div class="qa">
+        <a class="qitem" href="#"><span class="tile t1">CO</span><span><span class="qt">Register correspondence</span><span class="qs">Receipt, diarisation and assignment of incoming communications</span></span></a>
+        <a class="qitem" href="#"><span class="tile t4">EO</span><span><span class="qt">Open e-Office files</span><span class="qs">Drafting, review, forwarding and approval of notes and files</span></span></a>
+        <a class="qitem" href="{% url 'data_management' %}"><span class="tile t2">DE</span><span><span class="qt">Enter scheme data</span><span class="qs">Standardized entry forms against the scheme data dictionary</span></span></a>
+        <a class="qitem" href="{% url 'document_repository' %}"><span class="tile t3">DR</span><span><span class="qt">Upload document</span><span class="qs">GOs, notifications, circulars, guidelines and scanned records</span></span></a>
+        <a class="qitem" href="#"><span class="tile t3">RP</span><span><span class="qt">Compile report</span><span class="qs">Periodic and ad-hoc reports compiled from stored data</span></span></a>
+        <a class="qitem" href="#"><span class="tile t1">AT</span><span><span class="qt">Submit ATR</span><span class="qs">Action Taken Reports on audit paras, court and assembly matters</span></span></a>
+        <a class="qitem" href="{% url 'schemes' %}"><span class="tile t2">SR</span><span><span class="qt">Scheme register</span><span class="qs">Master record of all schemes, missions and programmes</span></span></a>
+        <a class="qitem" href="{% url 'document_repository' %}"><span class="tile t4">DS</span><span><span class="qt">Document search</span><span class="qs">Keyword search across the digital record room</span></span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="c4 panel">
+    <div class="phead"><h2>Recent activity<a class="infolink" href="#">Info</a></h2></div>
+    <div class="pbody">
+      <ul class="list">
+        <li><span>10:42 &middot; P. Nair verified 38 beneficiary records (Old Age Pension, North district).</span></li>
+        <li><span>09:55 &middot; S. Banerjee forwarded file SWD/e-O/2026/118 to the Director.</span></li>
+        <li><span>09:31 &middot; K. Devi entered Q2 occupancy data for Mission Vatsalya (6 districts).</span></li>
+        <li><span>25 Nov, 17:20 &middot; A. K. Srivastava approved draft report R-2026-41 for submission.</span></li>
+        <li><span>25 Nov, 16:02 &middot; P. Nair uploaded GO No. SWD/2026/132 (v1.0).</span></li>
+        <li><span>25 Nov, 11:47 &middot; Record Room linked 4 scanned files to scheme SWD-06.</span></li>
+      </ul>
+    </div>
+    <div class="pfoot"><a href="#">Full activity log</a></div>
+  </div>
+
+</div>
+{% endblock %}

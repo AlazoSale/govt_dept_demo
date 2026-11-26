@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Schemes &amp; Programmes Management{% endblock %}
+{% block h1 %}Schemes &amp; Programmes Management{% endblock %}
+{% block content %}
+
+<div class="statrow">
+  <div class="statbox"><div class="v">14</div><div class="l">Ongoing</div><div class="s">under implementation in 2026-27</div></div>
+  <div class="statbox"><div class="v">2</div><div class="l">Newly introduced</div><div class="s">notified during 2026-27</div></div>
+  <div class="statbox"><div class="v">6</div><div class="l">Completed</div><div class="s">closed since 2021-22</div></div>
+  <div class="statbox"><div class="v">3</div><div class="l">Discontinued</div><div class="s">merged or withdrawn by order</div></div>
+</div>
+
+<div class="panel" style="margin-bottom:14px">
+  <div class="toolbar">
+    <label class="field">Ministry
+      <select><option>All ministries</option><option>Ministry of Women &amp; Child Development</option><option>Ministry of Social Justice &amp; Empowerment</option><option>Ministry of Rural Development</option><option>State Plan (Social Welfare)</option></select>
+    </label>
+    <label class="field">Status
+      <select><option>All statuses</option><option>Ongoing</option><option>Newly introduced</option><option>Completed</option><option>Discontinued</option></select>
+    </label>
+    <label class="field">Financial year
+      <select><option>2026-27</option><option>2025-26</option><option>2024-25</option></select>
+    </label>
+    <label class="field grow">Search
+      <input type="text" placeholder="Scheme name or code">
+    </label>
+    <button class="btn">Apply filters</button>
+    <button class="btn">Reset</button>
+    <button class="btn primary">Add scheme record</button>
+  </div>
+</div>
+
+<div class="panel" style="margin-bottom:14px">
+  <div class="phead"><h2>Scheme register<a class="infolink" href="#">Info</a></h2><div class="tools">25 records &middot; showing 12</div></div>
+  <table class="tbl">
+    <thead><tr><th>Code</th><th>Scheme / Mission / Programme</th><th>Type</th><th>Nodal ministry</th><th>Nodal officer</th><th>Status</th><th class="num">Allocation 2026-27 (Rs lakh)</th><th class="num">Target</th><th class="num">Achievement</th><th>Period</th></tr></thead>
+    <tbody>
+      <tr><td class="muted">SWD-01</td><td><a href="#record">Social Security Pension Scheme - Old Age</a></td><td>Scheme</td><td>Rural Development (NSAP)</td><td>S. Banerjee</td><td><span class="chip ok">Ongoing</span></td><td class="num">4,850</td><td class="num">96,000</td><td class="num">91,214</td><td>Since 2019</td></tr>
+      <tr><td class="muted">SWD-02</td><td><a href="#record">Widow &amp; Destitute Women Pension</a></td><td>Scheme</td><td>State Plan</td><td>S. Banerjee</td><td><span class="chip ok">Ongoing</span></td><td class="num">1,960</td><td class="num">41,500</td><td class="num">41,208</td><td>Since 2019</td></tr>
+      <tr><td class="muted">SWD-03</td><td><a href="#record">PM Matru Vandana Yojana</a></td><td>Scheme</td><td>Women &amp; Child Development</td><td>P. Nair</td><td><span class="chip ok">Ongoing</span></td><td class="num">2,240</td><td class="num">18,400</td><td class="num">16,905</td><td>Since 2021</td></tr>
+      <tr><td class="muted">SWD-04</td><td><a href="#record">Mission Vatsalya (Child Protection)</a></td><td>Mission</td><td>Women &amp; Child Development</td><td>A. K. Srivastava</td><td><span class="chip ok">Ongoing</span></td><td class="num">3,100</td><td class="num">5,200</td><td class="num">4,876</td><td>Since 2022</td></tr>
+      <tr><td class="muted">SWD-05</td><td><a href="#record">Beti Bachao Beti Padhao (district action)</a></td><td>Programme</td><td>Women &amp; Child Development</td><td>P. Nair</td><td><span class="chip ok">Ongoing</span></td><td class="num">640</td><td class="num">23</td><td class="num">21</td><td>Since 2020</td></tr>
+      <tr><td class="muted">SWD-06</td><td><a href="#record">ADIP - Aids and Appliances for Divyangjan</a></td><td>Scheme</td><td>Social Justice &amp; Empowerment</td><td>M. Hussain</td><td><span class="chip ok">Ongoing</span></td><td class="num">980</td><td class="num">6,500</td><td class="num">5,112</td><td>Since 2018</td></tr>
+      <tr><td class="muted">SWD-07</td><td><a href="#record">SIPDA - Barrier-free Access Works</a></td><td>Programme</td><td>Social Justice &amp; Empowerment</td><td>M. Hussain</td><td><span class="chip ok">Ongoing</span></td><td class="num">720</td><td class="num">12</td><td class="num">9</td><td>Since 2023</td></tr>
+      <tr><td class="muted">SWD-08</td><td><a href="#record">Chief Minister Kanya Vivah Yojana</a></td><td>Scheme</td><td>State Plan</td><td>S. Banerjee</td><td><span class="chip info">Newly introduced</span></td><td class="num">1,500</td><td class="num">3,000</td><td class="num">1,148</td><td>From 2026</td></tr>
+      <tr><td class="muted">SWD-09</td><td><a href="#record">Destitute Children Care &amp; Sponsorship</a></td><td>Mission</td><td>State Plan</td><td>A. K. Srivastava</td><td><span class="chip ok">Ongoing</span></td><td class="num">860</td><td class="num">2,400</td><td class="num">2,291</td><td>Since 2020</td></tr>
+      <tr><td class="muted">SWD-10</td><td><a href="#record">Poshan Abhiyaan (state coordination)</a></td><td>Programme</td><td>Women &amp; Child Development</td><td>P. Nair</td><td><span class="chip ok">Ongoing</span></td><td class="num">1,350</td><td class="num">23</td><td class="num">23</td><td>Since 2021</td></tr>
+      <tr><td class="muted">SWD-11</td><td><a href="#record">IGNDP State Top-up Pension</a></td><td>Scheme</td><td>Rural Development</td><td>-</td><td><span class="chip neutral">Completed</span></td><td class="num">-</td><td class="num">-</td><td class="num">-</td><td>2016-2025</td></tr>
+      <tr><td class="muted">SWD-12</td><td><a href="#record">Manual Scavengers Rehabilitation (state top-up)</a></td><td>Scheme</td><td>Social Justice &amp; Empowerment</td><td>-</td><td><span class="chip late">Discontinued</span></td><td class="num">-</td><td class="num">-</td><td class="num">-</td><td>2014-2023</td></tr>
+    </tbody>
+  </table>
+  <div class="pager"><span>Previous</span> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <span>Next</span></div>
+</div>
+
+<div class="panel" id="record">
+  <div class="phead"><h2>Scheme record - SWD-02 Widow &amp; Destitute Women Pension<a class="infolink" href="#">Info</a></h2><div class="tools"><a href="#">Edit record</a> &middot; <a href="#">Upload guideline / GO</a></div></div>
+  <div class="pbody">
+    <div class="grid">
+      <div class="c8">
+        <dl class="kv">
+          <dt>Objective</dt><dd>Monthly pension assistance to widows and destitute women aged 18-59 from below-poverty-line households, to secure minimum subsistence support.</dd>
+          <dt>Eligibility</dt><dd>Widow or destitute woman, age 18-59, BPL household, not receiving any other statutory pension.</dd>
+          <dt>Funding pattern</dt><dd>State Plan, 100% state share. Budget head 2235-02-103.</dd>
+          <dt>Implementing agency</dt><dd>District Social Welfare Offices; sanction by Block Development Officer; disbursement through DBT.</dd>
+          <dt>Coverage</dt><dd>23 districts, 318 blocks.</dd>
+          <dt>Beneficiaries (Nov 2026)</dt><dd>41,208 active; 1,142 applications pending sanction.</dd>
+          <dt>Guidelines on record</dt><dd><a href="{% url 'document_repository' %}">Scheme guidelines 2024 (v2.1, 14 Mar 2024)</a> &middot; <a href="{% url 'document_repository' %}">Amendment 2026 (v2.2, 08 Sep 2026)</a></dd>
+          <dt>Government orders</dt><dd><a href="{% url 'document_repository' %}">GO SWD/2024/041</a> &middot; <a href="{% url 'document_repository' %}">GO SWD/2026/132 (rate revision)</a></dd>
+        </dl>
+        <table class="tbl" style="margin-top:12px">
+          <thead><tr><th>Year</th><th class="num">Target</th><th class="num">Enrolled</th><th class="num">Expenditure (Rs lakh)</th><th class="num">Verification</th></tr></thead>
+          <tbody>
+            <tr><td>2024-25</td><td class="num">39,000</td><td class="num">38,412</td><td class="num">1,742</td><td class="num">100% districts</td></tr>
+            <tr><td>2025-26</td><td class="num">40,500</td><td class="num">40,116</td><td class="num">1,868</td><td class="num">100% districts</td></tr>
+            <tr><td>2026-27 (up to Nov)</td><td class="num">41,500</td><td class="num">41,208</td><td class="num">1,204</td><td class="num">21 of 23 districts</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c4">
+        <div class="small muted" style="margin-bottom:6px">Linked records in other modules</div>
+        <ul class="list">
+          <li><span>Data entries (Data Management)</span><span><b>128</b> &nbsp;<a href="{% url 'data_management' %}">Open</a></span></li>
+          <li><span>Documents (Record Room)</span><span><b>9</b> &nbsp;<a href="{% url 'document_repository' %}">Open</a></span></li>
+          <li><span>Correspondence entries</span><span><b>5</b> &nbsp;<a href="#">Open</a></span></li>
+          <li><span>e-Office files</span><span><b>3</b> &nbsp;<a href="#">Open</a></span></li>
+          <li><span>Reports and ATRs</span><span><b>4</b> &nbsp;<a href="#">Open</a></span></li>
+        </ul>
+        <div class="small muted" style="margin:10px 0 6px">Nodal officer</div>
+        <div class="small">S. Banerjee, Section Officer (Estt.), ext. 214</div>
+        <div class="small muted" style="margin:10px 0 6px">Status history</div>
+        <div class="small">Introduced 12 Oct 2019 &middot; guidelines revised 08 Sep 2026 &middot; last review 02 Nov 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

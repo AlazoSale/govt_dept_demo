@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block title %}User &amp; Role Management{% endblock %}
+{% block h1 %}User &amp; Role Management{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>User &amp; Role Management - SWD MIS</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:13px/1.5 "Segoe UI",Arial,sans-serif;color:#1c2733;background:#eef1f4}
+a{color:#1559a7;text-decoration:none}a:hover{text-decoration:underline}
+.topbar{display:flex;align-items:center;gap:14px;height:48px;padding:0 16px;background:#123f6d;color:#fff}
+.emblem{width:28px;height:28px;border:1px solid rgba(255,255,255,.55);display:grid;place-items:center;font-size:10px;letter-spacing:.5px}
+.topbar .t1{font-size:13.5px;font-weight:600}.topbar .t2{font-size:11px;opacity:.75}
+.topsearch{margin-left:24px;flex:0 0 300px}
+.topsearch input{width:100%;padding:5px 9px;font-size:12px;border:1px solid #2f5f92;background:#0d3157;color:#fff;border-radius:2px}
+.topsearch input::placeholder{color:#9db8d6}
+.topright{margin-left:auto;display:flex;align-items:center;gap:14px;font-size:12px}
+.topright .who{text-align:right;line-height:1.25}.topright .who small{display:block;opacity:.75;font-size:10.5px}
+.topright a{color:#cfe1f5}
+.shell{display:flex;min-height:calc(100vh - 48px)}
+.side{width:236px;flex:0 0 236px;background:#fbfcfd;border-right:1px solid #d3d9e0;padding:10px 0 24px}
+.side h4{margin:16px 16px 5px;font-size:10px;letter-spacing:.9px;text-transform:uppercase;color:#7b8794}
+.side h4:first-child{margin-top:6px}
+.side a{display:flex;gap:8px;padding:5px 16px 5px 13px;border-left:3px solid transparent;color:#33475b;font-size:12.5px}
+.side a .no{color:#93a0ad;font-size:11px;width:16px;text-align:right;flex:0 0 16px}
+.side a:hover{background:#eef4fa;text-decoration:none}
+.side a.on{background:#e6eff8;border-left-color:#123f6d;color:#0d3c6e;font-weight:600}
+.main{flex:1;padding:16px 22px 30px;min-width:0}
+.crumb{font-size:11.5px;color:#68757f;margin-bottom:4px}
+.phead{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+.phead h1{margin:0;font-size:18px;font-weight:600}
+.phead p{margin:2px 0 0;font-size:12px;color:#5c6b7a}
+.phead .acts{margin-left:auto;display:flex;gap:8px}
+.btn{display:inline-block;padding:5px 12px;font-size:12px;color:#243447;background:#fff;border:1px solid #b9c4cf;border-radius:2px;cursor:pointer}
+.btn:hover{background:#f2f6fa}
+.btn.pri{background:#123f6d;border-color:#123f6d;color:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#d3d9e0;border:1px solid #d3d9e0;margin-bottom:16px}
+.stat{background:#fff;padding:9px 14px}
+.stat .k{font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:#5c6b7a}
+.stat .v{font-size:20px;font-weight:600;margin-top:2px}
+.stat .s{font-size:11px;color:#68757f}
+.card{background:#fff;border:1px solid #d3d9e0;border-radius:3px;margin-bottom:16px}
+.card>header{display:flex;align-items:center;gap:10px;padding:8px 14px;background:#f7f9fb;border-bottom:1px solid #d3d9e0}
+.card>header h2{margin:0;font-size:13px;font-weight:600}
+.card>header .hint{font-size:11px;color:#68757f}
+.card>header .tools{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:12px}
+.card .body{padding:14px}.card .body.pad0{padding:0}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10.5px;letter-spacing:.7px;text-transform:uppercase;color:#5c6b7a;background:#fafbfc;border-bottom:1px solid #d3d9e0;padding:7px 10px}
+td{padding:7px 10px;border-bottom:1px solid #e6eaee;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#f6f9fc}
+th.c,td.c{text-align:center}
+.mut{color:#68757f}.small{font-size:11.5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tag{display:inline-block;padding:0 6px;font-size:11px;border:1px solid;border-radius:2px;margin:0 3px 2px 0;background:#fff}
+.tg-x{color:#5c6b7a;border-color:#c4ccd4;background:#f2f4f6}
+.tg-a{color:#9a6700;border-color:#dcc08a;background:#fbf4e6}
+.tg-r{color:#b3261e;border-color:#e0a9a5;background:#fbeeec}
+.tg-b{color:#1559a7;border-color:#a6c6e4;background:#eef4fa}
+.tg-g{color:#1e7a3c;border-color:#a9cdb4;background:#eef6f0}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px}
+.d-ok{background:#1e7a3c}.d-warn{background:#b26a00}
+.note{border:1px solid #d8dee5;background:#f7f9fb;padding:9px 12px;font-size:12px;color:#41505e;border-radius:2px}
+footer.foot{padding:10px 22px 26px;font-size:11px;color:#68757f}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="emblem">SWD</div>
+  <div><div class="t1">Social Welfare Department</div><div class="t2">MIS &amp; e-Office Portal</div></div>
+  <div class="topsearch"><input type="text" placeholder="Search files, reports, officers"></div>
+  <div class="topright"><span class="who">S. Rathore<small>Director (SWD)</small></span><a href="#">Sign out</a></div>
+</header>
+<div class="shell">
+  <nav class="side">
+    <h4>Phase 1 - Foundation</h4>
+    <a href="#"><span class="no">01</span> Dashboard</a>
+    <a href="/users-roles/" class="on"><span class="no">09</span> User &amp; Role Management</a>
+    <a href="/security-audit/"><span class="no">12</span> Security &amp; Audit Logs</a>
+    <h4>Phase 2 - Paperless Office</h4>
+    <a href="#"><span class="no">02</span> Document Repository</a>
+    <a href="#"><span class="no">03</span> e-Office File Management</a>
+    <a href="#"><span class="no">04</span> Correspondence</a>
+    <h4>Phase 3 - Data &amp; Reporting</h4>
+    <a href="#"><span class="no">05</span> Schemes &amp; Programmes</a>
+    <a href="#"><span class="no">06</span> Data Management</a>
+    <a href="#"><span class="no">07</span> Reports &amp; ATRs</a>
+    <h4>Phase 4 - Coordination</h4>
+    <a href="#"><span class="no">08</span> Monitoring &amp; Evaluation</a>
+    <a href="/notifications/"><span class="no">10</span> Notifications &amp; Reminders</a>
+    <a href="/data-sharing/"><span class="no">11</span> Interdepartmental Sharing</a>
+  </nav>
+  <div class="main">
+    <div class="crumb"><a href="#">Home</a> / <a href="#">Administration</a> / User &amp; Role Management</div>
+    <div class="phead">
+      <div>
+        <h1>User &amp; Role Management</h1>
+        <p>Officer accounts, system roles, scheme responsibilities and delegation of duties.</p>
+      </div>
+      <div class="acts"><button class="btn">Export assignment register</button><button class="btn pri">Create officer account</button></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">Officer accounts</div><div class="v">8</div><div class="s">Including Director</div></div>
+      <div class="stat"><div class="k">System roles in use</div><div class="v">5</div><div class="s">Mapped to designations</div></div>
+      <div class="stat"><div class="k">Open task assignments</div><div class="v">14</div><div class="s">Across 3 ministries</div></div>
+      <div class="stat"><div class="k">Responsibility changes</div><div class="v">3</div><div class="s">This quarter</div></div>
+    </div>
+
+    <section class="card">
+      <header><h2>Officer accounts</h2><span class="hint">One account per officer; permissions follow the assigned role</span>
+        <span class="tools"><a href="#">Filter</a><a href="#">Columns</a></span></header>
+      <div class="body pad0">
+        <table>
+          <thead><tr><th>Officer</th><th>Designation</th><th>System role</th><th>Assigned schemes / ministries</th><th>Permissions</th><th>Status</th><th>Last sign-in</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td>S. Rathore</td><td>Director</td><td>Director</td><td>All schemes; all three ministries</td><td><span class="tag tg-x">View</span><span class="tag tg-x">Enter</span><span class="tag tg-x">Edit</span><span class="tag tg-x">Verify</span><span class="tag tg-x">Forward</span><span class="tag tg-a">Approve</span></td><td><span class="dot d-ok"></span>Active</td><td>26 Nov 2026, 09:12</td><td><a href="#">Reassign</a> <span class="mut">·</span> <a href="#">Permissions</a></td></tr>
+            <tr><td>M. Iyer</td><td>Deputy Director</td><td>Approving Officer</td><td>Old Age Pension, Widow Pension; Social Justice &amp; Empowerment</td><td><span class="tag tg-x">View</span><span class="tag tg-x">Verify</span><span class="tag tg-x">Forward</span><span class="tag tg-a">Approve</span></td><td><span class="dot d-ok"></span>Active</td><td>25 Nov 2026, 17:40</td><td><a href="#">Reassign</a> <span class="mut">·</span> <a href="#">Permissions</a></td></tr>
+            <tr><td>K. Deshmukh</td><td>Section Officer (Estt.)</td><td>Section Officer</td><td>e-Office correspondence; Establishment section</td><td><span class="tag tg-x">View</span><span class="tag tg-x">Enter</span><span class="tag tg-x">Edit</span><span class="tag tg-x">Verify</span><span class="tag tg-x">Forward</span></td><td><span class="dot d-ok"></span>Active</td><td>26 Nov 2026, 08:55</td><td><a href="#">Reassign</a> <span class="mut">·</span> <a href="#">Permissions</a></td></tr>
+            <tr><td>P. Nair</td><td>Section Officer (Schemes)</td><td>Section Officer</td><td>NSAP, ICPS; Social Justice &amp; Empowerment, WCD</td><td><span class="tag tg-x">View</span><span class="tag tg-x">Enter</span><span class="tag tg-x">Edit</span><span class="tag tg-x">Verify</span><span class="tag tg-x">Forward</span></td><td><span class="dot d-ok"></span>Active</td><td>24 Nov 2026, 17:02</td><td><a href="#">Reassign</a> <span class="mut">·</span> <a href="#">Permissions</a></td></tr>
+            <tr><td>R. Meena</td><td>Data Entry Operator</td><td>Data Operator</td><td>NSAP beneficiary data; pension disbursement rolls</td><td><span class="tag tg-x">View</span><span class="tag tg-x">Enter</span></td><td><span class="dot d-ok"></span>Active</td><td>26 Nov 2026, 10:31</td><td><a href="#">Reassign</a> <span class="mut">·</span> <a href="#">Permissions</a></td></tr>
+            <tr><td>A. Kulkarni</td><td>Data Entry Operator</td><td>Data Operator</td><td>ICPS data; WCD returns</td><td><span class="tag tg-x">View</span><span class="tag tg-x">Enter</span></td><td><span class="dot d-warn"></span>On leave - delegated to R. Meena</td><td>20 Nov 2026, 16:05</td><td><a href="#">Reassign</a> <span class="mut">·</span> <a href="#">Permissions</a></td></tr>
+            <tr><td>V. Sharma</td><td>Assistant (Accounts)</td><td>Read-only Viewer</td><td>Budget, utilisation certificates; all three ministries</td><td><span class="tag tg-x">View</span></td><td><span class="dot d-ok"></span>Active</td><td>25 Nov 2026, 12:20</td><td><a href="#">Reassign</a> <span class="mut">·</span> <a href="#">Permissions</a></td></tr>
+            <tr><td>N. Borah</td><td>Assistant (Monitoring)</td><td>Read-only Viewer</td><td>M&amp;E dashboards, ATR compilation</td><td><span class="tag tg-x">View</span><span class="tag tg-x">Enter</span></td><td><span class="dot d-ok"></span>Active</td><td>23 Nov 2026, 16:44</td><td><a href="#">Reassign</a> <span class="mut">·</span> <a href="#">Permissions</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="grid2">
+      <section class="card">
+        <header><h2>Role permission matrix</h2><span class="hint">Permissions granted by role, not by individual</span></header>
+        <div class="body pad0">
+          <table>
+            <thead><tr><th>System role</th><th class="c">Officers</th><th class="c">View</th><th class="c">Enter</th><th class="c">Edit</th><th class="c">Verify</th><th class="c">Forward</th><th class="c">Approve</th></tr></thead>
+            <tbody>
+              <tr><td>Director</td><td class="c">1</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Yes</td></tr>
+              <tr><td>Approving Officer</td><td class="c">1</td><td class="c">Yes</td><td class="c">-</td><td class="c">-</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Yes</td></tr>
+              <tr><td>Section Officer</td><td class="c">2</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">-</td></tr>
+              <tr><td>Data Operator</td><td class="c">2</td><td class="c">Yes</td><td class="c">Yes</td><td class="c">-</td><td class="c">-</td><td class="c">-</td><td class="c">-</td></tr>
+              <tr><td>Read-only Viewer</td><td class="c">2</td><td class="c">Yes</td><td class="c">-</td><td class="c">-</td><td class="c">-</td><td class="c">-</td><td class="c">-</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="body"><div class="note">Data Operators may correct only their own unsubmitted drafts. Changes to verified records require Section Officer verification and are written to the audit log.</div></div>
+      </section>
+
+      <section class="card">
+        <header><h2>Delegation and reassignment log</h2><span class="hint">Record of every change in responsibility</span></header>
+        <div class="body pad0">
+          <table>
+            <thead><tr><th>Date</th><th>Officer</th><th>Change recorded</th><th>Approved by</th></tr></thead>
+            <tbody>
+              <tr><td>21 Nov 2026</td><td>A. Kulkarni</td><td>Data entry duties delegated to R. Meena during leave (21 Nov - 05 Dec 2026)</td><td>Director</td></tr>
+              <tr><td>12 Nov 2026</td><td>N. Borah</td><td>Added ATR compilation for Social Justice &amp; Empowerment Ministry</td><td>Deputy Director</td></tr>
+              <tr><td>03 Nov 2026</td><td>P. Nair</td><td>Removed PM-POSHAN reporting; retained NSAP and ICPS</td><td>Director</td></tr>
+              <tr><td>18 Oct 2026</td><td>V. Sharma</td><td>Accounts view extended to all three ministries</td><td>Director</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <section class="card">
+      <header><h2>Responsibility map - schemes, ministries and reports</h2><span class="hint">Who owns which data and submission</span>
+        <span class="tools"><a href="#">Print</a></span></header>
+      <div class="body pad0">
+        <table>
+          <thead><tr><th>Scheme / activity</th><th>Nodal ministry</th><th>Handling officer</th><th>Backup officer</th><th>Reports owned</th></tr></thead>
+          <tbody>
+            <tr><td>National Social Assistance Programme</td><td>Social Justice &amp; Empowerment</td><td>P. Nair</td><td>R. Meena</td><td>Monthly progress; quarterly UC</td></tr>
+            <tr><td>Integrated Child Protection Scheme</td><td>Women &amp; Child Development</td><td>P. Nair</td><td>A. Kulkarni</td><td>Monthly physical-financial returns</td></tr>
+            <tr><td>Old Age and Widow Pension disbursement</td><td>Social Justice &amp; Empowerment</td><td>R. Meena</td><td>A. Kulkarni</td><td>Weekly disbursement status</td></tr>
+            <tr><td>e-Office correspondence and ATRs</td><td>All three ministries</td><td>K. Deshmukh</td><td>N. Borah</td><td>ATR within 7 days of receipt</td></tr>
+            <tr><td>Utilisation certificates and budget</td><td>All three ministries</td><td>V. Sharma</td><td>M. Iyer</td><td>Quarterly UC</td></tr>
+            <tr><td>M&amp;E field visit reports</td><td>Rural Development &amp; Panchayati Raj</td><td>N. Borah</td><td>K. Deshmukh</td><td>Monthly field visit report</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="body"><div class="note">Every change to this map is approved by the Director and entered in the delegation and reassignment log above. Backup officers receive the same alerts as the handling officer during absence.</div></div>
+    </section>
+  </div>
+</div>
+<footer class="foot">Restricted government system. All activity is logged under the departmental audit policy. MIS version 1.4, Phase 1 rollout.</footer>
+</body>
+</html>
+{% endblock %}

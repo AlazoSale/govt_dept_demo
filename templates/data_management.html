@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Data Management - Centralized Departmental Database{% endblock %}
+{% block h1 %}Data Management - Centralized Departmental Database{% endblock %}
+{% block content %}
+
+<div class="statrow">
+  <div class="statbox"><div class="v">4,182</div><div class="l">Total records held</div><div class="s">across 22 schemes and 23 districts</div></div>
+  <div class="statbox"><div class="v">3,905</div><div class="l">Verified</div><div class="s">checked against sanction lists</div></div>
+  <div class="statbox"><div class="v">214</div><div class="l">Pending verification</div><div class="s">with concerned section officers</div></div>
+  <div class="statbox"><div class="v">63</div><div class="l">Flagged</div><div class="s">duplicate, missing or inconsistent</div></div>
+</div>
+
+<div class="grid">
+
+  <div class="c8 colstack">
+    <div class="panel">
+      <div class="phead"><h2>Data register<a class="infolink" href="#">Info</a></h2><div class="tools">4,182 records &middot; showing 9</div></div>
+      <div class="toolbar">
+        <label class="field">Scheme
+          <select><option>All schemes</option><option>SWD-01 Old Age Pension</option><option>SWD-02 Widow Pension</option><option>SWD-03 PMMVY</option><option>SWD-04 Mission Vatsalya</option><option>SWD-06 ADIP</option></select>
+        </label>
+        <label class="field">District
+          <select><option>All districts</option><option>North</option><option>South</option><option>East</option><option>West</option><option>Central</option><option>Hills</option></select>
+        </label>
+        <label class="field">Reporting period
+          <select><option>Q2 2026-27</option><option>Q1 2026-27</option><option>Q4 2025-26</option></select>
+        </label>
+        <label class="field grow">Search
+          <input type="text" placeholder="Record ID, block, entry officer">
+        </label>
+        <button class="btn">Search</button>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Record ID</th><th>Scheme</th><th>District</th><th>Period</th><th class="num">Entries</th><th>Status</th><th>Entered by</th><th>Last modified</th></tr></thead>
+        <tbody>
+          <tr><td>DR-2026-1148</td><td>Widow Pension</td><td>North</td><td>Q2 2026-27</td><td class="num">312</td><td><span class="chip ok">Verified</span></td><td>K. Devi</td><td>24 Nov 2026</td></tr>
+          <tr><td>DR-2026-1147</td><td>Widow Pension</td><td>South</td><td>Q2 2026-27</td><td class="num">288</td><td><span class="chip ok">Verified</span></td><td>K. Devi</td><td>24 Nov 2026</td></tr>
+          <tr><td>DR-2026-1146</td><td>Old Age Pension</td><td>East</td><td>Q2 2026-27</td><td class="num">1,204</td><td><span class="chip warn">Pending verification</span></td><td>K. Devi</td><td>23 Nov 2026</td></tr>
+          <tr><td>DR-2026-1145</td><td>Mission Vatsalya</td><td>Central</td><td>Q2 2026-27</td><td class="num">96</td><td><span class="chip late">Incomplete</span></td><td>M. Hussain</td><td>22 Nov 2026</td></tr>
+          <tr><td>DR-2026-1144</td><td>PM Matru Vandana Yojana</td><td>West</td><td>Q2 2026-27</td><td class="num">410</td><td><span class="chip ok">Verified</span></td><td>P. Nair</td><td>22 Nov 2026</td></tr>
+          <tr><td>DR-2026-1143</td><td>ADIP</td><td>Hills</td><td>Q2 2026-27</td><td class="num">58</td><td><span class="chip late">Duplicate flagged</span></td><td>M. Hussain</td><td>21 Nov 2026</td></tr>
+          <tr><td>DR-2026-1142</td><td>CM Kanya Vivah Yojana</td><td>North</td><td>Q2 2026-27</td><td class="num">74</td><td><span class="chip ok">Verified</span></td><td>S. Banerjee</td><td>20 Nov 2026</td></tr>
+          <tr><td>DR-2026-1141</td><td>Old Age Pension</td><td>Central</td><td>Q1 2026-27</td><td class="num">1,188</td><td><span class="chip ok">Verified</span></td><td>K. Devi</td><td>18 Aug 2026</td></tr>
+          <tr><td>DR-2026-1140</td><td>Beti Bachao Beti Padhao</td><td>All districts</td><td>Q2 2026-27</td><td class="num">21</td><td><span class="chip warn">Pending verification</span></td><td>P. Nair</td><td>20 Nov 2026</td></tr>
+        </tbody>
+      </table>
+      <div class="pager"><span>Previous</span> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <span>...</span> <a href="#">465</a> <span>Next</span></div>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h2>Standardized entry form - Beneficiary enrolment (Form DE-02)<a class="infolink" href="#">Info</a></h2><div class="tools">data dictionary v3.2 &middot; 28 fields, 12 shown</div></div>
+      <div class="pbody">
+        <div class="grid" style="gap:10px">
+          <div class="c4 field">Beneficiary name<input type="text" disabled value="Sunita Oraon"></div>
+          <div class="c4 field">Aadhaar (masked)<input type="text" disabled value="XXXX XXXX 4172"></div>
+          <div class="c4 field">Category<select disabled><option>Widow</option></select></div>
+          <div class="c4 field">District<select disabled><option>North</option></select></div>
+          <div class="c4 field">Block<select disabled><option>Block 04</option></select></div>
+          <div class="c4 field">Scheme<select disabled><option>SWD-02 Widow &amp; Destitute Women Pension</option></select></div>
+          <div class="c4 field">Sanction order number<input type="text" disabled value="SWD/N/2026/0417"></div>
+          <div class="c4 field">Sanction date<input type="text" disabled value="03 Nov 2026"></div>
+          <div class="c4 field">Monthly amount (Rs)<input type="text" disabled value="1,000"></div>
+          <div class="c4 field">Bank account seeded<select disabled><option>Yes</option></select></div>
+          <div class="c4 field">Mobile number<input type="text" disabled value="XXXXXX7841"></div>
+          <div class="c4 field">Remarks<input type="text" disabled value="Sanction list of Nov 2026, serial 417"></div>
+        </div>
+      </div>
+      <div class="pfoot">
+        <button class="btn primary">Submit for verification</button>
+        <button class="btn">Save draft</button>
+        <button class="btn">Validate against field list</button>
+        <span class="small muted" style="margin-left:8px">Entry, modification date and officer are recorded automatically for every record.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="c4 colstack">
+    <div class="panel">
+      <div class="phead"><h2>Data quality review<a class="infolink" href="#">Info</a></h2></div>
+      <div class="pbody">
+        <ul class="list">
+          <li><span>Missing mandatory fields</span><span><b>37</b> &nbsp;<a href="#">Review</a></span></li>
+          <li><span>Incomplete submissions</span><span><b>12</b> &nbsp;<a href="#">Review</a></span></li>
+          <li><span>Suspected duplicates</span><span><b>6</b> &nbsp;<a href="#">Review</a></span></li>
+          <li><span>Inconsistent across periods</span><span><b>4</b> &nbsp;<a href="#">Review</a></span></li>
+        </ul>
+        <div class="small muted" style="margin-top:8px">Flags are raised automatically against the predefined field list of each scheme.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h2>Reporting coverage by financial year<a class="infolink" href="#">Info</a></h2></div>
+      <table class="tbl">
+        <thead><tr><th>Financial year</th><th>Districts reporting</th><th class="num">Records</th><th class="num">Verified</th></tr></thead>
+        <tbody>
+          <tr><td>2026-27 (up to Q2)</td><td>21 of 23</td><td class="num">1,642</td><td class="num">91%</td></tr>
+          <tr><td>2025-26</td><td>23 of 23</td><td class="num">3,918</td><td class="num">98%</td></tr>
+          <tr><td>2024-25</td><td>23 of 23</td><td class="num">3,704</td><td class="num">99%</td></tr>
+        </tbody>
+      </table>
+      <div class="small muted" style="padding:8px 12px">Historical records are retained for year-on-year comparison.</div>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h2>Export for reporting<a class="infolink" href="#">Info</a></h2></div>
+      <div class="pbody">
+        <label class="field" style="margin-bottom:8px">Prescribed format
+          <select><option>MoWCD monthly MIS</option><option>MoRD NSAP quarterly</option><option>MoSJ&E half-yearly</option><option>Departmental abstract</option></select>
+        </label>
+        <button class="btn">Export CSV</button>
+        <button class="btn">Export spreadsheet</button>
+        <button class="btn">Export PDF abstract</button>
+        <div class="small muted" style="margin-top:8px">Exports follow the field format prescribed by the concerned ministry for the reporting period selected.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="phead"><h2>Recent entry audit<a class="infolink" href="#">Info</a></h2></div>
+      <div class="pbody">
+        <ul class="list">
+          <li><span>DR-2026-1148 verified &middot; P. Nair &middot; 24 Nov 10:42</span></li>
+          <li><span>DR-2026-1146 entered &middot; K. Devi &middot; 23 Nov 16:12</span></li>
+          <li><span>DR-2026-1145 returned for completion &middot; A. K. Srivastava &middot; 22 Nov 11:30</span></li>
+          <li><span>DR-2026-1143 duplicate flag raised &middot; system check &middot; 21 Nov 09:00</span></li>
+          <li><span>Form DE-02 revised, masked Aadhaar field added &middot; P. Nair &middot; 12 Nov 2026</span></li>
+        </ul>
+      </div>
+      <div class="pfoot"><a href="#">Audit trail (full)</a></div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGED — Modern Blacksmithing Industries</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--molten:#123f6d;--ember:#1559a7;--ash:#fbfcfd;--gold:#0d3157;--white:#1c2733}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:#eef1f4;color:var(--white);overflow-x:hidden;cursor:none}
+img{transition:opacity .6s ease}
+img.img-dead{opacity:.25;filter:grayscale(1)}
+
+/* ---------- Cursor ---------- */
+.cursor{width:20px;height:20px;border:2px solid var(--molten);border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transition:transform .15s ease,border-color .3s;mix-blend-mode:difference}
+.cursor-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:10001}
+
+/* ---------- Preloader ---------- */
+.preloader{position:fixed;inset:0;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .8s ease,visibility .8s ease}
+.preloader.hidden{opacity:0;visibility:hidden}
+.preloader-text{font-family:'Bebas Neue',sans-serif;font-size:4rem;letter-spacing:1rem;color:var(--molten);animation:glow 1.5s ease-in-out infinite alternate}
+.preloader-bar{width:200px;height:2px;background:#333;margin-top:2rem;position:relative;overflow:hidden}
+.preloader-bar::after{content:'';position:absolute;left:0;top:0;height:100%;width:0%;background:linear-gradient(90deg,var(--molten),var(--gold));animation:load 2s ease-in-out forwards}
+@keyframes load{to{width:100%}}
+@keyframes glow{from{text-shadow:0 0 20px var(--molten),0 0 40px var(--molten)}to{text-shadow:0 0 40px var(--ember),0 0 80px var(--molten)}}
+
+/* ---------- Noise ---------- */
+.noise{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")}
+
+/* ---------- Nav ---------- */
+nav{position:fixed;top:0;left:0;width:100%;padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;z-index:1000;mix-blend-mode:difference}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.5rem;color:#fff}
+.nav-links{display:flex;gap:3rem;list-style:none}
+.nav-links a{color:#fff;text-decoration:none;font-size:.85rem;letter-spacing:.2rem;text-transform:uppercase;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:1px;background:var(--molten);transition:width .3s ease}
+.nav-links a:hover::after{width:100%}
+
+/* ---------- Ken Burns cinematic layers ---------- */
+.kb-wrap{position:absolute;inset:0;overflow:hidden}
+.kb-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 26s ease-in-out infinite alternate;filter:contrast(1.2) brightness(.65) saturate(1.25)}
+@keyframes kb{from{transform:scale(1) translate(0,0)}to{transform:scale(1.18) translate(-2%,2%)}}
+
+/* ---------- Hero ---------- */
+.hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,.65) 50%,rgba(10,10,10,1) 100%)}
+.hero-content{position:relative;z-index:10;text-align:center}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(4rem,15vw,14rem);font-weight:900;line-height:.9;font-style:italic;background:linear-gradient(180deg,var(--white) 0%,var(--gold) 50%,var(--molten) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:titleReveal 2s ease forwards;opacity:0;transform:translateY(50px)}
+@keyframes titleReveal{to{opacity:1;transform:translateY(0)}}
+.hero-subtitle{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:1rem;margin-top:2rem;color:var(--ember);opacity:0;animation:fadeUp 1s ease 1s forwards}
+@keyframes fadeUp{to{opacity:1}}
+.scroll-indicator{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;z-index:10}
+.scroll-indicator span{font-size:.7rem;letter-spacing:.3rem;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.scroll-line{width:1px;height:60px;background:linear-gradient(180deg,var(--molten),transparent);animation:scrollLine 2s infinite}
+@keyframes scrollLine{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+/* ---------- Embers ---------- */
+.embers{position:fixed;inset:0;pointer-events:none;z-index:998}
+.ember-particle{position:absolute;width:3px;height:3px;background:var(--molten);border-radius:50%;animation:float-ember linear infinite;box-shadow:0 0 6px var(--molten),0 0 12px var(--ember)}
+@keyframes float-ember{0%{transform:translateY(100vh) translateX(0) scale(1);opacity:1}100%{transform:translateY(-100px) translateX(100px) scale(0);opacity:0}}
+
+/* ---------- Sections ---------- */
+section{padding:10rem 4rem;position:relative}
+.section-label{font-size:.7rem;letter-spacing:.5rem;text-transform:uppercase;color:var(--ember);margin-bottom:2rem;display:flex;align-items:center;gap:1rem}
+.section-label::before{content:'';width:40px;height:1px;background:var(--ember)}
+.reveal-text{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;line-height:1.1;margin-bottom:2rem;overflow:hidden}
+.reveal-text .word{display:inline-block;transform:translateY(100%);opacity:0;transition:transform .8s cubic-bezier(.25,.46,.45,.94),opacity .8s ease}
+.reveal-text .word.revealed{transform:translateY(0);opacity:1}
+.description{font-size:1.1rem;line-height:1.8;color:rgba(255,255,255,.7);max-width:600px;margin-bottom:3rem}
+
+/* ---------- About ---------- */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;min-height:100vh}
+.about-image{position:relative;height:70vh;overflow:hidden;border-radius:2px}
+.about-image img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.25,.46,.45,.94);filter:contrast(1.1) brightness(.85)}
+.about-image:hover img{transform:scale(1.05)}
+.about-image::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(10,10,10,.8));pointer-events:none}
+
+/* ---------- Stats ---------- */
+.stats-section{background:var(--ash);padding:8rem 4rem;position:relative;overflow:hidden}
+.stats-section::before{content:'';position:absolute;top:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--molten),transparent)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;max-width:1200px;margin:0 auto}
+.stat-item{text-align:center;padding:3rem 1rem;border:1px solid rgba(255,69,0,.1);position:relative;overflow:hidden;transition:all .5s ease}
+.stat-item:hover{border-color:var(--molten);background:rgba(255,69,0,.03)}
+.stat-number{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:var(--gold);line-height:1}
+.stat-label{font-size:.75rem;letter-spacing:.3rem;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:1rem}
+
+/* ---------- Process ---------- */
+.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem}
+.process-card{position:relative;height:500px;overflow:hidden;border-radius:4px;cursor:pointer;transition:transform .5s ease;background:#141414}
+.process-card:hover{transform:translateY(-10px)}
+.process-card img{width:100%;height:100%;object-fit:cover;transition:transform 1s ease,filter .5s ease;filter:grayscale(60%) brightness(.7)}
+.process-card:hover img{transform:scale(1.08);filter:grayscale(0%) brightness(.95)}
+.process-card-overlay{position:absolute;bottom:0;left:0;width:100%;padding:2rem;background:linear-gradient(transparent,rgba(0,0,0,.92))}
+.process-number{font-family:'Bebas Neue',sans-serif;font-size:6rem;color:var(--molten);opacity:.35;line-height:1;position:absolute;top:1rem;right:1.5rem;z-index:2}
+.process-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-style:italic;margin-bottom:.5rem}
+.process-desc{font-size:.85rem;color:rgba(255,255,255,.65);line-height:1.6}
+
+/* ---------- Marquee ---------- */
+.marquee-section{padding:4rem 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.marquee{display:flex;animation:marquee 20s linear infinite;white-space:nowrap}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:6rem;padding:0 3rem;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.3)}
+.marquee-item:hover{-webkit-text-stroke:1px var(--molten);color:var(--molten)}
+.marquee-divider{font-family:'Bebas Neue',sans-serif;font-size:6rem;color:var(--molten);padding:0 2rem}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- Showreel ---------- */
+.video-section{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden}
+.video-section .kb-layer{filter:brightness(.35) contrast(1.25) saturate(1.2)}
+.flash{position:absolute;inset:0;background:radial-gradient(circle,rgba(255,140,0,.9),rgba(0,0,0,0) 70%);opacity:0;pointer-events:none;z-index:5}
+.flash.on{animation:flash .7s ease}
+@keyframes flash{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+.play-button{width:120px;height:120px;border:2px solid var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;z-index:10;transition:all .5s ease;background:rgba(0,0,0,.25);backdrop-filter:blur(2px)}
+.play-button:hover{transform:scale(1.1);border-color:var(--molten);box-shadow:0 0 40px rgba(255,69,0,.35)}
+.play-button::after{content:'';width:0;height:0;border-left:20px solid var(--white);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px;transition:border-color .3s}
+.play-button:hover::after{border-left-color:var(--molten)}
+.reel-caption{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);font-size:.75rem;letter-spacing:.4rem;text-transform:uppercase;color:rgba(255,255,255,.55);z-index:10}
+
+/* ---------- Showcase ---------- */
+.showcase{padding:0}
+.showcase-item{height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
+.showcase-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.38) contrast(1.2);animation:kb 34s ease-in-out infinite alternate}
+.showcase-content{position:relative;z-index:10;padding:0 8rem;max-width:760px}
+.showcase-year{font-family:'Bebas Neue',sans-serif;font-size:8rem;color:var(--molten);opacity:.25;line-height:1}
+.showcase-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,5vw,5rem);font-style:italic;line-height:1.1;margin:1rem 0 2rem}
+.showcase-desc{font-size:1.1rem;line-height:1.8;color:rgba(255,255,255,.75)}
+
+/* ---------- Horizontal scroll ---------- */
+.horizontal-section{height:300vh;position:relative;padding:0}
+.horizontal-wrapper{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
+.horizontal-track{display:flex;gap:4rem;padding:0 4rem;will-change:transform}
+.horizontal-card{min-width:500px;height:60vh;position:relative;overflow:hidden;border-radius:4px;flex-shrink:0;background:#141414}
+.horizontal-card img{width:100%;height:100%;object-fit:cover;transition:transform 1s ease}
+.horizontal-card:hover img{transform:scale(1.06)}
+.horizontal-card-content{position:absolute;bottom:0;left:0;width:100%;padding:3rem;background:linear-gradient(transparent,rgba(0,0,0,.92))}
+.horizontal-card-title{font-family:'Playfair Display',serif;font-size:2rem;font-style:italic}
+
+/* ---------- Contact / footer ---------- */
+.contact{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at center,rgba(255,69,0,.06) 0%,transparent 70%)}
+.contact-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,8rem);font-style:italic;line-height:1.1;margin-bottom:3rem;background:linear-gradient(180deg,var(--white),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.contact-email{font-size:1.2rem;color:var(--molten);text-decoration:none;letter-spacing:.3rem;border-bottom:1px solid var(--molten);padding-bottom:.5rem;transition:all .3s}
+.contact-email:hover{color:var(--gold);border-color:var(--gold);letter-spacing:.5rem}
+footer{padding:4rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.1)}
+.footer-left{font-size:.8rem;color:rgba(255,255,255,.4);letter-spacing:.2rem}
+.footer-social{display:flex;gap:2rem}
+.footer-social a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.8rem;letter-spacing:.2rem;text-transform:uppercase;transition:color .3s}
+.footer-social a:hover{color:var(--molten)}
+
+.glitch{animation:glitch 5s infinite}
+@keyframes glitch{0%,90%,100%{transform:translate(0)}91%{transform:translate(-2px,1px)}92%{transform:translate(2px,-1px)}93%{transform:translate(-1px,-1px)}}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+@media (max-width:768px){
+nav{padding:1.5rem 2rem}.nav-links{display:none}section{padding:6rem 2rem}
+.about{grid-template-columns:1fr;gap:3rem}.stats-grid{grid-template-columns:repeat(2,1fr)}
+.process-grid{grid-template-columns:1fr}.showcase-content{padding:0 2rem}
+.horizontal-card{min-width:85vw}footer{flex-direction:column;gap:2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="preloader" id="preloader"><div class="preloader-text">FORGING</div><div class="preloader-bar"></div></div>
+<div class="cursor" id="cursor"></div><div class="cursor-dot" id="cursorDot"></div>
+<div class="noise"></div>
+<div class="embers" id="embers"></div>
+
+<nav>
+  <div class="logo">FORGED</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO : cinematic Ken Burns still (always loads) -->
+<section class="hero">
+  <div class="kb-wrap">
+    <img class="kb-layer" alt="Hammer striking glowing steel, sparks flying"
+      src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf9999.png"
+      data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/5e7156b7f-c736-4fc6-aadb-0bc8a62468cf1438.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf6335.png">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="hero-title glitch">FORGED</h1>
+    <p class="hero-subtitle">MODERN BLACKSMITHING INDUSTRIES</p>
+  </div>
+  <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="about-content">
+    <div class="section-label">About Us</div>
+    <h2 class="reveal-text"><span class="word">Where</span> <span class="word">ancient</span> <span class="word">craft</span> <span class="word">meets</span> <span class="word">modern</span> <span class="word">precision</span></h2>
+    <p class="description fade-in">We are the convergence of centuries-old metallurgical wisdom and cutting-edge technology. Our forge operates at the intersection of art and engineering — each piece tells a story written in fire, shaped by hand, perfected by precision.</p>
+    <p class="description fade-in">From aerospace-grade custom alloys to architectural masterpieces, we push the boundaries of what metal can become.</p>
+  </div>
+  <div class="about-image fade-in">
+    <img loading="lazy" alt="Hammer resting on anvil before a roaring forge fire"
+      src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf7515.png"
+      data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf7133.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf1072.png">
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item fade-in"><div class="stat-number" data-target="2847">0</div><div class="stat-label">Projects Forged</div></div>
+    <div class="stat-item fade-in"><div class="stat-number" data-target="150">0</div><div class="stat-label">Master Smiths</div></div>
+    <div class="stat-item fade-in"><div class="stat-number" data-target="47">0</div><div class="stat-label">Countries Served</div></div>
+    <div class="stat-item fade-in"><div class="stat-number" data-target="12">0</div><div class="stat-label">Active Forges</div></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-label">The Process</div>
+  <h2 class="reveal-text"><span class="word">From</span> <span class="word">raw</span> <span class="word">ore</span> <span class="word">to</span> <span class="word">finished</span> <span class="word">art</span></h2>
+  <div class="process-grid">
+    <div class="process-card fade-in">
+      <span class="process-number">01</span>
+      <img loading="lazy" alt="Foundry worker beside molten metal — raw material selection"
+        src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/5e7156b7f-c736-4fc6-aadb-0bc8a62468cf6283.png"
+        data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf5737.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf9095.png">
+      <div class="process-card-overlay"><h3 class="process-title">Selection</h3><p class="process-desc">Every project begins with careful material selection — choosing alloys that will sing under the hammer.</p></div>
+    </div>
+    <div class="process-card fade-in">
+      <span class="process-number">02</span>
+      <img loading="lazy" alt="Gloved hands hammering a glowing billet on the anvil"
+        src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf5435.png"
+        data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf9999.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf7133.png">
+      <div class="process-card-overlay"><h3 class="process-title">The Forge</h3><p class="process-desc">At 2,100°F, metal becomes alive. Our masters read the color of heat like a language.</p></div>
+    </div>
+    <div class="process-card fade-in">
+      <span class="process-number">03</span>
+      <img loading="lazy" alt="Maker grinding steel, shower of sparks — finishing"
+        src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/8e7156b7f-c736-4fc6-aadb-0bc8a62468cf6739.png"
+        data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf6335.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf1461.png">
+      <div class="process-card-overlay"><h3 class="process-title">Finishing</h3><p class="process-desc">The final transformation — where raw power meets meticulous refinement, creating eternal pieces.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="marquee-section">
+  <div class="marquee">
+    <span class="marquee-item">DAMASCUS STEEL</span><span class="marquee-divider">◆</span>
+    <span class="marquee-item">TITANIUM ALLOYS</span><span class="marquee-divider">◆</span>
+    <span class="marquee-item">CARBON FORGE</span><span class="marquee-divider">◆</span>
+    <span class="marquee-item">PRECISION WELDS</span><span class="marquee-divider">◆</span>
+    <span class="marquee-item">DAMASCUS STEEL</span><span class="marquee-divider">◆</span>
+    <span class="marquee-item">TITANIUM ALLOYS</span><span class="marquee-divider">◆</span>
+    <span class="marquee-item">CARBON FORGE</span><span class="marquee-divider">◆</span>
+    <span class="marquee-item">PRECISION WELDS</span><span class="marquee-divider">◆</span>
+  </div>
+</section>
+
+<!-- SHOWREEL (flash-cut interaction, no dead video CDN) -->
+<section class="video-section" id="showreel">
+  <div class="kb-wrap">
+    <img class="kb-layer" id="reelBg" alt="Welder pouring molten metal at night"
+      src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf6335.png"
+      data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf9999.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf5737.png">
+  </div>
+  <div class="flash" id="flash"></div>
+  <div class="play-button" id="playBtn" title="Play showreel"></div>
+  <div class="reel-caption">Forge Showreel — 2026</div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="work" class="showcase">
+  <div class="showcase-item">
+    <img class="showcase-image" loading="lazy" alt="Night forging — hammer and tongs at the anvil"
+      src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf7133.png"
+      data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/5e7156b7f-c736-4fc6-aadb-0bc8a62468cf1438.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/3e7156b7f-c736-4fc6-aadb-0bc8a62468cf2658.png">
+    <div class="showcase-content fade-in">
+      <div class="showcase-year">2024</div>
+      <h3 class="showcase-title">The Obsidian<br>Gate Collection</h3>
+      <p class="showcase-desc">Architectural ironwork for a private residence in Oslo. 12-meter gates forged from folded steel, each pattern unique as a fingerprint — created through 147 individual heats.</p>
+    </div>
+  </div>
+  <div class="showcase-item">
+    <img class="showcase-image" loading="lazy" alt="Molten metal pour in an industrial foundry"
+      src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf5737.png"
+      data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf9095.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/5e7156b7f-c736-4fc6-aadb-0bc8a62468cf6283.png">
+    <div class="showcase-content fade-in">
+      <div class="showcase-year">2025</div>
+      <h3 class="showcase-title">Vulkan<br>Industrial</h3>
+      <p class="showcase-desc">Custom forge components for renewable energy turbines. Heat-resistant alloys that withstand 4,000+ operating cycles while maintaining structural integrity.</p>
+    </div>
+  </div>
+  <div class="showcase-item">
+    <img class="showcase-image" loading="lazy" alt="Damascus blade on a dark table beside forge sparks"
+      src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/6e7156b7f-c736-4fc6-aadb-0bc8a62468cf7089.png"
+      data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/3e7156b7f-c736-4fc6-aadb-0bc8a62468cf3003.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/8e7156b7f-c736-4fc6-aadb-0bc8a62468cf7571.png">
+    <div class="showcase-content fade-in">
+      <div class="showcase-year">2026</div>
+      <h3 class="showcase-title">Aether<br>Blades</h3>
+      <p class="showcase-desc">Limited-edition ceremonial blades combining meteorite iron with carbon fiber handles. Each blade carries the story of its cosmic origin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HORIZONTAL GALLERY -->
+<section class="horizontal-section">
+  <div class="horizontal-wrapper">
+    <div class="horizontal-track" id="horizontalTrack">
+      <div class="horizontal-card">
+        <img loading="lazy" alt="Hand-forged custom anvil in the workshop"
+          src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf4986.png"
+          data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf7515.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/3e7156b7f-c736-4fc6-aadb-0bc8a62468cf2658.png">
+        <div class="horizontal-card-content"><h3 class="horizontal-card-title">Heritage Anvil Series</h3></div>
+      </div>
+      <div class="horizontal-card">
+        <img loading="lazy" alt="Hands shaping hot metal on the anvil"
+          src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/3e7156b7f-c736-4fc6-aadb-0bc8a62468cf2658.png"
+          data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/5e7156b7f-c736-4fc6-aadb-0bc8a62468cf1438.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf7133.png">
+        <div class="horizontal-card-content"><h3 class="horizontal-card-title">Kinetic Sculpture</h3></div>
+      </div>
+      <div class="horizontal-card">
+        <img loading="lazy" alt="Molten metal pouring in the foundry"
+          src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf9095.png"
+          data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf5737.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/5e7156b7f-c736-4fc6-aadb-0bc8a62468cf6283.png">
+        <div class="horizontal-card-content"><h3 class="horizontal-card-title">Molten Architecture</h3></div>
+      </div>
+      <div class="horizontal-card">
+        <img loading="lazy" alt="Hammer and anvil during a forging strike"
+          src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf7515.png"
+          data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf4986.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf9999.png">
+        <div class="horizontal-card-content"><h3 class="horizontal-card-title">Forge Tools Collection</h3></div>
+      </div>
+      <div class="horizontal-card">
+        <img loading="lazy" alt="Close-up of damascus steel pattern"
+          src="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/4e7156b7f-c736-4fc6-aadb-0bc8a62468cf8894.png"
+          data-fallbacks="https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/1e7156b7f-c736-4fc6-aadb-0bc8a62468cf4817.png,https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf1800.png">
+        <div class="horizontal-card-content"><h3 class="horizontal-card-title">Precision Components</h3></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div>
+    <div class="section-label" style="justify-content:center">Get In Touch</div>
+    <h2 class="contact-title reveal-text"><span class="word">Let's</span> <span class="word">forge</span> <span class="word">something</span> <span class="word">extraordinary</span></h2>
+    <a href="mailto:forge@forged.industries" class="contact-email">forge@forged.industries</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">© 2026 FORGED INDUSTRIES — ALL RIGHTS RESERVED</div>
+  <div class="footer-social"><a href="#">Instagram</a><a href="#">Vimeo</a><a href="#">LinkedIn</a></div>
+</footer>
+
+<script>
+/* ============ IMAGE GUARD: blank images are now impossible ============ */
+const FINAL_FALLBACK = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><defs><radialGradient id="g" cx="50%" cy="60%" r="80%"><stop offset="0%" stop-color="#3a1200"/><stop offset="45%" stop-color="#160a05"/><stop offset="100%" stop-color="#0a0a0a"/></radialGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="50%" fill="#ff6b35" font-family="sans-serif" font-size="42" letter-spacing="12" text-anchor="middle" opacity="0.85">FORGED</text></svg>');
+
+function guardImage(img){
+  const queue = (img.dataset.fallbacks || '').split(',').map(s=>s.trim()).filter(Boolean);
+  const advance = () => {
+    if (queue.length) { img.src = queue.shift(); }
+    else if (img.src !== FINAL_FALLBACK) { img.src = FINAL_FALLBACK; img.classList.add('img-dead'); }
+  };
+  img.addEventListener('error', advance);
+  if (img.complete && img.naturalWidth === 0) advance(); // already failed before JS ran
+}
+document.querySelectorAll('img').forEach(guardImage);
+
+/* ============ Preloader ============ */
+window.addEventListener('load', () => setTimeout(()=>document.getElementById('preloader').classList.add('hidden'), 1800));
+
+/* ============ Cursor ============ */
+const cursor=document.getElementById('cursor'), cursorDot=document.getElementById('cursorDot');
+document.addEventListener('mousemove',e=>{
+  cursor.style.left=e.clientX-10+'px'; cursor.style.top=e.clientY-10+'px';
+  cursorDot.style.left=e.clientX-3+'px'; cursorDot.style.top=e.clientY-3+'px';
+});
+document.querySelectorAll('a,.process-card,.play-button,.horizontal-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2)';cursor.style.borderColor='var(--gold)';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';cursor.style.borderColor='var(--molten)';});
+});
+
+/* ============ Embers ============ */
+function createEmber(){
+  const e=document.createElement('div'); e.className='ember-particle';
+  e.style.left=Math.random()*100+'vw';
+  e.style.animationDuration=(Math.random()*5+5)+'s';
+  e.style.animationDelay=Math.random()*3+'s';
+  const s=(Math.random()*4+2)+'px'; e.style.width=s; e.style.height=s;
+  document.getElementById('embers').appendChild(e);
+  setTimeout(()=>e.remove(),10000);
+}
+setInterval(createEmber,300);
+
+/* ============ Scroll reveals ============ */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+      entry.target.querySelectorAll('.word').forEach((w,i)=>setTimeout(()=>w.classList.add('revealed'),i*150));
+    }
+  });
+},{threshold:.2,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-in,.reveal-text').forEach(el=>observer.observe(el));
+
+/* ============ Counters ============ */
+function animateCounters(){
+  document.querySelectorAll('.stat-number').forEach(c=>{
+    const target=+c.dataset.target, inc=target/(2000/16); let cur=0;
+    const tick=()=>{cur+=inc; if(cur<target){c.textContent=Math.floor(cur); requestAnimationFrame(tick);} else c.textContent=target;};
+    tick();
+  });
+}
+const statsObs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){animateCounters();statsObs.unobserve(e.target);}});},{threshold:.5});
+const statsSec=document.querySelector('.stats-section'); if(statsSec) statsObs.observe(statsSec);
+
+/* ============ Horizontal scroll ============ */
+const hSec=document.querySelector('.horizontal-section'), hTrack=document.getElementById('horizontalTrack');
+window.addEventListener('scroll',()=>{
+  if(!hSec||!hTrack) return;
+  const r=hSec.getBoundingClientRect(), vh=window.innerHeight;
+  if(r.top<0 && r.top>-(hSec.offsetHeight-vh)){
+    const p=Math.abs(r.top)/(hSec.offsetHeight-vh);
+    const max=hTrack.scrollWidth-window.innerWidth;
+    hTrack.style.transform=`translateX(${-p*max}px)`;
+  }
+},{passive:true});
+
+/* ============ Hero parallax ============ */
+window.addEventListener('scroll',()=>{
+  const s=window.pageYOffset, layer=document.querySelector('.hero .kb-layer');
+  if(layer&&s<window.innerHeight) layer.style.translate=`0 ${s*0.35}px`;
+},{passive:true});
+
+/* ============ Showreel flash-cut ============ */
+const reelList=[
+  'https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf6335.png',
+  'https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/2e7156b7f-c736-4fc6-aadb-0bc8a62468cf9999.png',
+  'https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf5737.png',
+  'https://image.qwenlm.ai/public_source/5319b985-36ba-44a3-ad4d-1659a717f0db/0e7156b7f-c736-4fc6-aadb-0bc8a62468cf5435.png'
+];
+let reelIdx=0;
+document.getElementById('playBtn').addEventListener('click',()=>{
+  const f=document.getElementById('flash'), bg=document.getElementById('reelBg');
+  f.classList.remove('on'); void f.offsetWidth; f.classList.add('on');
+  reelIdx=(reelIdx+1)%reelList.length;
+  setTimeout(()=>{ bg.src=reelList[reelIdx]; },120);
+});
+
+/* ============ Smooth anchors ============ */
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault(); const t=document.querySelector(a.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>

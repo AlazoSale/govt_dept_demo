@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block title %}Monitoring & Evaluation - Overview{% endblock %}
+{% block h1 %}Monitoring & Evaluation - Overview{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitoring &amp; Evaluation — SWD MIS</title>
+<style>
+:root{--ink:#1c2733;--mut:#68757f;--paper:#eef1f4;--line:#d3d9e0;--line2:#b9c4cf;--blue:#1559a7;--blue2:#123f6d;--bluet:#e6eff8;--green:#1e7a3c;--greent:#eef6f0;--amber:#9a6700;--ambert:#fbf4e6;--red:#b3261e;--redt:#fbeeec;--mono:Consolas,"SF Mono","Courier New",monospace;--serif:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:13px/1.45 "Segoe UI",Arial,"Helvetica Neue",sans-serif}
+a{color:var(--blue)}
+.topline{height:4px;background:var(--blue2)}
+.masthead{background:var(--blue2);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 18px}
+.mh-left{display:flex;gap:10px;align-items:center}
+.monogram{width:34px;height:34px;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;font-weight:700;letter-spacing:.06em}
+.dept{font-family:var(--serif);font-size:16px;line-height:1.1}
+.sys{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cfe1f5}
+.mh-right{display:flex;gap:8px;align-items:center;font-size:11.5px}
+.chip{border:1px solid #2f5f92;background:#0d3157;padding:3px 8px}
+.mono{font-family:var(--mono)}
+.user{display:flex;align-items:center;gap:7px}
+.avatar{width:24px;height:24px;border-radius:50%;background:#0d3157;border:1px solid rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.shell{display:grid;grid-template-columns:212px minmax(0,1fr)}
+aside{background:#fbfcfd;border-right:1px solid var(--line);padding:12px 0 20px}
+.navlabel{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7b8794;padding:10px 16px 4px}
+a.nav{display:block;padding:6px 14px 6px 13px;border-left:3px solid transparent;color:#33475b;text-decoration:none;font-size:12.5px}
+a.nav:hover{background:#eef4fa}
+a.nav.active{border-left-color:var(--blue2);background:var(--bluet);color:#0d3c6e;font-weight:600}
+a.nav .n{font-family:var(--mono);font-size:10.5px;color:var(--mut);margin-right:7px}
+main{padding:16px 22px 34px;min-width:0}
+.crumb{font-size:11px;color:var(--mut);margin-bottom:8px}
+.pagehead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
+h1{font-family:var(--serif);font-size:21px;font-weight:600;margin:0 0 2px}
+.sub{font-size:12px;color:var(--mut)}
+.acts{display:flex;gap:8px;white-space:nowrap}
+.btn{font:inherit;font-size:12px;padding:6px 12px;border:1px solid var(--line2);background:#fff;color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--blue);border-color:var(--blue2);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.stat{background:#fff;padding:9px 12px 10px}
+.stat .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.stat .v{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.2}
+.stat .d{font-size:11px;color:var(--mut)}
+.stat .d.bad{color:var(--red)} .stat .d.ok{color:var(--green)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;margin-top:16px}
+.stack{display:grid;gap:16px}
+.card{background:#fff;border:1px solid var(--line)}
+.card>h3{margin:0;padding:8px 12px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#1c2733;background:#f7f9fb;border-bottom:1px solid var(--line);font-weight:700}
+.body{padding:12px}
+table{width:100%;border-collapse:collapse;font-size:12.3px}
+thead th{background:#fafbfc;text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#5c6b7a;border-bottom:1px solid var(--line);padding:7px 10px;font-weight:700}
+thead th.r{text-align:right}
+tbody td{border-bottom:1px solid #e6eaee;padding:7px 10px;vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:#f7f9fb}
+td.num{text-align:right;font-family:var(--mono)}
+.small{font-size:11px;color:var(--mut)}
+.pill{display:inline-block;padding:1px 7px 2px;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid;border-radius:2px;white-space:nowrap}
+.pill.proc{color:var(--blue);border-color:#a6c6e4;background:#eef4fa}
+.pill.ok{color:var(--green);border-color:#a9cdb4;background:var(--greent)}
+.pill.warn{color:var(--amber);border-color:#dcc08a;background:var(--ambert)}
+.pill.bad{color:var(--red);border-color:#e0a9a5;background:var(--redt)}
+.pill.idle{color:#5c6b7a;border-color:#c4ccd4;background:#f2f4f6}
+.bar{height:7px;background:#e6eaee;border:1px solid var(--line);min-width:70px}
+.bar>i{display:block;height:100%;background:var(--blue)}
+.bar.g>i{background:var(--green)} .bar.a>i{background:#c08a2e} .bar.r>i{background:var(--red)}
+.cellbar{display:flex;align-items:center;gap:8px}
+.cellbar .bar{width:84px;flex:none}
+.list{list-style:none;margin:0;padding:0}
+.list li{padding:8px 12px;border-bottom:1px solid var(--line)}
+.list li:last-child{border-bottom:none}
+.list .t{font-weight:600}
+.qb{padding:8px 12px;border-bottom:1px solid var(--line)}
+.qb:last-child{border:none}
+.qb .lbl{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px}
+.qb .bar{margin-top:3px}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--mut);padding:8px 12px;border-bottom:1px solid var(--line)}
+.sw{display:inline-block;width:9px;height:9px;border:1px solid var(--line2);margin-right:5px;vertical-align:-1px}
+.sw.b{background:var(--blue)} .sw.g{background:var(--green)} .sw.r{background:var(--redt)} .sw.a{background:var(--ambert)}
+td.hg{background:var(--greent)} td.hr{background:var(--redt)} td.ha{background:var(--ambert)}
+.foot{margin-top:26px;border-top:1px solid var(--line2);padding-top:8px;display:flex;justify-content:space-between;font-size:11px;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="topline"></div>
+<header class="masthead">
+  <div class="mh-left">
+    <div class="monogram">SWD</div>
+    <div>
+      <div class="dept">Social Welfare Department</div>
+      <div class="sys">Management Information System</div>
+    </div>
+  </div>
+  <div class="mh-right">
+    <span class="chip mono">FY 2026-27</span>
+    <span class="chip">Thu, 26 Nov 2026</span>
+    <span class="user"><span class="avatar">SD</span>S. Deshmukh · Under Secretary (SW-I)</span>
+  </div>
+</header>
+
+<div class="shell">
+<aside>
+  <!-- point 01-04 to the URLs of your existing pages 1-4 -->
+  <div class="navlabel">Department MIS</div>
+  <a class="nav" href="#"><span class="n">01</span>Console Home</a>
+  <a class="nav" href="#"><span class="n">02</span>Schemes &amp; Missions</a>
+  <a class="nav" href="#"><span class="n">03</span>Beneficiary Records</a>
+  <a class="nav" href="#"><span class="n">04</span>Establishment</a>
+  <div class="navlabel">Administration</div>
+  <a class="nav" href="/e-office/"><span class="n">05</span>e-Office Files</a>
+  <a class="nav" href="/correspondence/"><span class="n">06</span>Correspondence</a>
+  <a class="nav" href="/reports-atr/"><span class="n">07</span>Reports &amp; ATRs</a>
+  <a class="nav active" href="/monitoring/"><span class="n">08</span>Monitoring &amp; Eval.</a>
+</aside>
+
+<main>
+  <div class="crumb">MIS / Administration / <strong>Monitoring &amp; Evaluation</strong></div>
+  <div class="pagehead">
+    <div>
+      <h1>Monitoring &amp; Evaluation — Scheme Performance</h1>
+      <div class="sub">Module 08 · Indicator-wise targets against achievement, utilisation, district comparison and field verification records.</div>
+    </div>
+    <div class="acts"><button class="btn">Review meeting minutes</button><button class="btn primary">Record inspection</button></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="k">Schemes tracked</div><div class="v">14</div><div class="d">across 3 ministries</div></div>
+    <div class="stat"><div class="k">Indicators defined</div><div class="v">62</div><div class="d">physical + financial</div></div>
+    <div class="stat"><div class="k">On track</div><div class="v">9</div><div class="d ok">as on 26.11.2026</div></div>
+    <div class="stat"><div class="k">Delayed / gap</div><div class="v">5</div><div class="d bad">2 need Director review</div></div>
+    <div class="stat"><div class="k">Inspections FY</div><div class="v">47</div><div class="d">field + desk</div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Physical &amp; financial progress — FY 2026-27 (to 26.11.2026)</h3>
+    <table>
+      <thead><tr><th>Scheme / programme</th><th>Indicator</th><th class="r">Target</th><th class="r">Achieved</th><th>Attainment</th><th class="r">Utilisation</th><th class="r">Districts</th><th>Flag</th></tr></thead>
+      <tbody>
+        <tr><td>NSAP (old age, widow, disability pension)</td><td>Beneficiaries sanctioned</td><td class="num">4,12,000</td><td class="num">3,98,440</td><td><div class="cellbar"><div class="bar g"><i style="width:97%"></i></div><span class="mono">96.7</span></div></td><td class="num">91.2%</td><td class="num">34/34</td><td><span class="pill ok">On track</span></td></tr>
+        <tr><td>PM-AJAY Component-I (hostels)</td><td>Beds created</td><td class="num">6,500</td><td class="num">4,870</td><td><div class="cellbar"><div class="bar a"><i style="width:75%"></i></div><span class="mono">74.9</span></div></td><td class="num">58.4%</td><td class="num">21/34</td><td><span class="pill warn">Delayed (works)</span></td></tr>
+        <tr><td>Post-Matric Scholarship</td><td>Students paid</td><td class="num">1,85,000</td><td class="num">1,49,300</td><td><div class="cellbar"><div class="bar g"><i style="width:81%"></i></div><span class="mono">80.7</span></div></td><td class="num">77.0%</td><td class="num">34/34</td><td><span class="pill ok">On track</span></td></tr>
+        <tr><td>Saksham Anganwadi Phase-II</td><td>AWCs upgraded</td><td class="num">480</td><td class="num">402</td><td><div class="cellbar"><div class="bar g"><i style="width:84%"></i></div><span class="mono">83.8</span></div></td><td class="num">69.5%</td><td class="num">28/34</td><td><span class="pill ok">On track</span></td></tr>
+        <tr><td>ADIP (aids &amp; appliances)</td><td>Camps held</td><td class="num">96</td><td class="num">61</td><td><div class="cellbar"><div class="bar r"><i style="width:64%"></i></div><span class="mono">63.5</span></div></td><td class="num">66.1%</td><td class="num">19/34</td><td><span class="pill bad">Gap identified</span></td></tr>
+        <tr><td>Condensed Course of Education (women)</td><td>Enrolments</td><td class="num">2,400</td><td class="num">2,215</td><td><div class="cellbar"><div class="bar g"><i style="width:92%"></i></div><span class="mono">92.3</span></div></td><td class="num">84.0%</td><td class="num">30/34</td><td><span class="pill ok">On track</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>District-wise attainment snapshot (excerpt — 6 of 34 districts)</h3>
+      <div class="legend"><span><span class="sw g"></span>90 and above</span><span><span class="sw"></span>75 to 89</span><span><span class="sw r"></span>below 75</span><span><span class="sw a"></span>inspections pending 2+</span></div>
+      <table>
+        <thead><tr><th>District</th><th class="r">NSAP coverage</th><th class="r">PMS payments</th><th class="r">Hostel occupancy</th><th class="r">AWC upgrades</th><th class="r">Inspections pending</th></tr></thead>
+        <tbody>
+          <tr><td>Balapur</td><td class="num hg">96.4</td><td class="num">88.1</td><td class="num hg">91.0</td><td class="num">85.7</td><td class="num">1</td></tr>
+          <tr><td>Nandgaon</td><td class="num hg">94.0</td><td class="num">79.6</td><td class="num">84.2</td><td class="num hg">90.8</td><td class="num">0</td></tr>
+          <tr><td>Rampur</td><td class="num hg">91.8</td><td class="num hr">74.2</td><td class="num hr">68.5</td><td class="num">79.3</td><td class="num ha">3</td></tr>
+          <tr><td>Kheri</td><td class="num">88.6</td><td class="num hr">66.9</td><td class="num hr">72.4</td><td class="num hr">74.1</td><td class="num ha">2</td></tr>
+          <tr><td>Seoni</td><td class="num hg">93.2</td><td class="num">82.4</td><td class="num">88.7</td><td class="num">81.5</td><td class="num">0</td></tr>
+          <tr><td>Mirzapur</td><td class="num hg">97.1</td><td class="num hg">90.3</td><td class="num hg">93.6</td><td class="num hg">90.2</td><td class="num">1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <h3>Release vs utilisation (Rs crore)</h3>
+        <div class="legend"><span><span class="sw b"></span>Released</span><span><span class="sw g"></span>Utilised</span></div>
+        <div class="qb"><div class="lbl"><span>Q1 · Apr-Jun</span><span class="mono">148.6 / 132.4</span></div><div class="bar"><i style="width:92%"></i></div><div class="bar g"><i style="width:81%"></i></div></div>
+        <div class="qb"><div class="lbl"><span>Q2 · Jul-Sep</span><span class="mono">162.0 / 119.8</span></div><div class="bar"><i style="width:100%"></i></div><div class="bar g"><i style="width:74%"></i></div></div>
+        <div class="qb"><div class="lbl"><span>Q3 · Oct-Nov</span><span class="mono">96.4 / 71.2</span></div><div class="bar"><i style="width:60%"></i></div><div class="bar g"><i style="width:44%"></i></div></div>
+      </div>
+
+      <div class="card">
+        <h3>Flags for review</h3>
+        <ul class="list">
+          <li><div class="t"><span class="pill bad">Gap</span> PM-AJAY hostel works</div><div class="small">13 districts at tender stage; beds target at risk for Q3.</div></li>
+          <li><div class="t"><span class="pill bad">Gap</span> ADIP camp calendar</div><div class="small">Slipped in 15 districts; 35 camps balance in 4 months.</div></li>
+          <li><div class="t"><span class="pill warn">Watch</span> Supplementary nutrition</div><div class="small">Utilisation below 70% in 6 districts; UCs awaited.</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Inspections, evaluations &amp; review meetings</h3>
+    <table>
+      <thead><tr><th>Date</th><th>Type</th><th>Scheme / unit</th><th>Place</th><th>Officer</th><th class="r">Observations</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">10.11.2026</td><td>Field inspection</td><td>PM-AJAY hostels</td><td>Rampur Govt. Hostel</td><td>Dy. Director (SW)</td><td class="num">6 (2 major)</td><td><span class="pill ok">Report submitted</span></td></tr>
+        <tr><td class="mono">14.11.2026</td><td>Field inspection</td><td>Saksham Anganwadi</td><td>Nandgaon cluster IV</td><td>District Welfare Officer</td><td class="num">3</td><td><span class="pill ok">Report submitted</span></td></tr>
+        <tr><td class="mono">18.11.2026</td><td>Review meeting</td><td>NSAP DBT</td><td>Directorate</td><td>Director (SWD)</td><td class="num">4 decisions</td><td><span class="pill ok">Minutes approved</span></td></tr>
+        <tr><td class="mono">21.11.2026</td><td>Evaluation</td><td>ADIP camp</td><td>Seoni camp site</td><td>Joint Director (SW)</td><td class="num">5</td><td><span class="pill warn">Under review</span></td></tr>
+        <tr><td class="mono">24.11.2026</td><td>Field inspection</td><td>PMS renewals</td><td>Kheri DWO office</td><td>US (SW-II)</td><td class="num">2</td><td><span class="pill proc">In progress</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot"><span>SWD-MIS · Module 08 — Monitoring &amp; Evaluation</span><span>Illustrative data · FY 2026-27</span></div>
+</main>
+</div>
+</body>
+</html>
+{% endblock %}
